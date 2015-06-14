@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_action_exit_orange" android:state_pressed="true"><shape>
+            <solid android:color="@drawable/ic_action_exit_orange" />
+        </shape></item>
+    <item android:drawable="@drawable/ic_action_exit_blue_2" android:state_enabled="true"><shape></shape></item>
+
+</selector>

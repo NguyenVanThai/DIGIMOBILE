@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/ic_home_white"
+        android:showAsAction="always"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/itemUpload"
+        android:icon="@drawable/ic_action_upload_small"
+        android:showAsAction="always"
+        android:title="@string/upload"/>
+    <item
+        android:id="@+id/itemDeselectAll"
+        android:icon="@drawable/ic_action_deselect_all_small"
+        android:showAsAction="always"
+        android:title="@string/deselectall"/>
+    <item
+        android:id="@+id/itemCheckAll"
+        android:icon="@drawable/ic_action_select_all_small"
+        android:showAsAction="always"
+        android:title="@string/checkall"/>
+    <item
+        android:id="@+id/itemNew"
+        android:icon="@drawable/ic_action_new_event_small"
+        android:showAsAction="always"
+        android:title="@string/newcategory"/>
+
+</menu>

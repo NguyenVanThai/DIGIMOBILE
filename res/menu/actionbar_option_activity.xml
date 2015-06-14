@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/ic_home_white"
+        android:showAsAction="always"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/itemRefresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="always"
+        android:title="@string/refresh">
+    </item>
+    <item
+        android:id="@+id/itemRotateLeft"
+        android:icon="@drawable/ic_action_rotate_left"
+        android:showAsAction="always"
+        android:title="@string/rotateLeft"/>
+    <item
+        android:id="@+id/itemRotateRight"
+        android:icon="@drawable/ic_action_rotate_right"
+        android:showAsAction="always"
+        android:title="@string/rotateRight"/>
+    <item
+        android:id="@+id/itemCrop"
+        android:icon="@drawable/ic_action_crop"
+        android:showAsAction="always"
+        android:title="@string/crop">
+    </item>
+    <item
+        android:id="@+id/itemSave"
+        android:icon="@drawable/ic_action_save"
+        android:showAsAction="always"
+        android:title="@string/save"/>
+
+</menu>

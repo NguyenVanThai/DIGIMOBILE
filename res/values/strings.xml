@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MOBILEDESIGN</string>
+    <string name="title_activity_screen_logo">ScreenLogo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_digi_mobi">DigiMobiActivity</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="supplement">Supplement</string>
+    <string name="upload">Upload</string>
+    <string name="about">About</string>
+    <string name="help">Help</string>
+    <string name="profile">Profile</string>
+    <string name="title_activity_new_app">NewAppActivity</string>
+    <string name="title_activity_new_app_detail">NewAppDetailActivity</string>
+    <string name="checkall">Check all</string>
+    <string name="deselectall">Deselect all</string>
+    <string name="newcategory">New category</string>
+    <string name="save">Save</string>
+    <string name="rotateLeft">Rotate left</string>
+    <string name="rotateRight">Rotate right</string>
+    <string name="crop">Crop</string>
+    <string name="refresh">Refresh</string>
+    <string name="title_activity_crop">CropActivity</string>
+    <string name="newpicture">New picture</string>
+    <string name="finish">Finish</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">LogIn</string>
+    <string name="username">User name</string>
+    <string name="password">Password</string>
+    <string name="showpassword">Show password</string>
+    <string name="title_activity_create_customer">CreateCustomerActivity</string>
+    <string name="create">Create</string>
+    <string name="customername">Customer name</string>
+    <string name="customer_information">Customer Information ?</string>
+    <string name="title_activity_document_type">DocumentTypeActivity</string>
+    <string name="choose_type">Choose a document type?</string>
+    <string name="create_folder_error">Can\'t create folder for application</string>
+    <string name="title_activity_list_customer">ListCustomerActivity</string>
+    <string name="title_activity_review">ReviewActivity</string>
+    <string name="home">Home</string>
+    <string name="title_activity_option">OptionActiviy</string>
+    <string name="idCard">Indentify Card</string>
+    <string name="channelSale">Channel Sales</string>
+    <string name="review">Review:</string>
+    <string name="error_customer_name">Customer name must be UPERCASE and can not empty</string>
+    <string name="error_customer_id">Customer id must be NUMBERRIC and 8|9|12 and can not empty</string>
+    <string name="error_channel">Channel must be UPPERCASE and have 3 character and can not empty</string>
+    <string name="example">NGUYEN VAN A_0123456789_ABC</string>
+    <string name="warning">Warning</string>
+    <string name="fix_error">Please fix the all the errors before continueing</string>
+    <string name="create_folder_upload">Please create folder before starting</string>
+    <string name="title_activity_create_folder">CreateFolderActivity</string>
+    <string name="my_folder">My folder?</string>
+    <string name="my_id">My ID</string>
+    <string name="date">Date</string>
+    <string name="ordinal_number">Ordinal numbers</string>
+    <string name="error_date">Date must be 8 character NUMBERIC, follow rule yyyymmdd and can not empty</string>
+    <string name="error_ordinal_number">Ordinal numbers must be 2 character NUMERIC, equal the real number of your upload per day and can not empty</string>
+    <string name="signout_title">Are you sure you want to sign out?</string>
+    <string name="signout_message">You have made changes to your user a count. You must sign out and sign back in for these changes to take effect.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="createPDF">Please select  images to create PDF file</string>
+	
+</resources>

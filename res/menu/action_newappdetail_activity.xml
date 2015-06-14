@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemFinish"
+        android:icon="@drawable/ic_action_finish"
+        android:showAsAction="always"
+        android:title="@string/finish"/>
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/ic_home_white"
+        android:showAsAction="always"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/itemAddPicture"
+        android:icon="@drawable/ic_action_new_picture"
+        android:showAsAction="always"
+        android:title="@string/newpicture"/>
+
+</menu>

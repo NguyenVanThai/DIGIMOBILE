@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="digi.mobile.activity"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+
+    <!-- Request Permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        <activity
+            android:name=".LogoActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" >
+                </action>
+
+                <category android:name="android.intent.category.LAUNCHER" >
+                </category>
+            </intent-filter>
+        </activity>
+
+        <!-- MainActivity -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- MainActivity -->
+        <activity android:name=".NewActivity" >
+        </activity>
+
+        <!-- MainActivity -->
+        <activity
+            android:name="digi.mobile.fragment.CreateCustomerFragment"
+            android:label="@string/title_activity_create_customer"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+        </activity>
+
+        <!-- MainActivity -->
+        <activity android:name="digi.mobile.fragment.PdfFragment" >
+        </activity>
+
+        <!-- MainActivity -->
+        <activity android:name="digi.mobile.fragment.PhotoFragment" >
+        </activity>
+
+        <!-- MainActivity -->
+        <activity android:name=".NewCustomerActivity" >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+        </activity>
+
+        <!-- MainActivity -->
+        <activity
+            android:name=".DocumentTypeActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+        </activity>
+
+        <!-- Option Activity -->
+        <activity
+            android:name=".OptionActivity"
+            android:label="@string/title_activity_option"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+        </activity>
+
+        <!-- Crop Activity -->
+        <activity
+            android:name=".CropActivity"
+            android:label="@string/title_activity_crop"
+            android:parentActivityName=".OptionActivity"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+        </activity>
+        <activity
+            android:name=".SaveActivity"
+            android:label="@string/title_activity_review"
+            android:theme="@style/Theme.D1NoTitleDim" >
+        </activity>
+
+        <!-- Declare File Selection Activity -->
+        <activity android:name="paul.arian.fileselector.FileSelectionActivity" />
+    </application>
+
+</manifest>

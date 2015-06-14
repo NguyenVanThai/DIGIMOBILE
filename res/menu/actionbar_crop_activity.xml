@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/ic_home_white"
+        android:showAsAction="always"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/itemRotateLeft"
+        android:icon="@drawable/ic_action_rotate_left"
+        android:showAsAction="always"
+        android:title="@string/deselectall"/>
+    <item
+        android:id="@+id/itemRotateRight"
+        android:icon="@drawable/ic_action_rotate_right"
+        android:showAsAction="always"
+        android:title="@string/checkall"/>
+    <item
+        android:id="@+id/itemSave"
+        android:icon="@drawable/ic_action_save"
+        android:showAsAction="always"
+        android:title="@string/save"/>
+
+</menu>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.D1NoTitleDim" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="MyTheme.Dialog.MinWidth" parent="android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MyTheme.Dialog.Action" parent="android:style/Theme.Holo.Light.Dialog.NoActionBar"></style>
+
+</resources>
