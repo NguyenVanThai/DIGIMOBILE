@@ -196,18 +196,18 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
 		switch (id) {
-		case android.R.id.home:
+//		case android.R.id.home:
 			// Intent intent = new Intent(OptionActivity.this,
 			// NewAppDetailActivity.class);
 			// startActivity(intent);
 			// finish();
-			break;
-		case R.id.itemHome:
+//			break;
+//		case R.id.itemHome:
 			// Intent intentHome = new Intent(OptionActivity.this,
 			// DigiMobiActivity.class);
 			// startActivity(intentHome);
 			// finish();
-			break;
+//			break;
 		case R.id.itemRefresh:
 			resetImage();
 			break;
@@ -314,7 +314,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		deleteFile();
+//		deleteFile();
 	}
 
 }

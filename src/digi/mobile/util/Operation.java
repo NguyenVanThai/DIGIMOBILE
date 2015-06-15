@@ -171,7 +171,7 @@ public class Operation {
 					listImagePath.add(fileName);
 				else if (type.equals("path")) {
 					listImagePath.add(appPath + "/" + fileName);
-					Log.d("Path", appPath + "/" + fileName);
+//					Log.d("Path", appPath + "/" + fileName);
 				}
 			}
 		}

@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import digi.mobile.util.Config;
 import digi.mobile.util.Constant;
 import digi.mobile.util.Operation;
 
@@ -140,7 +141,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		final String userName = edUserName.getText().toString();
 		final String passWord = edPassword.getText().toString();
 		Log.d("password", passWord);
-		String url = "http://www.digi-texx.vn/vpbank/ws_checkUser.php?username="
+		String url = Config.LOGIN_INFO__URL +"?username="
 				+ userName + "&password=" + passWord;
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(url, new AsyncHttpResponseHandler() {

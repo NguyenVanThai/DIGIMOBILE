@@ -262,6 +262,9 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 		for (int i = 0; i < arrayImageItem.size(); i++) {
 			if (arrayImageItem.get(i).isSelected() == true) {
 				listImage.add(arrayImageItem.get(i).getImage());
+			} else {
+				File file = new File(arrayImageItem.get(i).getImage());
+				file.delete();
 			}
 		}
 		//

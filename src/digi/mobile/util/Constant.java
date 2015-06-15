@@ -14,7 +14,7 @@ public class Constant {
 
 	// constants integer
 	public static int TYPE = 0; // 1: New // 2: Supplement
-	public static boolean TAKE_PHOTO ; // true: Camera // false: Gallery
+	public static boolean TAKE_PHOTO; // true: Camera // false: Gallery
 
 	public static final int Step_1 = 0;
 	public static final int Step_2 = 1;
@@ -58,6 +58,7 @@ public class Constant {
 	public static final int REQUEST_CODE_DUCOMENT_CROP_ACTIVITY = 0x7;
 	public static final int REQUEST_CODE_OPTION_ACTIVITY = 0x8;
 	public static final int REQUEST_CODE_GALLERY = 0x9;
+	public static final int REQUEST_CODE_LOGIN_ACTIVITY = 0x10;
 	public static final String NAME_CUSTOMER_PUT_EXTRA = "nameCustomer";
 
 	// constans Array

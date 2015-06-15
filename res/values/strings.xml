@@ -46,6 +46,7 @@
     <string name="review">Review:</string>
     <string name="error_customer_name">Customer name must be UPERCASE and can not empty</string>
     <string name="error_customer_id">Customer id must be NUMBERRIC and 8|9|12 and can not empty</string>
+    <string name="error_id">ID must be NUMBERRIC and 7 and can not empty</string>
     <string name="error_channel">Channel must be UPPERCASE and have 3 character and can not empty</string>
     <string name="example">NGUYEN VAN A_0123456789_ABC</string>
     <string name="warning">Warning</string>

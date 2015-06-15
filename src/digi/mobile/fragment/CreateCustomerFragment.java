@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import digi.mobile.activity.R;
+import digi.mobile.building.DigiCompressFile;
 import digi.mobile.building.IEventListener;
 import digi.mobile.building.UpdateableFragment;
 import digi.mobile.util.Constant;
@@ -28,7 +29,7 @@ public class CreateCustomerFragment extends Fragment implements
 		UpdateableFragment {
 
 	RelativeLayout relativeLayout;
-	EditText edCustomerName, edIdCard, edSales, edCode;
+	EditText edCustomerName, edIdCard, edSales, edID;
 	TextView txtReview;
 	Operation operation;
 	// @Override
@@ -93,7 +94,7 @@ public class CreateCustomerFragment extends Fragment implements
 				.findViewById(R.id.editTextUserName);
 		edIdCard = (EditText) myFragmentView.findViewById(R.id.EditText01);
 		edSales = (EditText) myFragmentView.findViewById(R.id.EditText02);
-		edCode = (EditText) myFragmentView.findViewById(R.id.edCode);
+		edID = (EditText) myFragmentView.findViewById(R.id.edCode);
 		txtReview = (TextView) myFragmentView.findViewById(R.id.textView2);
 
 		// checkType();
@@ -103,6 +104,7 @@ public class CreateCustomerFragment extends Fragment implements
 		edCustomerName.setError(getString(R.string.error_customer_name));
 		edIdCard.setError(getString(R.string.error_customer_id));
 		// edSales.setError(getString(R.string.error_channel));
+		edID.setError(getString(R.string.error_id));
 
 		relativeLayout.setOnClickListener(new OnClickListener() {
 
@@ -145,7 +147,12 @@ public class CreateCustomerFragment extends Fragment implements
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				// TODO Auto-generated method stub
-
+				if (s.toString().length() <= 0) {
+					edCustomerName
+							.setError(getString(R.string.error_customer_name));
+				} else {
+					edCustomerName.setError(null);
+				}
 			}
 
 			@Override
@@ -170,25 +177,20 @@ public class CreateCustomerFragment extends Fragment implements
 				// }
 				// edCustomerName.setSelection(edCustomerName.getText().length());
 				//
-				if (s.toString().length() <= 0) {
-					edCustomerName
-							.setError(getString(R.string.error_customer_name));
-				} else {
-					edCustomerName.setError(null);
-				}
-				String temp = s.toString();
-
-				if (edIdCard.getText().toString().length() > 0) {
-
-					temp = temp + "_" + edIdCard.getText().toString();
-				}
-
-				if (edSales.getText().toString().length() > 0) {
-
-					temp = temp + "_" + edSales.getText().toString();
-				}
-
-				txtReview.setText(temp);
+				//
+				// String temp = s.toString();
+				//
+				// if (edIdCard.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edIdCard.getText().toString();
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				// txtReview.setText(temp);
 
 			}
 		});
@@ -220,19 +222,19 @@ public class CreateCustomerFragment extends Fragment implements
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
 
-				String temp = s.toString();
-
-				if (edCustomerName.getText().toString().length() > 0) {
-
-					temp = edCustomerName.getText().toString() + "_" + temp;
-				}
-
-				if (edSales.getText().toString().length() > 0) {
-
-					temp = temp + "_" + edSales.getText().toString();
-				}
-
-				txtReview.setText(temp);
+				// String temp = s.toString();
+				//
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				// txtReview.setText(temp);
 			}
 		});
 
@@ -242,13 +244,13 @@ public class CreateCustomerFragment extends Fragment implements
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				// TODO Auto-generated method stub
-				int length = s.toString().length();
-				if (length == 3) {
-					edSales.setError(null);
-
-				} else {
-					edSales.setError(getString(R.string.error_channel));
-				}
+				// int length = s.toString().length();
+				// if (length == 3) {
+				// edSales.setError(null);
+				//
+				// } else {
+				// edSales.setError(getString(R.string.error_channel));
+				// }
 
 			}
 
@@ -262,21 +264,21 @@ public class CreateCustomerFragment extends Fragment implements
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
-				String temp = s.toString();
-
-				if (edCustomerName.getText().toString().length() > 0) {
-
-					temp = edCustomerName.getText().toString() + "_" + temp;
-				}
-
-				if (edIdCard.getText().toString().length() > 0) {
-
-					temp = edCustomerName.getText().toString() + "_"
-							+ edIdCard.getText().toString() + "_"
-							+ s.toString();
-				}
-
-				txtReview.setText(temp);
+				// String temp = s.toString();
+				//
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edIdCard.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_"
+				// + edIdCard.getText().toString() + "_"
+				// + s.toString();
+				// }
+				//
+				// txtReview.setText(temp);
 
 				// if (edCustomerName.getText().toString().length() > 0) {
 				//
@@ -288,7 +290,49 @@ public class CreateCustomerFragment extends Fragment implements
 				// temp = edIdCard.getText().toString() + "_" + temp;
 				// }
 
-				txtReview.setText(temp);
+				// txtReview.setText(temp);
+			}
+		});
+
+		edID.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				int length = s.toString().length();
+				if (length == 7) {
+					edID.setError(null);
+				} else {
+
+					edID.setError(getString(R.string.error_id));
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				// String temp = s.toString();
+				//
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				//
+				// txtReview.setText(temp);
 			}
 		});
 
@@ -351,26 +395,29 @@ public class CreateCustomerFragment extends Fragment implements
 	private void checkType() {
 		switch (Constant.TYPE) {
 		case 1:
-			edCode.setVisibility(View.GONE);
+			edID.setVisibility(View.GONE);
 			break;
 		case 2:
 		case 3:
-			edCode.setVisibility(View.VISIBLE);
+			edID.setVisibility(View.VISIBLE);
 			break;
 		}
 	}
 
 	private String getNameCustomer() {
+		String name = edCustomerName.getText().toString() + "_"
+				+ edIdCard.getText().toString() + "_"
+				+ edSales.getText().toString();
 		switch (Constant.TYPE) {
 		case 1:
-			return txtReview.getText().toString();
+			return name;
 
 		case 2:
 		case 3:
-			return txtReview.getText().toString() + "_"
-					+ edCode.getText().toString();
+			return name + "_" + edID.getText().toString();
 
 		}
 		return null;
 	}
+
 }
