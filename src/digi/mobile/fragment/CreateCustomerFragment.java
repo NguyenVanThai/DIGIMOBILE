@@ -4,6 +4,8 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -96,6 +98,14 @@ public class CreateCustomerFragment extends Fragment implements
 		edSales = (EditText) myFragmentView.findViewById(R.id.EditText02);
 		edID = (EditText) myFragmentView.findViewById(R.id.edCode);
 		txtReview = (TextView) myFragmentView.findViewById(R.id.textView2);
+
+		// set Sales channel
+		SharedPreferences sharedPreferences = getActivity()
+				.getSharedPreferences(Constant.DIGI_LOGIN_PREFERENCES,
+						Context.MODE_PRIVATE);
+		String channel = sharedPreferences.getString(Constant.CHANNEL, null)
+				.toString();
+		edSales.setText(channel);
 
 		// checkType();
 		checkType();
@@ -408,12 +418,16 @@ public class CreateCustomerFragment extends Fragment implements
 		String name = edCustomerName.getText().toString() + "_"
 				+ edIdCard.getText().toString() + "_"
 				+ edSales.getText().toString();
+		Constant.NAME_CUSTOMER_ONLY = edCustomerName.getText().toString();
+		Constant.ID_CUSTOMER = edIdCard.getText().toString();
+
 		switch (Constant.TYPE) {
 		case 1:
 			return name;
 
 		case 2:
 		case 3:
+			Constant.IDF1 = edID.getText().toString();
 			return name + "_" + edID.getText().toString();
 
 		}

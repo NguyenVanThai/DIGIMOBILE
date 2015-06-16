@@ -140,9 +140,22 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private void loginUser() {
 		final String userName = edUserName.getText().toString();
 		final String passWord = edPassword.getText().toString();
-		Log.d("password", passWord);
-		String url = Config.LOGIN_INFO__URL +"?username="
-				+ userName + "&password=" + passWord;
+
+		dialog = new Dialog(LoginActivity.this, R.style.Theme_D1NoTitleDim);
+		dialog.setContentView(R.layout.dialog_loading_animation);
+
+		// dialog.setCanceledOnTouchOutside(false);
+		// init TextViewLoading and ImageLoading
+		txtLoading = (TextView) dialog.findViewById(R.id.textViewLoading);
+		txtLoading.setText("Login...");
+		imageLoading = (ImageView) dialog.findViewById(R.id.imageViewLoading);
+		imageLoading.setBackgroundResource(R.drawable.animation_loading);
+
+		// using Animation for ImageLoading
+		animation = (AnimationDrawable) imageLoading.getBackground();
+
+		String url = Config.LOGIN_INFO__URL + "?username=" + userName
+				+ "&password=" + passWord;
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(url, new AsyncHttpResponseHandler() {
 
@@ -151,22 +164,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				super.onStart();
 
-				dialog = new Dialog(LoginActivity.this,
-						R.style.Theme_D1NoTitleDim);
-				dialog.setContentView(R.layout.dialog_loading_animation);
-
-				// dialog.setCanceledOnTouchOutside(false);
-				// init TextViewLoading and ImageLoading
-				txtLoading = (TextView) dialog
-						.findViewById(R.id.textViewLoading);
-				txtLoading.setText("Login...");
-				imageLoading = (ImageView) dialog
-						.findViewById(R.id.imageViewLoading);
-				imageLoading
-						.setBackgroundResource(R.drawable.animation_loading);
-
-				// using Animation for ImageLoading
-				animation = (AnimationDrawable) imageLoading.getBackground();
 				animation.start();
 				dialog.show();
 
@@ -184,6 +181,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 					JSONObject obj = new JSONObject(response);
 					// When the JSON response has status boolean value
 					// assigned with true
+
 					if (obj.getString("status").equals("1")) {
 						Toast.makeText(getApplicationContext(),
 								"You are successfully logged in!",
@@ -191,6 +189,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 						Editor editor = sharedPreferences.edit();
 						editor.putString(Constant.USER_NAME, userName);
 						editor.putString(Constant.PASSWORD, passWord);
+						editor.putString(Constant.CHANNEL,
+								obj.getString(Constant.CHANNEL));
 						editor.putBoolean(Constant.FLAG_KEY, true);
 						editor.commit();
 

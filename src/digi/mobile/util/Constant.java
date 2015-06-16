@@ -30,6 +30,9 @@ public class Constant {
 	public static String NAME_MY_FOLDER = "";
 	public static String NAME_USER = "";
 	public static String NAME_CUSTOMER = null;
+	public static String NAME_CUSTOMER_ONLY = null;
+	public static String ID_CUSTOMER = null;
+	public static String IDF1 = null;
 	public static String NAME_CATEGORY = null;
 	public static String NAME_SHORT_DUCOMENT = null;
 	public static String PATH_MY_FOLDER_SAVE = "";
@@ -41,6 +44,7 @@ public class Constant {
 	public static final String DIGI_LOGIN_PREFERENCES = "Digi_Login_Preferences";
 	public static final String USER_NAME = "username";
 	public static final String PASSWORD = "password";
+	public static final String CHANNEL = "channel";
 	public static final String FLAG_KEY = "flag";
 	public static final String LIST_CUSTOMER = "listCustomer";
 	public static final String PATH_MY_FOLDER = "pathMyFolder";

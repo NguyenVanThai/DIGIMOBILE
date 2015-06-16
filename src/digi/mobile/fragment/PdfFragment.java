@@ -2,8 +2,11 @@ package digi.mobile.fragment;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,6 +17,8 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,7 +29,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +40,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import digi.mobile.activity.DocumentTypeActivity;
 import digi.mobile.activity.LoginActivity;
 import digi.mobile.activity.R;
@@ -59,10 +67,13 @@ public class PdfFragment extends Fragment {
 	EditText edReason;
 	String pathCustomer;
 	String pathSave;
-	String user;
+
 	Dialog dialog;
 	AnimationDrawable animation;
 	String pathZip;
+	String userName, channel, cus_id, cus_name, reason, pathFile = null, idf1,
+			date, dateFormat, url, nameUpload;
+	AsyncHttpClient client;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -270,20 +281,6 @@ public class PdfFragment extends Fragment {
 		}
 	}
 
-	// private String getNameCustomer() {
-	// switch (Constant.TYPE) {
-	// case 1:
-	// return txtReview.getText().toString();
-	//
-	// case 2:
-	// case 3:
-	// return txtReview.getText().toString() + "_"
-	// + edCode.getText().toString();
-	//
-	// }
-	// return null;
-	// }
-
 	private void uploadZipFile() {
 
 		// init dialog
@@ -311,35 +308,206 @@ public class PdfFragment extends Fragment {
 					.getSharedPreferences(Constant.DIGI_LOGIN_PREFERENCES,
 							Context.MODE_PRIVATE);
 			if (sharedPerferences.contains(Constant.FLAG_KEY)) {
-				user = sharedPerferences.getString(Constant.USER_NAME, null);
-				if (user != null) {
+
+				userName = sharedPerferences
+						.getString(Constant.USER_NAME, null);
+				channel = sharedPerferences.getString(Constant.CHANNEL, null);
+				cus_id = Constant.ID_CUSTOMER;
+				cus_name = Constant.NAME_CUSTOMER_ONLY;
+				date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+						.format(new Date());
+				dateFormat = new SimpleDateFormat("yyyyMMdd",
+						Locale.getDefault()).format(new Date());
+
+				url = Config.UPLOAD_PER_DAY_URL + "?ccCode=" + userName
+						+ "&upload_date=" + date + "&type=";
+
+				if (userName != null) {
+
 					switch (Constant.TYPE) {
 					case 1:
-						uploadFileToServer(Constant.NAME_CUSTOMER, user,
-								Constant.NAME_CUSTOMER, pathCustomer, pathSave,
-								null);
+
+						client = new AsyncHttpClient();
+
+						client.get(url + "HOSOMOI",
+								new AsyncHttpResponseHandler() {
+
+									@Override
+									public void onStart() {
+										// TODO Auto-generated method stub
+										super.onStart();
+
+									}
+
+									// When the response returned by REST has
+									// Http
+									// response code
+									// '200'
+									@Override
+									public void onSuccess(String response) {
+										try {
+
+											JSONObject obj = new JSONObject(
+													response);
+											int count = Integer.parseInt(obj
+													.getString("count")) + 1;
+											// name Zip file upload
+											nameUpload = userName + "_"
+													+ dateFormat + "_" + count;
+
+											// create Zip file
+											pathFile = compressFilesToZip(
+													pathCustomer, pathSave,
+													nameUpload + ".zip");
+
+											reason = edReason.getText()
+													.toString();
+											uploadFileToServer2(userName,
+													channel, "HOSOMOI", null,
+													pathFile, cus_id, cus_name,
+													null);
+
+										} catch (JSONException e) {
+											Toast.makeText(
+													getActivity(),
+													"Error Occured [Server's JSON response might be invalid]!",
+													Toast.LENGTH_LONG).show();
+											e.printStackTrace();
+
+										}
+
+									}
+
+									// When the response returned by REST has
+									// Http
+									// response code
+									// other than '200'
+									@Override
+									public void onFailure(int statusCode,
+											Throwable error, String content) {
+										// When Http response code is '404'
+										if (statusCode == 404) {
+											Toast.makeText(
+													getActivity(),
+													"Error 404: Requested resource not found",
+													Toast.LENGTH_LONG).show();
+										}
+										// When Http response code is '500'
+										else if (statusCode == 500) {
+											Toast.makeText(
+													getActivity(),
+													"Error 500: Something went wrong at server end",
+													Toast.LENGTH_LONG).show();
+										}
+										// When Http response code other than
+										// 404, 500
+										else {
+											Toast.makeText(
+													getActivity(),
+													"Error: Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
+													Toast.LENGTH_LONG).show();
+										}
+									}
+								});
+
 						break;
 					case 2:
-						String reason2 = edReason.getText().toString();
-						uploadFileToServer(Constant.NAME_CUSTOMER, user,
-								Constant.NAME_CUSTOMER, pathCustomer, pathSave,
-								reason2);
+
+						client = new AsyncHttpClient();
+
+						client.get(url + "HOSOBOSUNG",
+								new AsyncHttpResponseHandler() {
+
+									@Override
+									public void onStart() {
+										// TODO Auto-generated method stub
+										super.onStart();
+
+									}
+
+									// When the response returned by REST has
+									// Http
+									// response code
+									// '200'
+									@Override
+									public void onSuccess(String response) {
+										try {
+
+											JSONObject obj = new JSONObject(
+													response);
+											int count = Integer.parseInt(obj
+													.getString("count")) + 1;
+											// name Zip file upload
+											nameUpload = "QDE" + "_" + userName
+													+ "_" + dateFormat + "_"
+													+ count;
+
+											// create Zip file
+											pathFile = compressFilesToZip(
+													pathCustomer, pathSave,
+													nameUpload + ".zip");
+
+											reason = edReason.getText()
+													.toString();
+											idf1 = Constant.IDF1;
+											uploadFileToServer2(userName,
+													channel, "HOSOBOSUNG",
+													reason, pathFile, cus_id,
+													cus_name, idf1);
+
+										} catch (JSONException e) {
+											Toast.makeText(
+													getActivity(),
+													"Error Occured [Server's JSON response might be invalid]!",
+													Toast.LENGTH_LONG).show();
+											e.printStackTrace();
+
+										}
+
+									}
+
+									// When the response returned by REST has
+									// Http
+									// response code
+									// other than '200'
+									@Override
+									public void onFailure(int statusCode,
+											Throwable error, String content) {
+										// When Http response code is '404'
+										if (statusCode == 404) {
+											Toast.makeText(
+													getActivity(),
+													"Error 404: Requested resource not found",
+													Toast.LENGTH_LONG).show();
+										}
+										// When Http response code is '500'
+										else if (statusCode == 500) {
+											Toast.makeText(
+													getActivity(),
+													"Error 500: Something went wrong at server end",
+													Toast.LENGTH_LONG).show();
+										}
+										// When Http response code other than
+										// 404, 500
+										else {
+											Toast.makeText(
+													getActivity(),
+													"Error: Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
+													Toast.LENGTH_LONG).show();
+										}
+									}
+								});
+
 						break;
 					case 3:
-						String reason3 = edReason.getText().toString();
-						uploadFileToServer(null, user, Constant.NAME_CUSTOMER,
-								pathCustomer, pathSave, reason3);
+						reason = edReason.getText().toString();
+						idf1 = Constant.IDF1;
+
+						uploadFileToServer2(userName, channel, "HOSOBOSUNG",
+								reason, pathFile, cus_id, cus_name, idf1);
+
 						break;
 					}
-					// String reason3
-					// if(edReason.getText().toString().isEmpty()){
-					//
-					// }
-					// = edReason.getText().toString();
-					// uploadFileToServer("thai", user, Constant.NAME_CUSTOMER,
-					// pathCustomer, pathSave, reason3);
-					// uploadFileToServer(pathCustomer, pathCustomer,
-					// pathCustomer, pathCustomer, pathCustomer, pathCustomer);
 				}
 			} else {
 				Intent i = new Intent(getActivity(), LoginActivity.class);
@@ -351,71 +519,6 @@ public class PdfFragment extends Fragment {
 			Toast.makeText(getActivity(), "No Internet Connection",
 					Toast.LENGTH_LONG).show();
 		}
-	}
-
-	private void upload(final String nameUpload) {
-		dialog = new Dialog(getActivity(), R.style.Theme_D1NoTitleDim);
-		dialog.setContentView(R.layout.dialog_loading_animation);
-		dialog.setCanceledOnTouchOutside(false);
-
-		// init TextViewLoading and ImageLoading
-		TextView txtLoading = (TextView) dialog
-				.findViewById(R.id.textViewLoading);
-		txtLoading.setText("Loading...");
-		ImageView imageLoading = (ImageView) dialog
-				.findViewById(R.id.imageViewLoading);
-		imageLoading.setBackgroundResource(R.drawable.animation_loading);
-		// using Animation for ImageLoading
-		animation = (AnimationDrawable) imageLoading.getBackground();
-
-		// compressFilesToZip(getListFdfFile(), pathCustomer, nameUpload);
-
-		switch (Constant.TYPE) {
-		case 1:
-		case 2:
-			new AsyncTask<Void, Void, String>() {
-
-				@Override
-				protected String doInBackground(Void... params) {
-					// TODO Auto-generated method stub
-
-					return pathZip = compressFilesToZip(pathCustomer, pathSave,
-							nameUpload + ".zip");
-					// String pathsave = Constant
-					// .getPathRoot(Constant.APP_FOLDER);
-					// return pathZip = createZipFolder(pathCustomer,
-					// pathsave, Constant.NAME_MY_FOLDER);
-				}
-
-				@Override
-				protected void onPreExecute() {
-					// TODO Auto-generated method stub
-					super.onPreExecute();
-					dialog.show();
-					animation.start();
-
-				}
-
-				@Override
-				protected void onPostExecute(String result) {
-					// TODO Auto-generated method stub
-					super.onPostExecute(result);
-					if (result.length() > 0) {
-						uploadHandle(result);
-
-						animation.stop();
-						dialog.dismiss();
-					}
-
-				}
-
-			}.execute();
-			break;
-		case 3:
-			uploadHandle("");
-			break;
-		}
-
 	}
 
 	private String compressFilesToZip(String pathFolder, String pathSave,
@@ -442,6 +545,7 @@ public class PdfFragment extends Fragment {
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private void uploadHandle(String pathZip) {
 		// TODO Auto-generated method stub
 		ConnectionDetector cnnDec = new ConnectionDetector(getActivity());
@@ -451,8 +555,9 @@ public class PdfFragment extends Fragment {
 					.getSharedPreferences(Constant.DIGI_LOGIN_PREFERENCES,
 							Context.MODE_PRIVATE);
 			if (sharedPerferences.contains(Constant.FLAG_KEY)) {
-				user = sharedPerferences.getString(Constant.USER_NAME, null);
-				if (user != null) {
+				userName = sharedPerferences
+						.getString(Constant.USER_NAME, null);
+				if (userName != null) {
 					// uploadFileToServer(pathZip);
 				}
 			} else {
@@ -467,9 +572,12 @@ public class PdfFragment extends Fragment {
 		}
 	}
 
-	private void uploadFileToServer(final String nameUpload, final String user,
-			final String nameCustomer, final String pathCustomer,
-			final String pathSave, final String reason) {
+	private void uploadFileToServer2(final String userName,
+			final String channel, final String upType, final String reason,
+			final String pathFile, final String cus_id, final String cus_name,
+			final String idf1
+
+	) {
 		new AsyncTask<Void, Integer, String>() {
 
 			@Override
@@ -482,8 +590,8 @@ public class PdfFragment extends Fragment {
 			@Override
 			protected String doInBackground(Void... params) {
 				// TODO Auto-generated method stub
-				return uploadFile(nameUpload, user, nameCustomer, pathCustomer,
-						pathSave, reason);
+				return uploadFile(userName, channel, upType, reason, pathFile,
+						cus_id, cus_name, idf1);
 			}
 
 			@Override
@@ -506,9 +614,12 @@ public class PdfFragment extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 
-			private String uploadFile(String nameUpload, final String user,
-					final String nameCustomer, String pathCustomer,
-					String pathSave, String reason) {
+			@SuppressWarnings("deprecation")
+			private String uploadFile(final String userName,
+					final String channel, final String upType,
+					final String reason, final String pathFile,
+					final String cus_id, final String cus_name,
+					final String idf1) {
 				// TODO Auto-generated method stub
 				String responseString = null;
 				HttpClient httpClient = new DefaultHttpClient();
@@ -528,34 +639,33 @@ public class PdfFragment extends Fragment {
 					// filePath = map.get(finishedUpload);
 					// File sourceFile = new File(pathZip);
 					// entity.addPart("myFile", new FileBody(sourceFile));
-					entity.addPart("ccCode", new StringBody(user));
-					entity.addPart("ccChannel", new StringBody("ABC"));
-					entity.addPart("ip", new StringBody("LG"));
-					entity.addPart("id", new StringBody("123456789"));
-					String path;
+					entity.addPart("ccCode", new StringBody(userName));
+					entity.addPart("ccChannel", new StringBody(channel));
+					entity.addPart("cus_id", new StringBody(cus_id));
+					entity.addPart("cus_name", new StringBody(cus_name));
+					
 					File sourceFile;
 
 					switch (Constant.TYPE) {
 
 					case 1:
-						path = compressFilesToZip(pathCustomer, pathSave,
-								nameUpload + ".zip");
-						sourceFile = new File(path);
+
+						sourceFile = new File(pathFile);
 						entity.addPart("upFile", new FileBody(sourceFile));
-						entity.addPart("upType", new StringBody("HOSOMOI"));
+						entity.addPart("upType", new StringBody(upType));
 						break;
 					case 2:
-						path = compressFilesToZip(pathCustomer, pathSave,
-								nameUpload + ".zip");
-						sourceFile = new File(path);
-						entity.addPart("upFile", new FileBody(sourceFile));
 
+						sourceFile = new File(pathFile);
+						entity.addPart("upFile", new FileBody(sourceFile));
 						entity.addPart("reason", new StringBody(reason));
-						entity.addPart("upType", new StringBody("HOSOBOSUNG"));
+						entity.addPart("upType", new StringBody(upType));
+						entity.addPart("idf1", new StringBody(idf1));
 						break;
 					case 3:
 						entity.addPart("reason", new StringBody(reason));
-						entity.addPart("upType", new StringBody("HOSOBOSUNG"));
+						entity.addPart("upType", new StringBody(upType));
+						entity.addPart("idf1", new StringBody(idf1));
 						break;
 					}
 
@@ -586,24 +696,4 @@ public class PdfFragment extends Fragment {
 		}.execute();
 	}
 
-	private ArrayList<File> getListFdfFile() {
-		// TODO Auto-generated method stub
-		ArrayList<File> arr = new ArrayList<File>();
-		List<String> listPDF = operation.listImagebyCategory(pathCustomer,
-				".pdf", "path");
-		for (int i = 0; i < listPDF.size(); i++) {
-			Log.d("pat", listPDF.get(i));
-			// TextView txtView = (TextView)
-			// listView.getChildAt(i).findViewById(
-			// R.id.item);
-
-			File file = new File(listPDF.get(i));
-
-			arr.add(file);
-
-		}
-
-		return arr;
-
-	}
 }
