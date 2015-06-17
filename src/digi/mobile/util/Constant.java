@@ -16,6 +16,8 @@ public class Constant {
 	public static int TYPE = 0; // 1: New // 2: Supplement
 	public static boolean TAKE_PHOTO; // true: Camera // false: Gallery
 
+	public static int TYPE_SHOW = 0; // 1: Show Image // 2: Show PDF and Zip file
+
 	public static final int Step_1 = 0;
 	public static final int Step_2 = 1;
 	public static final int Step_3 = 2;

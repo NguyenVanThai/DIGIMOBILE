@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/Theme.Light"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <EditText
+        android:id="@+id/editTextUserName"
+        style="@android:style/Theme.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+        android:drawableLeft="@drawable/ic_customer"
+        android:ems="10"
+        android:hint="@string/customername"
+        android:inputType="textCapCharacters"
+        android:maxLines="2" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/customer_information"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/blue_3"
+        android:textSize="20sp"
+        android:typeface="monospace" />
+
+    <EditText
+        android:id="@+id/EditText02"
+        style="@android:style/Theme.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/EditText01"
+        android:layout_alignRight="@+id/EditText01"
+        android:layout_below="@+id/EditText01"
+        android:layout_marginTop="25dp"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:drawableLeft="@drawable/ic_sales"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="@string/channelSale"
+        android:inputType="textCapCharacters"
+        android:maxLength="3"
+        android:maxLines="1"
+        android:text="ABC" />
+
+    <EditText
+        android:id="@+id/EditText01"
+        style="@android:style/Theme.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextUserName"
+        android:layout_alignRight="@+id/editTextUserName"
+        android:layout_below="@+id/editTextUserName"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@drawable/ic_card"
+        android:ems="10"
+        android:hint="@string/idCard"
+        android:inputType="numberSigned"
+        android:maxLength="12" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignRight="@+id/editTextUserName"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:lines="2"
+        android:text="@string/example"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/blue_3"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:layout_alignParentLeft="true"
+        android:background="@color/blue_3" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/review"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/blue_3"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bt_login" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Next"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edCode"
+        style="@android:style/Theme.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/EditText02"
+        android:layout_alignRight="@+id/EditText02"
+        android:layout_below="@+id/EditText02"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@drawable/ic_card"
+        android:ems="10"
+        android:hint="ID"
+        android:inputType="numberSigned"
+        android:maxLength="7" />
+
+</RelativeLayout>

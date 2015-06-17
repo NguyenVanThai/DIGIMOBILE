@@ -19,6 +19,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.util.EntityUtils;
 
+import paul.arian.fileselector.FileSelectionActivity;
+
 import com.lowagie.text.List;
 
 import android.app.Dialog;
@@ -99,6 +101,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					getString(R.string.create_folder_error), Toast.LENGTH_SHORT)
 					.show();
 		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+//
+//		if (resultCode != RESULT_OK) {
+//			return;
+//		}
+//
+//		switch (requestCode) {
+//		case Constant.REQUEST_CODE_GALLERY:
+//			String path = data.getStringExtra("path");
+//			
+//			break;
+//		}
 	}
 
 	/** The broadcast receiver for receiver message from the server */
@@ -203,7 +222,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			createCustomer();
 			break;
 		case R.id.upload:
-
+			Constant.TYPE = 4;
+			Intent intent = new Intent(MainActivity.this,
+					FileSelectionActivity.class);
+			startActivityForResult(intent, Constant.REQUEST_CODE_GALLERY);
 			break;
 		case R.id.profile:
 
@@ -222,4 +244,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		Intent intent = new Intent(MainActivity.this, NewCustomerActivity.class);
 		startActivity(intent);
 	}
+
+
+
 }

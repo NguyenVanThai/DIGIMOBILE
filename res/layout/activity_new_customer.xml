@@ -12,9 +12,11 @@
         android:background="@color/black_1" >
 
         <RelativeLayout
+            android:id="@+id/relStep1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:background="@color/blue_3" >
 
             <TextView
                 android:id="@+id/textView1"
@@ -25,10 +27,10 @@
                 android:text="Step 1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
-
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relStep2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" >
@@ -42,15 +44,13 @@
                 android:text="Step 2"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
-
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relStep3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" 
-            android:background="@color/blue_3"
-            >
+            android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/textView3"
@@ -61,7 +61,6 @@
                 android:text="Step 3"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
-
         </RelativeLayout>
     </LinearLayout>
 

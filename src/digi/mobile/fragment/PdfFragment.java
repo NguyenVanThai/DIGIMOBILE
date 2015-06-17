@@ -25,6 +25,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +48,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import digi.mobile.activity.DocumentTypeActivity;
 import digi.mobile.activity.LoginActivity;
+import digi.mobile.activity.MainActivity;
 import digi.mobile.activity.R;
 import digi.mobile.adapter.PdfListAdapter;
 import digi.mobile.building.AndroidMultiPartEntity;
@@ -610,8 +613,45 @@ public class PdfFragment extends Fragment {
 				super.onPostExecute(result);
 				animation.stop();
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Upload successful!",
-						Toast.LENGTH_LONG).show();
+				// Toast.makeText(getActivity(), "Upload successful!",
+				// Toast.LENGTH_LONG).show();
+
+				final Dialog dialog = new Dialog(getActivity(),
+						R.style.MyTheme_Dialog_Action);
+				// dialog.setCanceledOnTouchOutside(false);
+				dialog.setContentView(R.layout.dialog_signout);
+				dialog.show();
+
+				// init button OK and Cancel
+				Button btnOk = (Button) dialog.findViewById(R.id.button1);
+				Button btnCancel = (Button) dialog.findViewById(R.id.button2);
+				TextView txtTitle = (TextView) dialog
+						.findViewById(R.id.textViewTitle);
+				TextView txtContent = (TextView) dialog
+						.findViewById(R.id.TextView1);
+				txtTitle.setText(getString(R.string.upload_successfull));
+				final File file = new File(pathFile);
+				txtContent.setText(getString(R.string.delete_file)
+						+ file.getName() + " file?");
+				// handling clicks
+				btnOk.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						file.delete();
+						dialog.dismiss();
+					}
+				});
+
+				btnCancel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
 			}
 
 			@SuppressWarnings("deprecation")
@@ -643,7 +683,7 @@ public class PdfFragment extends Fragment {
 					entity.addPart("ccChannel", new StringBody(channel));
 					entity.addPart("cus_id", new StringBody(cus_id));
 					entity.addPart("cus_name", new StringBody(cus_name));
-					
+
 					File sourceFile;
 
 					switch (Constant.TYPE) {
