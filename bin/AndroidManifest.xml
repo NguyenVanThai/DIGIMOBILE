@@ -90,7 +90,6 @@
         <activity
             android:name=".CropActivity"
             android:label="@string/title_activity_crop"
-            android:parentActivityName=".OptionActivity"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data

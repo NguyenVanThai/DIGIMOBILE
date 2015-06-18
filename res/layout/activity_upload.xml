@@ -141,4 +141,19 @@
         android:inputType="numberSigned"
         android:maxLength="7" />
 
+    <EditText
+        android:id="@+id/edReason"
+        style="@android:style/Theme.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edCode"
+        android:layout_alignRight="@+id/edCode"
+        android:layout_below="@+id/edCode"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@drawable/ic_customer"
+        android:ems="10"
+        android:hint="@string/reason"
+        android:inputType="textCapCharacters"
+        android:maxLines="2" />
+
 </RelativeLayout>

@@ -288,7 +288,7 @@ public class Operation {
 		} finally {
 			doc.close();
 		}
-		deleteListFile(listImage);
+//		deleteListFile(listImage);
 		return true;
 
 	}

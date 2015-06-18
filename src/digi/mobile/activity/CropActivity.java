@@ -75,10 +75,12 @@ public class CropActivity extends Activity {
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
 		switch (id) {
+		
 		case R.id.itemSave:
 			croppedImage = cropImageView.getCroppedImage();
 			Constant.updateBitmap(croppedImage);
 			Constant.TAKE_PHOTO = false;
+			setResult(RESULT_OK);
 			finish();
 			break;
 		case R.id.itemRotateLeft:
@@ -91,7 +93,7 @@ public class CropActivity extends Activity {
 //			Intent intentHome = new Intent(CropActivity.this,
 //					DigiMobiActivity.class);
 //			startActivity(intentHome);
-//			finish();
+			finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);

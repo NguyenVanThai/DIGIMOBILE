@@ -48,6 +48,7 @@
     <string name="error_customer_id">Customer id must be NUMBERRIC and 8|9|12 and can not empty</string>
     <string name="error_id">ID must be NUMBERRIC and 7 and can not empty</string>
     <string name="error_channel">Channel must be UPPERCASE and have 3 character and can not empty</string>
+    <string name="error_empty">Can not empty</string>
     <string name="example">NGUYEN VAN A_0123456789_ABC</string>
     <string name="warning">Warning</string>
     <string name="fix_error">Please fix the all the errors before continueing</string>
@@ -68,7 +69,8 @@
     <string name="delete_file">Are you sure you want to permanently delete </string>
     <string name="open_file">Are you sure you want to open it?</string>
     <string name="title_open_file">Open file</string>
-
+    <string name="reason">Reason</string>
+    
     <!-- File selector -->
     <string name="action_settings">Settings</string>
     <string name="files">Files</string>
@@ -81,5 +83,6 @@
     <string name="New">New Folder</string>
     <string name="CNew">Enter New Folder Name</string>
     <string name="title_activity_upload">UploadActivity</string>
+    <string name="update_content">My content update has completed successfully</string>
 
 </resources>

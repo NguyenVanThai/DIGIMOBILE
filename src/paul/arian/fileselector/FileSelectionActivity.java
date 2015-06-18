@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -390,7 +391,7 @@ public class FileSelectionActivity extends Activity {
 	}
 
 	public boolean checkZip(File file) {
-		String[] okFileExtensions = new String[] { ".zip", ".rar" };
+		String[] okFileExtensions = new String[] { "zip", "rar", "pdf" };
 		for (String extension : okFileExtensions) {
 			if (file.getName().toLowerCase().endsWith(extension)) {
 				return true;
@@ -407,11 +408,31 @@ public class FileSelectionActivity extends Activity {
 		dialog.setContentView(R.layout.dialog_signout);
 		dialog.show();
 
+		File file = new File(path);
 		// init button OK and Cancel
 		Button btnOk = (Button) dialog.findViewById(R.id.button1);
 		Button btnCancel = (Button) dialog.findViewById(R.id.button2);
 		TextView txtTitle = (TextView) dialog.findViewById(R.id.textViewTitle);
 		TextView txtContent = (TextView) dialog.findViewById(R.id.TextView1);
+		if (file.isFile()) {
+			if (Constant.TYPE == 4) {
+				if (!(FilenameUtils.getExtension(path).toLowerCase()
+						.equals("zip") || FilenameUtils.getExtension(path)
+						.toLowerCase().equals("rar"))) {
+					btnCancel.setVisibility(View.GONE);
+					txtContent.setText("Type file khong sp");
+					btnOk.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+						}
+					});
+					return;
+				}
+			}
+		}
 
 		if (Constant.TYPE == 1 || Constant.TYPE == 2 || Constant.TYPE == 3) {
 			txtTitle.setText(getString(R.string.title_open_file));

@@ -25,6 +25,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -131,6 +133,16 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 		relGallery.setOnClickListener(this);
 		relCamera.setOnClickListener(this);
 
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		return myFragmentView;
 	}
 
@@ -147,14 +159,77 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.relPDF:
 			// arrayImageItem = new ArrayList<ImageItem>();
-			try {
-				if (arrayImageItem.size() > 0) {
-					createPDF(pathCustomer, nameShortDucoment);
+			if (gridView.getCount() > 0) {
+
+				final List<String> listImage = new ArrayList<String>();
+				final List<String> listImageChoose = new ArrayList<String>();
+				for (int i = 0; i < arrayImageItem.size(); i++) {
+
+					listImage.add(arrayImageItem.get(i).getImage());
+					
+					if (arrayImageItem.get(i).isSelected() == true) {
+						listImageChoose.add(arrayImageItem.get(i).getImage());
+					}
 				}
-			} catch (Exception e) {
+				
+				if (Constant.SELECT_ALL) {
+
+					createPDF(pathCustomer, nameShortDucoment, listImage,
+							listImage);
+				} else {
+					if(listImageChoose.size()>0){
+						createPDF(pathCustomer, nameShortDucoment, listImageChoose,
+								listImage);
+					}else{
+						Toast.makeText(getActivity(), getString(R.string.createPDF),
+								Toast.LENGTH_LONG).show();
+					}
+				}
+			} else {
 				Toast.makeText(getActivity(), getString(R.string.createPDF),
 						Toast.LENGTH_LONG).show();
+
 			}
+
+			// try {
+			// final List<String> listImage = new ArrayList<String>();
+			// List<String> listImageDeselect = new ArrayList<String>();
+			//
+			// for (int i = 0; i < arrayImageItem.size(); i++) {
+			// if (arrayImageItem.get(i).isSelected() == true) {
+			// listImage.add(arrayImageItem.get(i).getImage());
+			// }
+			// {
+			// listImageDeselect.add(arrayImageItem.get(i).getImage());
+			// }
+			// }
+			// Log.e("ERROR", "choose= " + listImage.size() + "dechoose="
+			// + listImageDeselect.size());
+			//
+			// if (listImage.size() >= 0) {
+			//
+			// createPDF(pathCustomer, nameShortDucoment, listImage,
+			// listImageDeselect);
+			// } else {
+			// Toast.makeText(getActivity(),
+			// getString(R.string.createPDF), Toast.LENGTH_LONG)
+			// .show();
+			// }
+			// } catch (Exception e) {
+			// Toast.makeText(getActivity(), getString(R.string.createPDF),
+			// Toast.LENGTH_LONG).show();
+			// }
+
+			// try {
+			// arrayImageItem = operation.getData(pathCustomer,
+			// nameShortDucoment, selected);
+			// if (arrayImageItem.size() > 0) {
+			// createPDF(pathCustomer, nameShortDucoment);
+			// }
+			// } catch (Exception e) {
+			// Toast.makeText(getActivity(), getString(R.string.createPDF),
+			// Toast.LENGTH_LONG).show();
+			// }
 
 			break;
 		case R.id.relCheckAll:
@@ -205,12 +280,21 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 	private void checkAll() {
 		// TODO Auto-generated method stub
 
-		showImage(true);
+		if (!Constant.SELECT_ALL == true) {
+			showImage(true);
+			Constant.SELECT_ALL = true;
+			Log.e("ALL", "ALL");
+		}
+
 	}
 
 	private void deselectAll() {
 		// TODO Auto-generated method stub
-		showImage(false);
+		if (!Constant.SELECT_ALL == false) {
+			showImage(false);
+			Constant.SELECT_ALL = false;
+			Log.e("No-ALL", "No-ALL");
+		}
 	}
 
 	private File getOutputMediaFile() {
@@ -255,24 +339,26 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 	}
 
 	private void createPDF(final String pathCustomer,
-			final String nameShortDucoment) {
+			final String nameShortDucoment, final List<String> listImage,
+			final List<String> listImageDeselect) {
 
-		final List<String> listImage = new ArrayList<String>();
-
-		for (int i = 0; i < arrayImageItem.size(); i++) {
-			if (arrayImageItem.get(i).isSelected() == true) {
-				listImage.add(arrayImageItem.get(i).getImage());
-			} else {
-				File file = new File(arrayImageItem.get(i).getImage());
-				file.delete();
-			}
-		}
+		// final List<String> listImage = new ArrayList<String>();
 		//
-		if (listImage.size() <= 0) {
-			Toast.makeText(getActivity(), getString(R.string.createPDF),
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+		// for (int i = 0; i < arrayImageItem.size(); i++) {
+		// if (arrayImageItem.get(i).isSelected() == true) {
+		// listImage.add(arrayImageItem.get(i).getImage());
+		// }
+		// else {
+		// File file = new File(arrayImageItem.get(i).getImage());
+		// file.delete();
+		// }
+		// }
+
+		// if (listImage.size() <= 0) {
+		// Toast.makeText(getActivity(), getString(R.string.createPDF),
+		// Toast.LENGTH_LONG).show();
+		// return;
+		// }
 
 		dialog = new Dialog(getActivity(), R.style.Theme_D1NoTitleDim);
 		dialog.setContentView(R.layout.dialog_loading_animation);
@@ -329,6 +415,10 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
 				if (result == true) {
+					for (String a : listImageDeselect) {
+						File file = new File(a);
+						file.delete();
+					}
 					animation.stop();
 					dialog.cancel();
 					// Intent intentNewApp = new

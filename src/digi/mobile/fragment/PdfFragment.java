@@ -507,7 +507,7 @@ public class PdfFragment extends Fragment {
 						idf1 = Constant.IDF1;
 
 						uploadFileToServer2(userName, channel, "HOSOBOSUNG",
-								reason, pathFile, cus_id, cus_name, idf1);
+								reason, "", cus_id, cus_name, idf1);
 
 						break;
 					}
@@ -631,27 +631,37 @@ public class PdfFragment extends Fragment {
 						.findViewById(R.id.TextView1);
 				txtTitle.setText(getString(R.string.upload_successfull));
 				final File file = new File(pathFile);
-				txtContent.setText(getString(R.string.delete_file)
-						+ file.getName() + " file?");
-				// handling clicks
-				btnOk.setOnClickListener(new OnClickListener() {
+				if (Constant.TYPE == 3) {
+					txtContent.setText(getString(R.string.update_content));
+					btnOk.setVisibility(View.GONE);
 
-					@Override
-					public void onClick(View v) {
+				} else {
+					txtContent.setText(getString(R.string.delete_file)
+							+" "+ file.getName() + " file?");
 
-						file.delete();
-						dialog.dismiss();
-					}
-				});
+					// handling clicks
+					btnOk.setOnClickListener(new OnClickListener() {
 
+						@Override
+						public void onClick(View v) {
+							getActivity().finish();
+							file.delete();
+							dialog.dismiss();
+						}
+					});
+
+				}
 				btnCancel.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						getActivity().finish();
 						dialog.dismiss();
 					}
 				});
+
+				
 			}
 
 			@SuppressWarnings("deprecation")

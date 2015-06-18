@@ -14,7 +14,7 @@ public class Constant {
 
 	// constants integer
 	public static int TYPE = 0; // 1: New // 2: Supplement
-	public static boolean TAKE_PHOTO; // true: Camera // false: Gallery
+	public static boolean TAKE_PHOTO=true; // true: Camera // false: Gallery
 
 	public static int TYPE_SHOW = 0; // 1: Show Image // 2: Show PDF and Zip file
 
@@ -29,6 +29,7 @@ public class Constant {
 	public static final String CHECK_BITMAP = "check";
 	public static final String BITMAP_CROP = "crop";
 	public static final String POSITION = "position";
+	public static boolean SELECT_ALL ;
 	public static String NAME_MY_FOLDER = "";
 	public static String NAME_USER = "";
 	public static String NAME_CUSTOMER = null;
@@ -106,7 +107,7 @@ public class Constant {
 			BitmapFactory.decodeStream(fis, null, o);
 			fis.close();
 
-			int IMAGE_MAX_SIZE = 1024; // maximum dimension limit
+			int IMAGE_MAX_SIZE = 512; // maximum dimension limit
 			int scale = 1;
 			if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
 				scale = (int) Math.pow(

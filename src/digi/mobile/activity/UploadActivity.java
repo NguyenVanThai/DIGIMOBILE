@@ -57,8 +57,8 @@ public class UploadActivity extends Activity {
 			date, dateFormat, url, nameUpload, name, pathSave;
 	AsyncHttpClient client;
 	RelativeLayout relativeLayout;
-	EditText edCustomerName, edIdCard, edSales, edID;
-	TextView txtReview;
+	EditText edCustomerName, edIdCard, edSales, edID, edReason;
+	TextView txtReview, txtTypeFile;
 	File fileUpload, file;
 	String nameFile;
 	String[] arr;
@@ -76,12 +76,12 @@ public class UploadActivity extends Activity {
 		edIdCard = (EditText) findViewById(R.id.EditText01);
 		edSales = (EditText) findViewById(R.id.EditText02);
 		edID = (EditText) findViewById(R.id.edCode);
+		edReason = (EditText) findViewById(R.id.edReason);
 		txtReview = (TextView) findViewById(R.id.textView2);
-
-		// edCustomerName.setError(getString(R.string.error_customer_name));
-		// edIdCard.setError(getString(R.string.error_customer_id));
+		txtTypeFile = (TextView) findViewById(R.id.textView1);
+		edCustomerName.setError(getString(R.string.error_customer_name));
+		edIdCard.setError(getString(R.string.error_customer_id));
 		// edSales.setError(getString(R.string.error_channel));
-		// edID.setError(getString(R.string.error_id));
 
 		Intent intent = getIntent();
 		path = intent.getStringExtra("path");
@@ -107,264 +107,321 @@ public class UploadActivity extends Activity {
 
 		file = new File(path);
 		nameFile = file.getName();
-		if (file.isFile()) {
-			if (FilenameUtils.getExtension(path).toLowerCase().equals("zip")
-					|| FilenameUtils.getExtension(path).toLowerCase()
-							.equals("rar")) {
-				edCustomerName.setVisibility(View.GONE);
-				edIdCard.setVisibility(View.GONE);
-				edSales.setVisibility(View.GONE);
-				edID.setVisibility(View.GONE);
-				txtReview.setText(nameFile);
+		txtReview.setText(nameFile);
+		// if (file.isFile()) {
+		// if (FilenameUtils.getExtension(path).toLowerCase().equals("zip")
+		// || FilenameUtils.getExtension(path).toLowerCase()
+		// .equals("rar")) {
+		// edCustomerName.setVisibility(View.GONE);
+		// edIdCard.setVisibility(View.GONE);
+		// edSales.setVisibility(View.GONE);
+		// edID.setVisibility(View.GONE);
+		// txtReview.setText(nameFile);
+		//
+		// }
+		// } else {
+		switch (type) {
+		case "HOSOMOI":
+			url = url + "HOSOMOI";
+			edID.setVisibility(View.GONE);
+			edReason.setVisibility(View.GONE);
+			// arr = nameFile.split("_");
+			// for (int i = 0; i < arr.length; i++) {
+			//
+			// switch (i) {
+			// case 0:
+			// edCustomerName.setText(arr[0]);
+			// break;
+			// case 1:
+			// edIdCard.setText(arr[1]);
+			// break;
+			// case 2:
+			// edSales.setText(arr[2]);
+			// break;
+			//
+			// }
+			// }
 
-			}
-		} else {
-			switch (type) {
-			case "HOSOMOI":
-				url = url + "HOSOMOI";
-				edID.setVisibility(View.GONE);
+			break;
+		case "HOSOBOSUNG":
 
-				arr = nameFile.split("_");
-				for (int i = 0; i < arr.length; i++) {
+			url = url + "HOSOBOSUNG";
 
-					switch (i) {
-					case 0:
-						edCustomerName.setText(arr[0]);
-						break;
-					case 1:
-						edIdCard.setText(arr[1]);
-						break;
-					case 2:
-						edSales.setText(arr[2]);
-						break;
-
-					}
-				}
-
-				break;
-			case "HOSOBOSUNG":
-
-				url = url + "HOSOBOSUNG";
-
-				arr = nameFile.split("_");
-
-				for (int i = 0; i < arr.length; i++) {
-
-					switch (i) {
-					case 0:
-						edCustomerName.setText(arr[0]);
-						break;
-					case 1:
-						edIdCard.setText(arr[1]);
-						break;
-					case 2:
-						edSales.setText(arr[2]);
-						break;
-
-					case 3:
-						edID.setText(arr[3]);
-						break;
-					}
-				}
-				break;
-			}
-
-			edCustomerName.addTextChangedListener(new TextWatcher() {
-
-				@Override
-				public void onTextChanged(CharSequence s, int start,
-						int before, int count) {
-					// TODO Auto-generated method stub
-					if (s.toString().length() <= 0) {
-						edCustomerName
-								.setError(getString(R.string.error_customer_name));
-					} else {
-						edCustomerName.setError(null);
-					}
-				}
-
-				@Override
-				public void beforeTextChanged(CharSequence s, int start,
-						int count, int after) {
-					// TODO Auto-generated method stub
-
-					// if (s.toString().length() <= 0) {
-					// edCustomerName.setError("Customer name can NOT be empty");
-					// } else {
-					// edCustomerName.setError(null);
-					// }
-				}
-
-				@Override
-				public void afterTextChanged(Editable s) {
-					// TODO Auto-generated method stub
-					// String temp = s.toString();
-					// if (!temp.equals(temp.toUpperCase())) {
-					// edCustomerName.setText(temp.toUpperCase());
-					//
-					// }
-					// edCustomerName.setSelection(edCustomerName.getText().length());
-					//
-					//
-					// String temp = s.toString();
-					//
-					// if (edIdCard.getText().toString().length() > 0) {
-					//
-					// temp = temp + "_" + edIdCard.getText().toString();
-					// }
-					//
-					// if (edSales.getText().toString().length() > 0) {
-					//
-					// temp = temp + "_" + edSales.getText().toString();
-					// }
-					//
-					// txtReview.setText(temp);
-
-				}
-			});
-
-			edIdCard.addTextChangedListener(new TextWatcher() {
-
-				@Override
-				public void onTextChanged(CharSequence s, int start,
-						int before, int count) {
-					// TODO Auto-generated method stub
-					int length = s.toString().length();
-					if (length == 8 || length == 9 || length == 12) {
-						edIdCard.setError(null);
-					} else {
-
-						edIdCard.setError(getString(R.string.error_customer_id));
-					}
-
-				}
-
-				@Override
-				public void beforeTextChanged(CharSequence s, int start,
-						int count, int after) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void afterTextChanged(Editable s) {
-					// TODO Auto-generated method stub
-
-					// String temp = s.toString();
-					//
-					// if (edCustomerName.getText().toString().length() > 0) {
-					//
-					// temp = edCustomerName.getText().toString() + "_" + temp;
-					// }
-					//
-					// if (edSales.getText().toString().length() > 0) {
-					//
-					// temp = temp + "_" + edSales.getText().toString();
-					// }
-					//
-					// txtReview.setText(temp);
-				}
-			});
-
-			edSales.addTextChangedListener(new TextWatcher() {
-
-				@Override
-				public void onTextChanged(CharSequence s, int start,
-						int before, int count) {
-					// TODO Auto-generated method stub
-					// int length = s.toString().length();
-					// if (length == 3) {
-					// edSales.setError(null);
-					//
-					// } else {
-					// edSales.setError(getString(R.string.error_channel));
-					// }
-
-				}
-
-				@Override
-				public void beforeTextChanged(CharSequence s, int start,
-						int count, int after) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void afterTextChanged(Editable s) {
-					// TODO Auto-generated method stub
-					// String temp = s.toString();
-					//
-					// if (edCustomerName.getText().toString().length() > 0) {
-					//
-					// temp = edCustomerName.getText().toString() + "_" + temp;
-					// }
-					//
-					// if (edIdCard.getText().toString().length() > 0) {
-					//
-					// temp = edCustomerName.getText().toString() + "_"
-					// + edIdCard.getText().toString() + "_"
-					// + s.toString();
-					// }
-					//
-					// txtReview.setText(temp);
-
-					// if (edCustomerName.getText().toString().length() > 0) {
-					//
-					// temp = edCustomerName.getText().toString() + "_" + temp;
-					// }
-					//
-					// if (edIdCard.getText().toString().length() > 0) {
-					//
-					// temp = edIdCard.getText().toString() + "_" + temp;
-					// }
-
-					// txtReview.setText(temp);
-				}
-			});
-
-			edID.addTextChangedListener(new TextWatcher() {
-
-				@Override
-				public void onTextChanged(CharSequence s, int start,
-						int before, int count) {
-					// TODO Auto-generated method stub
-					int length = s.toString().length();
-					if (length == 7) {
-						edID.setError(null);
-					} else {
-
-						edID.setError(getString(R.string.error_id));
-					}
-				}
-
-				@Override
-				public void beforeTextChanged(CharSequence s, int start,
-						int count, int after) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void afterTextChanged(Editable s) {
-					// TODO Auto-generated method stub
-					// String temp = s.toString();
-					//
-					// if (edCustomerName.getText().toString().length() > 0) {
-					//
-					// temp = edCustomerName.getText().toString() + "_" + temp;
-					// }
-					//
-					// if (edSales.getText().toString().length() > 0) {
-					//
-					// temp = temp + "_" + edSales.getText().toString();
-					// }
-					//
-					//
-					// txtReview.setText(temp);
-				}
-			});
-
+			edID.setError(getString(R.string.error_id));
+			edReason.setError(getString(R.string.error_empty));
+			edReason.setText("");
+			// arr = nameFile.split("_");
+			//
+			// for (int i = 0; i < arr.length; i++) {
+			//
+			// switch (i) {
+			// case 0:
+			// edCustomerName.setText(arr[0]);
+			// break;
+			// case 1:
+			// edIdCard.setText(arr[1]);
+			// break;
+			// case 2:
+			// edSales.setText(arr[2]);
+			// break;
+			//
+			// case 3:
+			// edID.setText(arr[3]);
+			// break;
+			// }
+			// }
+			// break;
 		}
+
+		// }
+
+		edReason.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				if (s.toString().length() <= 0) {
+					edReason.setError(getString(R.string.error_empty));
+				} else {
+					edReason.setError(null);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+				// if (s.toString().length() <= 0) {
+				// edCustomerName.setError("Customer name can NOT be empty");
+				// } else {
+				// edCustomerName.setError(null);
+				// }
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				// String temp = s.toString();
+				// if (!temp.equals(temp.toUpperCase())) {
+				// edCustomerName.setText(temp.toUpperCase());
+				//
+				// }
+				// edCustomerName.setSelection(edCustomerName.getText().length());
+				//
+				//
+				// String temp = s.toString();
+				//
+				// if (edIdCard.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edIdCard.getText().toString();
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				// txtReview.setText(temp);
+
+			}
+		});
+
+		edCustomerName.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				if (s.toString().length() <= 0) {
+					edCustomerName
+							.setError(getString(R.string.error_customer_name));
+				} else {
+					edCustomerName.setError(null);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+				// if (s.toString().length() <= 0) {
+				// edCustomerName.setError("Customer name can NOT be empty");
+				// } else {
+				// edCustomerName.setError(null);
+				// }
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				// String temp = s.toString();
+				// if (!temp.equals(temp.toUpperCase())) {
+				// edCustomerName.setText(temp.toUpperCase());
+				//
+				// }
+				// edCustomerName.setSelection(edCustomerName.getText().length());
+				//
+				//
+				// String temp = s.toString();
+				//
+				// if (edIdCard.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edIdCard.getText().toString();
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				// txtReview.setText(temp);
+
+			}
+		});
+
+		edIdCard.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				int length = s.toString().length();
+				if (length == 8 || length == 9 || length == 12) {
+					edIdCard.setError(null);
+				} else {
+
+					edIdCard.setError(getString(R.string.error_customer_id));
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+				// String temp = s.toString();
+				//
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				// txtReview.setText(temp);
+			}
+		});
+
+		edSales.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				// int length = s.toString().length();
+				// if (length == 3) {
+				// edSales.setError(null);
+				//
+				// } else {
+				// edSales.setError(getString(R.string.error_channel));
+				// }
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				// String temp = s.toString();
+				//
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edIdCard.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_"
+				// + edIdCard.getText().toString() + "_"
+				// + s.toString();
+				// }
+				//
+				// txtReview.setText(temp);
+
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edIdCard.getText().toString().length() > 0) {
+				//
+				// temp = edIdCard.getText().toString() + "_" + temp;
+				// }
+
+				// txtReview.setText(temp);
+			}
+		});
+
+		edID.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				int length = s.toString().length();
+				if (length == 7) {
+					edID.setError(null);
+				} else {
+
+					edID.setError(getString(R.string.error_id));
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				// String temp = s.toString();
+				//
+				// if (edCustomerName.getText().toString().length() > 0) {
+				//
+				// temp = edCustomerName.getText().toString() + "_" + temp;
+				// }
+				//
+				// if (edSales.getText().toString().length() > 0) {
+				//
+				// temp = temp + "_" + edSales.getText().toString();
+				// }
+				//
+				//
+				// txtReview.setText(temp);
+			}
+		});
 
 		relativeLayout.setOnClickListener(new OnClickListener() {
 
@@ -374,7 +431,9 @@ public class UploadActivity extends Activity {
 
 				if (edCustomerName.getError() != null
 						|| edIdCard.getError() != null
-						|| edSales.getError() != null) {
+						|| edSales.getError() != null
+						|| edID.getError() != null
+						|| edReason.getError() != null) {
 					final Dialog dialog = new Dialog(UploadActivity.this,
 							R.style.MyTheme_Dialog_Action);
 					dialog.setContentView(R.layout.dialog_warning);
@@ -405,8 +464,6 @@ public class UploadActivity extends Activity {
 					// using Animation for ImageLoading
 					animation = (AnimationDrawable) imageLoading
 							.getBackground();
-					dialog.show();
-					animation.start();
 
 					client = new AsyncHttpClient();
 
@@ -416,7 +473,8 @@ public class UploadActivity extends Activity {
 						public void onStart() {
 							// TODO Auto-generated method stub
 							super.onStart();
-
+							dialog.show();
+							animation.start();
 						}
 
 						// When the response returned by REST has
@@ -432,19 +490,20 @@ public class UploadActivity extends Activity {
 										.getString("count")) + 1;
 								Log.e("coutn", count + "");
 								// name Zip file upload
-								name = userName + "_" + dateFormat + "_"
+								nameUpload = userName + "_" + dateFormat + "_"
 										+ count;
 
 								switch (type) {
 								case "HOSOMOI":
 									fileUpload = new File(file.getParent()
-											+ File.separator + name + ".zip");
-									Log.e("fileUpload_HOSOMOI",
-											fileUpload.getPath());
+											+ File.separator + nameUpload
+											+ ".zip");
+
 									break;
 								case "HOSOBOSUNG":
+									nameUpload = "QDE_" + nameUpload;
 									fileUpload = new File(file.getParent()
-											+ File.separator + "QDE_" + name
+											+ File.separator + nameUpload
 											+ ".zip");
 
 									break;
@@ -457,47 +516,67 @@ public class UploadActivity extends Activity {
 													.toLowerCase()
 													.equals("rar")) {
 
-										if (fileUpload.renameTo(file)) {
+										txtTypeFile.setText("File: ");
+
+										if (!fileUpload.exists()
+												&& file.renameTo(fileUpload)) {
 
 											uploadFileToServer2(userName,
-													channel, type, "",
-													file.getPath(), "", "", "");
+													channel, type, edReason
+															.getText()
+															.toString(),
+													fileUpload.getPath(),
+													edIdCard.getText()
+															.toString(),
+													edCustomerName.getText()
+															.toString(), edID
+															.getText()
+															.toString(), dialog);
 										} else {
 											Log.e("error", "can't rename");
 										}
 
-										Log.e("fileUpload", file.getPath());
-
 									}
 								} else {
-
+									txtTypeFile.setText("Folder: ");
 									name = edCustomerName.getText().toString()
+											+ "_"
 											+ edIdCard.getText().toString()
+											+ "_"
 											+ edSales.getText().toString();
 									switch (type) {
 									case "HOSOMOI":
-										// name;
+
+										fileUpload = new File(file.getParent()
+												+ File.separator + name);
 										break;
 									case "HOSOBOSUNG":
-										name = name + edID.getText().toString();
+										name = name + "_"
+												+ edID.getText().toString();
+										fileUpload = new File(file.getParent()
+												+ File.separator + "QDE_"
+												+ name);
 										break;
 									}
 
-									fileUpload = new File(file.getParent()
-											+ File.separator + name);
-									file.renameTo(fileUpload);
-
-									uploadFileToServer2(
-											userName,
-											channel,
-											type,
-											"",
-											compressFilesToZip(file.getPath(),
-													pathSave, nameUpload
-															+ ".zip"),
-											edIdCard.getText().toString(),
-											edCustomerName.getText().toString(),
-											edID.getText().toString());
+									if (!fileUpload.exists()
+											&& file.renameTo(fileUpload)) {
+										uploadFileToServer2(
+												userName,
+												channel,
+												type,
+												edReason.getText().toString(),
+												compressFilesToZip(
+														fileUpload.getPath(),
+														pathSave, nameUpload
+																+ ".zip"),
+												edIdCard.getText().toString(),
+												edCustomerName.getText()
+														.toString(), edID
+														.getText().toString(),
+												dialog);
+										Log.e("error", "can't rename");
+									}
 								}
 
 							} catch (JSONException e) {
@@ -553,7 +632,7 @@ public class UploadActivity extends Activity {
 	private void uploadFileToServer2(final String userName,
 			final String channel, final String upType, final String reason,
 			final String pathFile, final String cus_id, final String cus_name,
-			final String idf1) {
+			final String idf1, final Dialog dialog) {
 		new AsyncTask<Void, Integer, String>() {
 
 			@Override
@@ -584,7 +663,7 @@ public class UploadActivity extends Activity {
 			protected void onPostExecute(String result) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
-				animation.stop();
+				// animation.stop();
 				dialog.dismiss();
 				// Toast.makeText(getActivity(), "Upload successful!",
 				// Toast.LENGTH_LONG).show();
@@ -614,6 +693,7 @@ public class UploadActivity extends Activity {
 
 						file.delete();
 						dialog.dismiss();
+						finish();
 					}
 				});
 
@@ -623,6 +703,7 @@ public class UploadActivity extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						dialog.dismiss();
+						finish();
 					}
 				});
 			}

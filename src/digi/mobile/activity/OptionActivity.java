@@ -68,14 +68,16 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// options = new DisplayImageOptions.Builder().build();
 
 		// image.setImageBitmap(bitmap);
-
+		matrix.setScale(0.5f, 0.5f);
+	
+		showImage();
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		showImage();
+
 	}
 
 	@Override
@@ -92,8 +94,8 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				finish();
 				break;
 			case Constant.REQUEST_CODE_DUCOMENT_CROP_ACTIVITY:
-				// bitmap = Constant.bitmap;
-				// image.setImageBitmap(bitmap);
+				bitmap = Constant.bitmap;
+				image.setImageBitmap(bitmap);
 				// setResult(RESULT_OK);
 				break;
 			}
@@ -109,6 +111,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		//
 		resetImage();
 		bitmap = Constant.bitmap;
+		Matrix matrixShow = new Matrix();
 
 		// Intent intent = getIntent();
 		// String path = intent.getStringExtra(Constant.PATH_IMAGE);
@@ -118,10 +121,9 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 		if (Constant.TAKE_PHOTO) {
 			if (bitmap.getWidth() > bitmap.getHeight()) {
-				Matrix matrix = new Matrix();
-				matrix.postRotate(90);
-				bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-						bitmap.getHeight(), matrix, true);
+
+				matrixShow.postRotate(90);
+//				matrixDefault.set(matrixShow);
 
 			}
 			// Reset INPUT_BITMAP is Camera
@@ -133,6 +135,9 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// Intent intent = getIntent();
 		// String path = intent.getStringExtra(Constant.PATH_IMAGE);
 		// bitmap = Constant.getBitmap(path);
+		matrixShow.setScale(0.5f, 0.5f);
+		bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrixShow, true);
 
 		image.setImageBitmap(bitmap);
 	}
@@ -145,6 +150,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 	private void saveImage() {
 		// TODO Auto-generated method stub
+		// matrix.setScale(0.5f, 0.5f);
 		Bitmap bitmapMatrix = Bitmap.createBitmap(bitmap, 0, 0,
 				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 		Constant.bitmap = bitmapMatrix;
@@ -155,6 +161,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 	private void cropImage() {
 		// TODO Auto-generated method stub
+
 		Bitmap bitmapMatrix = Bitmap.createBitmap(bitmap, 0, 0,
 				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 		Constant.updateBitmap(bitmapMatrix);
@@ -196,18 +203,18 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// TODO Auto-generated method stub
 		int id = item.getItemId();
 		switch (id) {
-//		case android.R.id.home:
-			// Intent intent = new Intent(OptionActivity.this,
-			// NewAppDetailActivity.class);
-			// startActivity(intent);
-			// finish();
-//			break;
-//		case R.id.itemHome:
-			// Intent intentHome = new Intent(OptionActivity.this,
-			// DigiMobiActivity.class);
-			// startActivity(intentHome);
-			// finish();
-//			break;
+		// case android.R.id.home:
+		// Intent intent = new Intent(OptionActivity.this,
+		// NewAppDetailActivity.class);
+		// startActivity(intent);
+		// finish();
+		// break;
+		// case R.id.itemHome:
+		// Intent intentHome = new Intent(OptionActivity.this,
+		// DigiMobiActivity.class);
+		// startActivity(intentHome);
+		// finish();
+		// break;
 		case R.id.itemRefresh:
 			resetImage();
 			break;
@@ -314,7 +321,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-//		deleteFile();
+		// deleteFile();
 	}
 
 }
