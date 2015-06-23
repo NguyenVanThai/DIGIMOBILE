@@ -52,6 +52,13 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 	private IEventListener listener;
 
 	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Constant.SELECT_ALL = false;
+	}
+
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
@@ -166,22 +173,23 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 				for (int i = 0; i < arrayImageItem.size(); i++) {
 
 					listImage.add(arrayImageItem.get(i).getImage());
-					
+
 					if (arrayImageItem.get(i).isSelected() == true) {
 						listImageChoose.add(arrayImageItem.get(i).getImage());
 					}
 				}
-				
+
 				if (Constant.SELECT_ALL) {
 
 					createPDF(pathCustomer, nameShortDucoment, listImage,
 							listImage);
 				} else {
-					if(listImageChoose.size()>0){
-						createPDF(pathCustomer, nameShortDucoment, listImageChoose,
-								listImage);
-					}else{
-						Toast.makeText(getActivity(), getString(R.string.createPDF),
+					if (listImageChoose.size() > 0) {
+						createPDF(pathCustomer, nameShortDucoment,
+								listImageChoose, listImage);
+					} else {
+						Toast.makeText(getActivity(),
+								getString(R.string.createPDF),
 								Toast.LENGTH_LONG).show();
 					}
 				}
@@ -280,7 +288,7 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 	private void checkAll() {
 		// TODO Auto-generated method stub
 
-		if (!Constant.SELECT_ALL == true) {
+		if (Constant.SELECT_ALL != true) {
 			showImage(true);
 			Constant.SELECT_ALL = true;
 			Log.e("ALL", "ALL");
@@ -290,7 +298,7 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 
 	private void deselectAll() {
 		// TODO Auto-generated method stub
-		if (!Constant.SELECT_ALL == false) {
+		if (Constant.SELECT_ALL != false) {
 			showImage(false);
 			Constant.SELECT_ALL = false;
 			Log.e("No-ALL", "No-ALL");

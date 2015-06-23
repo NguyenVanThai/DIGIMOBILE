@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,28 +20,20 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import paul.arian.fileselector.FileSelectionActivity;
-import digi.mobile.building.AndroidMultiPartEntity;
-import digi.mobile.building.DigiCompressFile;
-import digi.mobile.building.AndroidMultiPartEntity.ProgressListener;
-import digi.mobile.util.Config;
-import digi.mobile.util.Constant;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract.Directory;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,6 +42,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import digi.mobile.building.AndroidMultiPartEntity;
+import digi.mobile.building.AndroidMultiPartEntity.ProgressListener;
+import digi.mobile.building.DigiCompressFile;
+import digi.mobile.util.Config;
+import digi.mobile.util.Constant;
 
 public class UploadActivity extends Activity {
 
@@ -554,13 +556,12 @@ public class UploadActivity extends Activity {
 										name = name + "_"
 												+ edID.getText().toString();
 										fileUpload = new File(file.getParent()
-												+ File.separator + "QDE_"
-												+ name);
+												+ File.separator + name);
 										break;
 									}
 
-									if (!fileUpload.exists()
-											&& file.renameTo(fileUpload)) {
+									if (file.getName().equals(
+											fileUpload.getName())) {
 										uploadFileToServer2(
 												userName,
 												channel,
@@ -575,8 +576,65 @@ public class UploadActivity extends Activity {
 														.toString(), edID
 														.getText().toString(),
 												dialog);
-										Log.e("error", "can't rename");
+									} else if (fileUpload.exists()) {
+
+										try {
+											FileUtils
+													.deleteDirectory(fileUpload);
+										} catch (IOException e) {
+											// TODO Auto-generated catch
+											// block
+											e.printStackTrace();
+										}
+
+										if (file.renameTo(fileUpload)) {
+											Log.e("OK", "OK");
+											uploadFileToServer2(
+													userName,
+													channel,
+													type,
+													edReason.getText()
+															.toString(),
+													compressFilesToZip(
+															fileUpload
+																	.getPath(),
+															pathSave,
+															nameUpload + ".zip"),
+													edIdCard.getText()
+															.toString(),
+													edCustomerName.getText()
+															.toString(), edID
+															.getText()
+															.toString(), dialog);
+
+										} else {
+											Log.e("NO", "NO");
+										}
+									} else {
+										Log.e("Directory", "NoExist");
+										if (file.renameTo(fileUpload)) {
+
+											uploadFileToServer2(
+													userName,
+													channel,
+													type,
+													edReason.getText()
+															.toString(),
+													compressFilesToZip(
+															fileUpload
+																	.getPath(),
+															pathSave,
+															nameUpload + ".zip"),
+													edIdCard.getText()
+															.toString(),
+													edCustomerName.getText()
+															.toString(), edID
+															.getText()
+															.toString(), dialog);
+											// Log.e("error", "can't rename");
+										}
 									}
+
 								}
 
 							} catch (JSONException e) {
@@ -683,7 +741,7 @@ public class UploadActivity extends Activity {
 						.findViewById(R.id.TextView1);
 				txtTitle.setText(getString(R.string.upload_successfull));
 				final File file = new File(pathFile);
-				txtContent.setText(getString(R.string.delete_file)
+				txtContent.setText(getString(R.string.delete_file) + " "
 						+ file.getName() + " file?");
 				// handling clicks
 				btnOk.setOnClickListener(new OnClickListener() {
@@ -693,6 +751,8 @@ public class UploadActivity extends Activity {
 
 						file.delete();
 						dialog.dismiss();
+
+						setResult(RESULT_OK);
 						finish();
 					}
 				});
@@ -703,6 +763,7 @@ public class UploadActivity extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						dialog.dismiss();
+						setResult(RESULT_OK);
 						finish();
 					}
 				});

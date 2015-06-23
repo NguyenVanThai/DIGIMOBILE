@@ -28,7 +28,7 @@
                     android:gravity="center|bottom"
                     android:paddingBottom="20dp"
                     android:singleLine="false"
-                    android:text="@string/newpicture"
+                    android:text="@string/New"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_picture" />
+                    android:src="@drawable/ic_action_new" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -53,7 +53,7 @@
                     android:gravity="center|bottom"
                     android:paddingBottom="20dp"
                     android:singleLine="false"
-                    android:text="@string/supplement"
+                    android:text="@string/hardware_qde"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_view_as_grid" />
+                    android:src="@drawable/ic_action_add" />
             </RelativeLayout>
         </TableRow>
 
@@ -84,7 +84,7 @@
                     android:background="@drawable/btn_home_camera"
                     android:gravity="center|bottom"
                     android:paddingBottom="20dp"
-                    android:text="@string/camera"
+                    android:text="@string/software_qde"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_camera" />
+                    android:src="@drawable/ic_action_note" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_upload_large" />
+                    android:src="@drawable/ic_action_upload" />
             </RelativeLayout>
         </TableRow>
 
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_person" />
+                    android:src="@drawable/ic_action_user" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -189,7 +189,7 @@
                     android:background="@drawable/bt_home_info"
                     android:gravity="center|bottom"
                     android:paddingBottom="10dp"
-                    android:text="@string/about"
+                    android:text="@string/signout"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -197,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_about" />
+                    android:src="@drawable/ic_action_logout" />
             </RelativeLayout>
         </TableRow>
     </TableLayout>

@@ -69,7 +69,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 		// image.setImageBitmap(bitmap);
 		matrix.setScale(0.5f, 0.5f);
-	
+
 		showImage();
 	}
 
@@ -94,9 +94,10 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				finish();
 				break;
 			case Constant.REQUEST_CODE_DUCOMENT_CROP_ACTIVITY:
-				bitmap = Constant.bitmap;
-				image.setImageBitmap(bitmap);
+				// bitmap = Constant.bitmap;
+				// image.setImageBitmap(bitmap);
 				// setResult(RESULT_OK);
+				showImage();
 				break;
 			}
 		}
@@ -119,27 +120,30 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// bitmap = Constant.decodeSampledBitmapFromUri(path, width,
 		// height);
 
-		if (Constant.TAKE_PHOTO) {
-			if (bitmap.getWidth() > bitmap.getHeight()) {
-
-				matrixShow.postRotate(90);
-//				matrixDefault.set(matrixShow);
-
-			}
-			// Reset INPUT_BITMAP is Camera
-
-		} else {
-			Constant.TAKE_PHOTO = false;
-		}
-
 		// Intent intent = getIntent();
 		// String path = intent.getStringExtra(Constant.PATH_IMAGE);
 		// bitmap = Constant.getBitmap(path);
-		matrixShow.setScale(0.5f, 0.5f);
+		matrixShow.setScale(1f, 1f);
 		bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
 				bitmap.getHeight(), matrixShow, true);
-
 		image.setImageBitmap(bitmap);
+		if (Constant.TAKE_PHOTO) {
+			if (bitmap.getWidth() > bitmap.getHeight()) {
+
+				// matrixShow.postRotate(90);
+				// matrixDefault.set(matrixShow);
+				matrix.postRotate(90, bitmap.getWidth() / 2,
+						bitmap.getHeight() / 2);
+				 image.setImageMatrix(matrix);
+
+			}
+			// Reset INPUT_BITMAP is Camera
+			//
+		} else {
+			Constant.TAKE_PHOTO = false;
+			// image.setImageBitmap(bitmap);
+		}
+
 	}
 
 	private void resetImage() {

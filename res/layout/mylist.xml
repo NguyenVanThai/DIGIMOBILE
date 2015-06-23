@@ -22,7 +22,7 @@
         android:layout_toRightOf="@+id/icon"
         android:padding="2dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#33CC33" />
+        android:textColor="@color/black_1" />
 
     <CheckBox
         android:id="@+id/checkBox1"

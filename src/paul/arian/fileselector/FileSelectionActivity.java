@@ -80,6 +80,22 @@ public class FileSelectionActivity extends Activity {
 	int top = 0;
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != RESULT_OK) {
+			return;
+
+		}
+		switch (requestCode) {
+		case Constant.REQUEST_CODE_UPLOAD_ACTIVITY:
+			loadLists();
+			Log.e("OKOKOKOKM", "LOAD");
+			break;
+		}
+	}
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_file_selection);
@@ -420,7 +436,7 @@ public class FileSelectionActivity extends Activity {
 						.equals("zip") || FilenameUtils.getExtension(path)
 						.toLowerCase().equals("rar"))) {
 					btnCancel.setVisibility(View.GONE);
-					txtContent.setText("Type file khong sp");
+					txtContent.setText("Type file no support");
 					btnOk.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -589,7 +605,7 @@ public class FileSelectionActivity extends Activity {
 				UploadActivity.class);
 		intent.putExtra("type", type);
 		intent.putExtra("path", path);
-		startActivity(intent);
+		startActivityForResult(intent, Constant.REQUEST_CODE_UPLOAD_ACTIVITY);
 	}
 
 }

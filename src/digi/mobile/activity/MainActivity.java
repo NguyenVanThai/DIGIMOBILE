@@ -28,6 +28,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import digi.mobile.building.BroadcastService;
 import digi.mobile.util.Constant;
@@ -92,7 +94,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		sharedPreferences = getSharedPreferences(
 				Constant.DIGI_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
-
+		
+		
+		Editor editor = sharedPreferences.edit();
+		editor.putString(Constant.USER_NAME, "CC999999");
+		editor.putString(Constant.PASSWORD, "123456");
+		editor.putString(Constant.CHANNEL,
+				"AAA");
+		editor.putBoolean(Constant.FLAG_KEY, true);
+		editor.commit();
+		
+		
+		
 		// create folder of application
 		if (operation.createDirIfNotExists(Constant.APP_FOLDER, 0)) {
 			appPath = Constant.getPathRoot(Constant.APP_FOLDER);
@@ -107,17 +120,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-//
-//		if (resultCode != RESULT_OK) {
-//			return;
-//		}
-//
-//		switch (requestCode) {
-//		case Constant.REQUEST_CODE_GALLERY:
-//			String path = data.getStringExtra("path");
-//			
-//			break;
-//		}
+		//
+		// if (resultCode != RESULT_OK) {
+		// return;
+		// }
+		//
+		// switch (requestCode) {
+		// case Constant.REQUEST_CODE_GALLERY:
+		// String path = data.getStringExtra("path");
+		//
+		// break;
+		// }
 	}
 
 	/** The broadcast receiver for receiver message from the server */
@@ -136,12 +149,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 
 		// send message from server
-		// startService(intentService);
-		// registerReceiver(broadcastReceiver, new IntentFilter(
-		// BroadcastService.BROADCAST_ACTION));
+//		 startService(intentService);
+//		registerReceiver(broadcastReceiver, new IntentFilter(
+//		 BroadcastService.BROADCAST_ACTION));
 
 		// check Sign In
-		checkLogIn();
+//		checkLogIn();
 		super.onResume();
 	}
 
@@ -204,6 +217,38 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		});
 	}
 
+	private void profile() {
+		// init Dialog Notification
+		final Dialog dialog = new Dialog(MainActivity.this,
+				R.style.MyTheme_Dialog_Action);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setContentView(R.layout.dialog_info);
+		dialog.show();
+
+		// init button OK and Cancel
+		Button btnOk = (Button) dialog.findViewById(R.id.button1);
+		TextView txtUserName = (TextView) dialog.findViewById(R.id.textView1);
+		TextView txtSalesChannel = (TextView) dialog
+				.findViewById(R.id.TextView02);
+
+		txtUserName.setText(sharedPreferences.getString(Constant.USER_NAME,
+				null));
+		txtSalesChannel.setText(sharedPreferences.getString(Constant.CHANNEL,
+				null));
+
+		// handling clicks
+		btnOk.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				dialog.dismiss();
+
+			}
+		});
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -228,7 +273,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			startActivityForResult(intent, Constant.REQUEST_CODE_GALLERY);
 			break;
 		case R.id.profile:
-
+			profile();
 			break;
 		case R.id.help:
 
@@ -244,7 +289,5 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		Intent intent = new Intent(MainActivity.this, NewCustomerActivity.class);
 		startActivity(intent);
 	}
-
-
 
 }

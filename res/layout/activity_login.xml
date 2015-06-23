@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dp"
     tools:context="${relativePackage}.${activityClass}" >
 
     <EditText
@@ -42,9 +43,10 @@
         android:text="@string/login"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/blue_3"
-        android:textSize="50sp"
-        
-        android:typeface="monospace" />
+        android:textSize="30sp"
+        android:drawableLeft="@drawable/ic_login"
+        android:textStyle="bold"
+        android:typeface="normal" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -52,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editTextPass"
-        android:layout_marginBottom="15dp"
+
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/bt_login"
@@ -78,6 +80,15 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:background="@drawable/btn_login_exit" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:layout_alignParentLeft="true"
+        android:background="@color/blue_3" />
 
 </RelativeLayout>

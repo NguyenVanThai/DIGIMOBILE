@@ -29,7 +29,7 @@ public class Constant {
 	public static final String CHECK_BITMAP = "check";
 	public static final String BITMAP_CROP = "crop";
 	public static final String POSITION = "position";
-	public static boolean SELECT_ALL ;
+	public static boolean SELECT_ALL = false ;
 	public static String NAME_MY_FOLDER = "";
 	public static String NAME_USER = "";
 	public static String NAME_CUSTOMER = null;
@@ -66,6 +66,7 @@ public class Constant {
 	public static final int REQUEST_CODE_OPTION_ACTIVITY = 0x8;
 	public static final int REQUEST_CODE_GALLERY = 0x9;
 	public static final int REQUEST_CODE_LOGIN_ACTIVITY = 0x10;
+	public static final int REQUEST_CODE_UPLOAD_ACTIVITY = 0x11;
 	public static final String NAME_CUSTOMER_PUT_EXTRA = "nameCustomer";
 
 	// constans Array

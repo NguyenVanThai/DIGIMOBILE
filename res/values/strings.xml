@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MOBILEDESIGN</string>
+    <string name="app_name">Digi Upload</string>
     <string name="title_activity_screen_logo">ScreenLogo</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_digi_mobi">DigiMobiActivity</string>
@@ -9,7 +9,7 @@
     <string name="gallery">Gallery</string>
     <string name="supplement">Supplement</string>
     <string name="upload">Upload</string>
-    <string name="about">About</string>
+    <string name="signout">Sign out</string>
     <string name="help">Help</string>
     <string name="profile">Profile</string>
     <string name="title_activity_new_app">NewAppActivity</string>
@@ -33,7 +33,7 @@
     <string name="title_activity_create_customer">CreateCustomerActivity</string>
     <string name="create">Create</string>
     <string name="customername">Customer name</string>
-    <string name="customer_information">Customer Information ?</string>
+    <string name="customer_information">Customer Information</string>
     <string name="title_activity_document_type">DocumentTypeActivity</string>
     <string name="choose_type">Choose a document type?</string>
     <string name="create_folder_error">Can\'t create folder for application</string>
@@ -49,7 +49,8 @@
     <string name="error_id">ID must be NUMBERRIC and 7 and can not empty</string>
     <string name="error_channel">Channel must be UPPERCASE and have 3 character and can not empty</string>
     <string name="error_empty">Can not empty</string>
-    <string name="example">NGUYEN VAN A_0123456789_ABC</string>
+    <string name="exNew">NGUYEN VAN A_123456789_ABC</string>
+    <string name="exSupplenment">NGUYEN VAN A_123456789_ABC_1234567</string>
     <string name="warning">Warning</string>
     <string name="fix_error">Please fix the all the errors before continueing</string>
     <string name="create_folder_upload">Please create folder before starting</string>
@@ -80,9 +81,13 @@
     <string name="none">Uncheck All</string>
     <string name="ext">External</string>
     <string name="Int">Internal</string>
-    <string name="New">New Folder</string>
+    <string name="New">New document</string>
     <string name="CNew">Enter New Folder Name</string>
     <string name="title_activity_upload">UploadActivity</string>
     <string name="update_content">My content update has completed successfully</string>
+    <string name="software_qde">Software QDE</string>
+    <string name="hardware_qde">Hardware QDE</string>
+    <string name="my_account">My account</string>
+    <string name="ex">Ex:</string>
 
 </resources>

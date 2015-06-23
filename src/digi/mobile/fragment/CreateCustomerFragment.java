@@ -98,7 +98,14 @@ public class CreateCustomerFragment extends Fragment implements
 		edSales = (EditText) myFragmentView.findViewById(R.id.EditText02);
 		edID = (EditText) myFragmentView.findViewById(R.id.edCode);
 		txtReview = (TextView) myFragmentView.findViewById(R.id.textView2);
-
+		
+		if(Constant.TYPE == 1){
+			txtReview.setText(getString(R.string.exNew));
+		}else{
+			txtReview.setText(getString(R.string.exSupplenment));
+		}
+		
+		
 		// set Sales channel
 		SharedPreferences sharedPreferences = getActivity()
 				.getSharedPreferences(Constant.DIGI_LOGIN_PREFERENCES,
@@ -114,7 +121,11 @@ public class CreateCustomerFragment extends Fragment implements
 		edCustomerName.setError(getString(R.string.error_customer_name));
 		edIdCard.setError(getString(R.string.error_customer_id));
 		// edSales.setError(getString(R.string.error_channel));
-		edID.setError(getString(R.string.error_id));
+		if (Constant.TYPE != 1) {
+			edID.setError(getString(R.string.error_id));
+		}else{
+			edID.setError(null);
+		}
 
 		relativeLayout.setOnClickListener(new OnClickListener() {
 
@@ -124,7 +135,8 @@ public class CreateCustomerFragment extends Fragment implements
 
 				if (edCustomerName.getError() != null
 						|| edIdCard.getError() != null
-						|| edSales.getError() != null) {
+						|| edSales.getError() != null
+						|| edID.getError() != null) {
 					final Dialog dialog = new Dialog(getActivity(),
 							R.style.MyTheme_Dialog_Action);
 					dialog.setContentView(R.layout.dialog_warning);

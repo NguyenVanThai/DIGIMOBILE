@@ -39,7 +39,7 @@ public class BroadcastService extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 		handler.removeCallbacks(getUpdateInfo);
-		handler.postDelayed(getUpdateInfo, 1000000); // 1 second
+		handler.postDelayed(getUpdateInfo, 10000); // 1 second
 	}
 
 	private Runnable getUpdateInfo = new Runnable() {
@@ -64,7 +64,7 @@ public class BroadcastService extends Service {
 				// "No internet connection!", Toast.LENGTH_LONG).show();
 			}
 
-			handler.postDelayed(this, 60000); // 10 seconds
+			handler.postDelayed(this, 10000); // 10 seconds
 		}
 	};
 

@@ -35,7 +35,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/blue_3"
         android:textSize="20sp"
-        android:typeface="monospace" />
+        android:textStyle="bold"
+        android:typeface="normal" />
 
     <EditText
         android:id="@+id/EditText02"
@@ -81,7 +82,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/textView1"
         android:lines="2"
-        android:text="@string/example"
+        android:text="@string/exNew"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/blue_3"
         android:textSize="12sp" />
@@ -102,7 +103,7 @@
         android:layout_below="@+id/textViewTitle"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="25dp"
-        android:text="@string/review"
+        android:text="@string/ex"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/blue_3"
         android:textSize="12sp" />
@@ -115,15 +116,14 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/bt_login" >
 
-        <TextView
-            android:id="@+id/textView3"
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Next"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
+            android:src="@drawable/ic_next" />
+
     </RelativeLayout>
 
     <EditText

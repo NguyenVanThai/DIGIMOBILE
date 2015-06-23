@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:paddingBottom="15dp"
     tools:context="${relativePackage}.${activityClass}" >
 
     <Button
@@ -27,12 +28,13 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="18dp"
-        android:drawableLeft="@drawable/ic_warning_yellow"
+        android:drawableLeft="@drawable/ic_warning"
         android:text="@string/warning"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/blue_3"
         android:textSize="50sp"
-        android:typeface="monospace" />
+        android:textStyle="bold"
+        android:typeface="normal" />
 
     <TextView
         android:id="@+id/TextView1"

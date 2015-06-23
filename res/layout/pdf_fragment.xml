@@ -68,15 +68,14 @@
             android:layout_weight="1"
             android:background="@drawable/bt_login" >
 
-            <TextView
-                android:id="@+id/TextView01"
+            <ImageView
+                android:id="@+id/ImageView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Upload"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:src="@drawable/ic_upload_small" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -86,15 +85,14 @@
             android:layout_weight="1"
             android:background="@drawable/bt_login" >
 
-            <TextView
-                android:id="@+id/textView3"
+            <ImageView
+                android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Next"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:src="@drawable/ic_next" />
+
         </RelativeLayout>
     </LinearLayout>
 

@@ -24,7 +24,9 @@
         android:layout_alignParentRight="true"
         android:clickable="false"
         android:enabled="false"
-        android:focusable="false" />
+        android:focusable="false" 
+        android:visibility="gone"
+        />
     <!-- android:background="@drawable/customcheckbox_background" -->
     <!-- android:button="@drawable/customcheckbox" -->
 
