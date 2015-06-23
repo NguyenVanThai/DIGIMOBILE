@@ -4,36 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.util.EntityUtils;
 
 import paul.arian.fileselector.FileSelectionActivity;
-
-import com.lowagie.text.List;
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -96,13 +77,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				Constant.DIGI_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
 		
 		
-		Editor editor = sharedPreferences.edit();
-		editor.putString(Constant.USER_NAME, "CC999999");
-		editor.putString(Constant.PASSWORD, "123456");
-		editor.putString(Constant.CHANNEL,
-				"AAA");
-		editor.putBoolean(Constant.FLAG_KEY, true);
-		editor.commit();
+//		Editor editor = sharedPreferences.edit();
+//		editor.putString(Constant.USER_NAME, "CC999999");
+//		editor.putString(Constant.PASSWORD, "123456");
+//		editor.putString(Constant.CHANNEL,
+//				"AAA");
+//		editor.putBoolean(Constant.FLAG_KEY, true);
+//		editor.commit();
 		
 		
 		
@@ -154,7 +135,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 //		 BroadcastService.BROADCAST_ACTION));
 
 		// check Sign In
-//		checkLogIn();
+		checkLogIn();
 		super.onResume();
 	}
 
@@ -276,7 +257,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			profile();
 			break;
 		case R.id.help:
-
+			help();
 			break;
 		case R.id.about:
 			signOut();
@@ -290,4 +271,35 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		startActivity(intent);
 	}
 
+	private void help(){
+		
+		final Dialog dialog = new Dialog(MainActivity.this,
+				R.style.MyTheme_Dialog_Action);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.setContentView(R.layout.dialog_help);
+		dialog.show();
+		
+		TextView txt = (TextView) dialog.findViewById(R.id.textView1);
+		String data = "";
+		StringBuffer sbuffer = new StringBuffer();
+		InputStream is = this.getResources().openRawResource(
+				R.drawable.help);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		if (is != null) {
+			try {
+				while ((data = reader.readLine()) != null) {
+					sbuffer.append(data + "\n");
+				}
+				is.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		txt.setText( sbuffer.toString());
+//		Toast.makeText(getBaseContext(), sbuffer.toString(), Toast.LENGTH_LONG)
+//				.show();
+	}
+	
 }

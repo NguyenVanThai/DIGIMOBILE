@@ -98,14 +98,13 @@ public class CreateCustomerFragment extends Fragment implements
 		edSales = (EditText) myFragmentView.findViewById(R.id.EditText02);
 		edID = (EditText) myFragmentView.findViewById(R.id.edCode);
 		txtReview = (TextView) myFragmentView.findViewById(R.id.textView2);
-		
-		if(Constant.TYPE == 1){
+
+		if (Constant.TYPE == 1) {
 			txtReview.setText(getString(R.string.exNew));
-		}else{
+		} else {
 			txtReview.setText(getString(R.string.exSupplenment));
 		}
-		
-		
+
 		// set Sales channel
 		SharedPreferences sharedPreferences = getActivity()
 				.getSharedPreferences(Constant.DIGI_LOGIN_PREFERENCES,
@@ -123,7 +122,7 @@ public class CreateCustomerFragment extends Fragment implements
 		// edSales.setError(getString(R.string.error_channel));
 		if (Constant.TYPE != 1) {
 			edID.setError(getString(R.string.error_id));
-		}else{
+		} else {
 			edID.setError(null);
 		}
 
@@ -175,6 +174,7 @@ public class CreateCustomerFragment extends Fragment implements
 				} else {
 					edCustomerName.setError(null);
 				}
+
 			}
 
 			@Override
@@ -187,12 +187,46 @@ public class CreateCustomerFragment extends Fragment implements
 				// } else {
 				// edCustomerName.setError(null);
 				// }
+				// int length = s.toString().length();
+				// String a = edCustomerName.getText().toString();
+				// Log.e("", length + "_" + start + "_" + count + "_" + after);
+				//
+				// if (!('A' < a.charAt(length) && a.charAt(length) < 'Z')) {
+				// edCustomerName.setText(a.substring(0, length));
+				// }
 			}
 
 			@Override
-			public void afterTextChanged(Editable s) {
+			public void afterTextChanged(Editable et) {
 				// TODO Auto-generated method stub
+
+				String s = et.toString();
+				if (!s.equals(s.toUpperCase())) {
+					s = s.toUpperCase();
+					edCustomerName.setText(s);
+				}
+				edCustomerName.setSelection(edCustomerName.getText().length());
+
 				// String temp = s.toString();
+				// int index = temp.length();
+				// if (index == 0) {
+				// return;
+				// }
+				// Log.e("s",
+				// temp + "_" + temp.length() + "_"
+				// + temp.charAt(index - 1));
+				// if (!('A' <= temp.charAt(index - 1) & temp.charAt(index - 1)
+				// <= 'Z')) {
+				// String cut = temp.substring(0, index - 1);
+				// edCustomerName.setText(cut);
+				// edCustomerName.setSelection(cut.length());
+				// }
+				//
+
+				// edCustomerName.setText(edCustomerName.getText().toString().toUpperCase());
+				// edCustomerName.setSelection(temp.length());
+				//
+
 				// if (!temp.equals(temp.toUpperCase())) {
 				// edCustomerName.setText(temp.toUpperCase());
 				//

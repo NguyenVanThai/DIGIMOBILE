@@ -1,0 +1,28 @@
+﻿I. Login  
+   Login theo mã CC với danh sách CC được đăng ký trước và check validation với danh sách VPB cung cấp.
+II. New Document
+- Check đúng việc đặt tên folder sẽ upload hồ sơ mới và buộc phải có các file sau: DN, HK, ID (không tính chữ hoa thường). 
+- Check format file: chỉ chấp nhận 2 dạng format: JPG và PDF
+Cấp 1: folder nén theo cấu trúc Mã CC_Ngày upload_Số thứ tự lần upload trong ngày
++ Mã CC (mã đã login) theo cấu trúc CCXXXXX trong đó CC luôn cố định, XXXXX là các số.
++ Ngày upload theo định dạng YYYYDDMM
++ Số thứ tự lần: XX
++ Các thành phần cách nhau bằng dấu shift gạch “_”
+Cấp 2: Folder tên khách hàng: Tên khách hàng_CMND_Kênh Sales
++ Tên khách hàng: Viết hoa, không có dấu
++ CMND: CMND phải có 8 số (CMND quân đội), 9 số (CMND đăng ký cũ trước 2014) hoặc 12 số (CMND đăng ký từ 2014) 
++ Kênh sales: gồm 3 chữ viết hoa
++ Cách thành phần cách nhau bằng dấu shift gạch
+Chương trình phải check các điều kiện này, nếu không đúng sẽ không cho upload lên hệ thống.
+ 
+III. Supplement   
+     Đối với hồ sơ QDE: đặt tên folder upload tương tự như hồ sơ mới nhưng khác là có thêm thành phần QDE ở đầu tiên: QDE_CC100375_20150325_01. Trong mỗi hồ sơ QDE sẽ có các thành phần như sau:
+a. Hồ sơ gỡ QDE cứng: yêu cầu đặt tên folder như sau:
++ Tên khách hàng
++ CMND
++ Số ID đã tạo trên F1
++ Trong folder QDE cứng, yêu cầu phải có: 1 file PDF được đặt tên theo định dạng: NGUYEN HONG DUC_023649850_3126636.pdf => nếu không có không cho upload. 
++ Có folder thì folder phải có số ID ở cuối tên folder và là 7 số. Trong folder thì phải có 1 file pdf có số ID ở cuối tên file.
+b. Hồ sơ gỡ QDE mềm: yêu cầu phải có 1 file PDF được đặt tên theo định dạng: LE QUOC TRI_023833758_3126265.pdf => nếu không có không cho upload. Tên file gỡ phải có số ID ở cuối tên file.
+IV. Upload     
+    Upload có show quá trình upload và báo thành công cho người dùng, không cho upload trùng tên folder.

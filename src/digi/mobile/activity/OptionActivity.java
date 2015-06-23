@@ -44,6 +44,9 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	private float angleStart = 0f;
 	private float angleFinish = 0f;
 
+//	private float coordinatesX;
+//	private float coordinatesY;
+
 	Bitmap bitmap;
 
 	private String pathImage;
@@ -134,7 +137,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				// matrixDefault.set(matrixShow);
 				matrix.postRotate(90, bitmap.getWidth() / 2,
 						bitmap.getHeight() / 2);
-				 image.setImageMatrix(matrix);
+				image.setImageMatrix(matrix);
 
 			}
 			// Reset INPUT_BITMAP is Camera
@@ -143,7 +146,8 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			Constant.TAKE_PHOTO = false;
 			// image.setImageBitmap(bitmap);
 		}
-
+//		coordinatesX = bitmap.getWidth() / 2;
+//		coordinatesY = bitmap.getHeight() / 2;
 	}
 
 	private void resetImage() {
@@ -179,6 +183,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 		matrix.postRotate(90, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
 		image.setImageMatrix(matrix);
+	
 	}
 
 	private void rotateLeft() {
@@ -242,6 +247,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
+
 		ImageView image = (ImageView) v;
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
@@ -251,6 +257,21 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			// matrixDefault.set(matrix);
 			start.set(event.getX(), event.getY());
 			mode = DRAG;
+
+//			Log.e("bitmap",
+//					"width=" + bitmap.getWidth() + " height="
+//							+ bitmap.getHeight());
+//			float[] values = new float[9];
+//			matrix.getValues(values);
+//			float globalX = values[2];
+//			float globalY = values[5];
+//			float width = values[0] * image.getWidth();
+//			float height = values[4] * image.getHeight();
+//			float centerX = globalX + bitmap.getWidth() / 2;
+//			float centerY = globalY + bitmap.getHeight() / 2;
+//			Log.i("Log value", "Image Details: xPos: " + globalX + " yPos: "
+//					+ globalY + "\nwidth: " + width + " height: " + height);
+//			Log.e("CenterDown", "centerX: " + centerX + "centerY: " + centerY);
 
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
@@ -263,6 +284,26 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			}
 			break;
 		case MotionEvent.ACTION_UP:
+			float[] values1 = new float[9];
+//			
+//			matrix.getValues(values1);
+//			float globalX1 = values1[2];
+//			float globalY1 = values1[5];
+//			float width1 = values1[0] * image.getWidth();
+//			float height1 = values1[4] * image.getHeight();
+//			float centerX1 = globalX1 + bitmap.getWidth() / 2;
+//			float centerY1 = globalY1 + bitmap.getHeight() / 2;
+//			Log.i("Log value", "Image Details: xPos: " + globalX1 + " yPos: "
+//					+ globalY1 + "\nwidth: " + width1 + " height: " + height1);
+//			Log.e("CenterUP", "centerX: " + centerX1 + "centerY: " + centerY1);
+//			Log.e("CenterUP", "values1: " + values1[1] + "values3: "
+//					+ values1[3] + "\nvalues7: " + values1[7] + "values8: "
+//					+ values1[8]+ "values2: " + values1[2] + "values5: "
+//							+ values1[5] + "\nvalues0: " + values1[0] + "values4: "
+//							+ values1[4]);
+//			coordinatesX = globalX1;
+//			coordinatesY = globalY1;
+			break;
 		case MotionEvent.ACTION_POINTER_UP:
 			mode = NONE;
 			break;

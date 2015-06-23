@@ -257,8 +257,16 @@ public class UploadActivity extends Activity {
 			}
 
 			@Override
-			public void afterTextChanged(Editable s) {
+			public void afterTextChanged(Editable et) {
 				// TODO Auto-generated method stub
+				
+				String s = et.toString();
+				if (!s.equals(s.toUpperCase())) {
+					s = s.toUpperCase();
+					edCustomerName.setText(s);
+				}
+				edCustomerName.setSelection(edCustomerName.getText().length());
+				
 				// String temp = s.toString();
 				// if (!temp.equals(temp.toUpperCase())) {
 				// edCustomerName.setText(temp.toUpperCase());
