@@ -11,7 +11,6 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.FloatMath;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,15 +18,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
+import android.widget.ZoomControls;
 import digi.mobile.util.Constant;
 
 public class OptionActivity extends Activity implements OnTouchListener {
 
 	ImageView image;
+	ZoomControls zoomControl;
 	private Matrix matrix = new Matrix();
 	private Matrix saveMatrix = new Matrix();
 	private Matrix matrixDefault = new Matrix();
@@ -39,18 +36,20 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 	private PointF start = new PointF();
 	private PointF mid = new PointF();
-
+	private PointF center = new PointF();
+	private PointF midFinal = new PointF();
 	private float oldDist = 1f;
 	private float angleStart = 0f;
 	private float angleFinish = 0f;
 
-//	private float coordinatesX;
-//	private float coordinatesY;
+	// private float coordinatesX;
+	// private float coordinatesY;
 
-	Bitmap bitmap;
+	Bitmap bitmap = null;
 
 	private String pathImage;
 	File file;
+	float scale;
 
 	// ImageLoaderConfiguration config;
 	// DisplayImageOptions options;
@@ -60,7 +59,10 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_option);
 		image = (ImageView) findViewById(R.id.image);
+		zoomControl = (ZoomControls) findViewById(R.id.zoomControls1);
+		
 		image.setOnTouchListener(this);
+		
 		// get the action bar
 		ActionBar actionBar = getActionBar();
 		//
@@ -72,8 +74,30 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 		// image.setImageBitmap(bitmap);
 		matrix.setScale(0.5f, 0.5f);
-
+		
 		showImage();
+		
+		zoomControl.setOnZoomInClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.e("ZoomIn", "ZooIN");
+				matrix.postScale(1.1f, 1.1f, center.x, center.y);
+				image.setImageMatrix(matrix);
+			}
+		});
+		
+		zoomControl.setOnZoomOutClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.e("ZoomOut", "ZoomOut");
+				matrix.postScale(0.9f, 0.9f, center.x, center.y);
+				image.setImageMatrix(matrix);
+			}
+		});
 	}
 
 	@Override
@@ -146,14 +170,19 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			Constant.TAKE_PHOTO = false;
 			// image.setImageBitmap(bitmap);
 		}
-//		coordinatesX = bitmap.getWidth() / 2;
-//		coordinatesY = bitmap.getHeight() / 2;
+		// coordinatesX = bitmap.getWidth() / 2;
+		// coordinatesY = bitmap.getHeight() / 2;
+		center.set(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+
 	}
 
 	private void resetImage() {
 		// TODO Auto-generated method stub
 		matrix.set(matrixDefault);
 		image.setImageMatrix(matrix);
+		if (bitmap != null) {
+			center.set(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+		}
 	}
 
 	private void saveImage() {
@@ -181,16 +210,18 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	private void rotateRight() {
 		// TODO Auto-generated method stub
 
-		matrix.postRotate(90, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+		matrix.postRotate(10, center.x, center.y);
 		image.setImageMatrix(matrix);
-	
+
 	}
 
 	private void rotateLeft() {
 		// TODO Auto-generated method stub
 
-		matrix.postRotate(-90, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
-		image.setImageMatrix(matrix);
+		 matrix.postRotate(-10, center.x, center.y);
+		 image.setImageMatrix(matrix);
+//		matrix.postScale(1.5f, 1.5f, center.x, center.y);
+//		image.setImageMatrix(matrix);
 	}
 
 	/*
@@ -258,20 +289,21 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			start.set(event.getX(), event.getY());
 			mode = DRAG;
 
-//			Log.e("bitmap",
-//					"width=" + bitmap.getWidth() + " height="
-//							+ bitmap.getHeight());
-//			float[] values = new float[9];
-//			matrix.getValues(values);
-//			float globalX = values[2];
-//			float globalY = values[5];
-//			float width = values[0] * image.getWidth();
-//			float height = values[4] * image.getHeight();
-//			float centerX = globalX + bitmap.getWidth() / 2;
-//			float centerY = globalY + bitmap.getHeight() / 2;
-//			Log.i("Log value", "Image Details: xPos: " + globalX + " yPos: "
-//					+ globalY + "\nwidth: " + width + " height: " + height);
-//			Log.e("CenterDown", "centerX: " + centerX + "centerY: " + centerY);
+			// Log.e("bitmap",
+			// "width=" + bitmap.getWidth() + " height="
+			// + bitmap.getHeight());
+			// float[] values = new float[9];
+			// matrix.getValues(values);
+			// float globalX = values[2];
+			// float globalY = values[5];
+			// float width = values[0] * image.getWidth();
+			// float height = values[4] * image.getHeight();
+			// float centerX = globalX + bitmap.getWidth() / 2;
+			// float centerY = globalY + bitmap.getHeight() / 2;
+			// Log.i("Log value", "Image Details: xPos: " + globalX + " yPos: "
+			// + globalY + "\nwidth: " + width + " height: " + height);
+			// Log.e("CenterDown", "centerX: " + centerX + "centerY: " +
+			// centerY);
 
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
@@ -282,47 +314,72 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				mode = ZOOM;
 				angleStart = rotation(event);
 			}
+			Log.e("midPoint", mid.x + " _ " + mid.y);
 			break;
 		case MotionEvent.ACTION_UP:
 			float[] values1 = new float[9];
-//			
-//			matrix.getValues(values1);
-//			float globalX1 = values1[2];
-//			float globalY1 = values1[5];
-//			float width1 = values1[0] * image.getWidth();
-//			float height1 = values1[4] * image.getHeight();
-//			float centerX1 = globalX1 + bitmap.getWidth() / 2;
-//			float centerY1 = globalY1 + bitmap.getHeight() / 2;
-//			Log.i("Log value", "Image Details: xPos: " + globalX1 + " yPos: "
-//					+ globalY1 + "\nwidth: " + width1 + " height: " + height1);
-//			Log.e("CenterUP", "centerX: " + centerX1 + "centerY: " + centerY1);
-//			Log.e("CenterUP", "values1: " + values1[1] + "values3: "
-//					+ values1[3] + "\nvalues7: " + values1[7] + "values8: "
-//					+ values1[8]+ "values2: " + values1[2] + "values5: "
-//							+ values1[5] + "\nvalues0: " + values1[0] + "values4: "
-//							+ values1[4]);
-//			coordinatesX = globalX1;
-//			coordinatesY = globalY1;
+			//
+			// matrix.getValues(values1);
+			// float globalX1 = values1[2];
+			// float globalY1 = values1[5];
+			// float width1 = values1[0] * image.getWidth();
+			// float height1 = values1[4] * image.getHeight();
+			// float centerX1 = globalX1 + bitmap.getWidth() / 2;
+			// float centerY1 = globalY1 + bitmap.getHeight() / 2;
+			// Log.i("Log value", "Image Details: xPos: " + globalX1 + " yPos: "
+			// + globalY1 + "\nwidth: " + width1 + " height: " + height1);
+			// Log.e("CenterUP", "centerX: " + centerX1 + "centerY: " +
+			// centerY1);
+			// Log.e("CenterUP", "values1: " + values1[1] + "values3: "
+			// + values1[3] + "\nvalues7: " + values1[7] + "values8: "
+			// + values1[8]+ "values2: " + values1[2] + "values5: "
+			// + values1[5] + "\nvalues0: " + values1[0] + "values4: "
+			// + values1[4]);
+			// coordinatesX = globalX1;
+			// coordinatesY = globalY1;
+			float dxCenter;
+			float dyCenter;
+			if (mode == DRAG) {
+				dxCenter = event.getX() - start.x;
+				dyCenter = event.getY() - start.y;
+				center.set(center.x + dxCenter, center.y + dyCenter);
+			} else {
+
+				float dxCenter1;
+				float dyCenter1;
+
+				dxCenter1 = midFinal.x - mid.x;
+				dyCenter1 = midFinal.y - mid.y;
+				center.set(center.x + dxCenter1, center.y + dyCenter1);
+			}
 			break;
 		case MotionEvent.ACTION_POINTER_UP:
 			mode = NONE;
+
 			break;
 		case MotionEvent.ACTION_MOVE:
+
 			if (mode == DRAG) {
 				matrix.set(saveMatrix);
 				float dx = event.getX() - start.x;
 				float dy = event.getY() - start.y;
+
 				matrix.postTranslate(dx, dy);
+
 			} else if (mode == ZOOM) {
+				midPoint(midFinal, event);
+				Log.e("midPointFinal", midFinal.x + " _ " + midFinal.y);
+
 				float newDist = spacing(event);
 				if (newDist > 10f) {
 					matrix.set(saveMatrix);
-					float scale = (newDist / oldDist);
-					// matrix.postScale(scale, scale, mid.x, mid.y);
+					scale = (newDist / oldDist);
 
-					angleFinish = rotation(event);
-					float angleChange = angleStart - angleFinish;
-					matrix.postRotate(angleChange, mid.x, mid.y);
+					matrix.postScale(scale, scale, mid.x, mid.y);
+
+					// angleFinish = rotation(event);
+					// float angleChange = angleStart - angleFinish;
+					// matrix.postRotate(angleChange, mid.x, mid.y);
 				}
 
 			}
