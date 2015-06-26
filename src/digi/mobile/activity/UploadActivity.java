@@ -66,6 +66,8 @@ public class UploadActivity extends Activity {
 	String[] arr;
 	Dialog dialog;
 	AnimationDrawable animation;
+	TextView txtLoading;
+	long totalSize = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class UploadActivity extends Activity {
 
 		userName = sharedPerferences.getString(Constant.USER_NAME, null);
 		channel = sharedPerferences.getString(Constant.CHANNEL, null);
+		edSales.setText(channel);
 		cus_id = Constant.ID_CUSTOMER;
 		cus_name = Constant.NAME_CUSTOMER_ONLY;
 		date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -109,7 +112,7 @@ public class UploadActivity extends Activity {
 
 		file = new File(path);
 		nameFile = file.getName();
-		txtReview.setText(nameFile);
+//		txtReview.setText(nameFile);
 		// if (file.isFile()) {
 		// if (FilenameUtils.getExtension(path).toLowerCase().equals("zip")
 		// || FilenameUtils.getExtension(path).toLowerCase()
@@ -127,6 +130,8 @@ public class UploadActivity extends Activity {
 			url = url + "HOSOMOI";
 			edID.setVisibility(View.GONE);
 			edReason.setVisibility(View.GONE);
+			txtReview.setText(getString(R.string.exNew));
+		
 			// arr = nameFile.split("_");
 			// for (int i = 0; i < arr.length; i++) {
 			//
@@ -152,6 +157,7 @@ public class UploadActivity extends Activity {
 			edID.setError(getString(R.string.error_id));
 			edReason.setError(getString(R.string.error_empty));
 			edReason.setText("");
+			txtReview.setText(getString(R.string.exSupplenment));
 			// arr = nameFile.split("_");
 			//
 			// for (int i = 0; i < arr.length; i++) {
@@ -259,14 +265,14 @@ public class UploadActivity extends Activity {
 			@Override
 			public void afterTextChanged(Editable et) {
 				// TODO Auto-generated method stub
-				
+
 				String s = et.toString();
 				if (!s.equals(s.toUpperCase())) {
 					s = s.toUpperCase();
 					edCustomerName.setText(s);
 				}
 				edCustomerName.setSelection(edCustomerName.getText().length());
-				
+
 				// String temp = s.toString();
 				// if (!temp.equals(temp.toUpperCase())) {
 				// edCustomerName.setText(temp.toUpperCase());
@@ -464,9 +470,9 @@ public class UploadActivity extends Activity {
 					dialog.setCanceledOnTouchOutside(false);
 
 					// init TextViewLoading and ImageLoading
-					TextView txtLoading = (TextView) dialog
+					txtLoading = (TextView) dialog
 							.findViewById(R.id.textViewLoading);
-					txtLoading.setText("Loading...");
+					txtLoading.setText("Uploading 0%");
 					ImageView imageLoading = (ImageView) dialog
 							.findViewById(R.id.imageViewLoading);
 					imageLoading
@@ -719,6 +725,7 @@ public class UploadActivity extends Activity {
 			protected void onProgressUpdate(Integer... values) {
 				// TODO Auto-generated method stub
 				super.onProgressUpdate(values);
+				txtLoading.setText("Uploading " + values[0] + "%");
 				// progressBar.setVisibility(View.VISIBLE);
 				// progressBar.setProgress(values[0]);
 				// txtPercentage.setText(String.valueOf(values[0]) + "%");
@@ -795,7 +802,7 @@ public class UploadActivity extends Activity {
 								@Override
 								public void transferred(long num) {
 									// TODO Auto-generated method stub
-									publishProgress((int) num);
+									publishProgress((int) ((num / (float) totalSize) * 100));
 								}
 							});
 
@@ -831,7 +838,7 @@ public class UploadActivity extends Activity {
 					// entity.addPart("appFolder", new
 					// StringBody(nameCustomer));
 
-					// totalSize = entity.getContentLength();
+					totalSize = entity.getContentLength();
 					httpPost.setEntity(entity);
 					HttpResponse response = httpClient.execute(httpPost);
 					HttpEntity r_entity = response.getEntity();

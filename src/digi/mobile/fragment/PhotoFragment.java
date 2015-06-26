@@ -375,7 +375,7 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 		// init TextViewLoading and ImageLoading
 		TextView txtLoading = (TextView) dialog
 				.findViewById(R.id.textViewLoading);
-		txtLoading.setText("Loading...");
+		txtLoading.setText("Please wait...");
 		ImageView imageLoading = (ImageView) dialog
 				.findViewById(R.id.imageViewLoading);
 		imageLoading.setBackgroundResource(R.drawable.animation_loading);

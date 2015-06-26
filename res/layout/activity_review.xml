@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:gravity="left"
     android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}"
-  	android:weightSum="1"
-     >
+    tools:context="${relativePackage}.${activityClass}" >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
         android:layout_weight="0.8"
         android:src="@drawable/logo" />
 
@@ -26,15 +25,24 @@
             android:id="@+id/buttonCancel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="3dp"
             android:layout_weight="0.05"
-            android:text="@string/cancel" />
+            android:background="@drawable/bt_login"
+            android:singleLine="true"
+            android:text="@string/exit"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonOk"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="3dp"
             android:layout_weight="0.05"
-            android:text="@string/ok" />
+            android:background="@drawable/bt_login"
+            android:singleLine="true"
+            android:text="@string/ok"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
 </LinearLayout>

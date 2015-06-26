@@ -436,7 +436,8 @@ public class FileSelectionActivity extends Activity {
 						.equals("zip") || FilenameUtils.getExtension(path)
 						.toLowerCase().equals("rar"))) {
 					btnCancel.setVisibility(View.GONE);
-					txtContent.setText("Type file no support");
+					txtTitle.setText(getString(R.string.error));
+					txtContent.setText(getString(R.string.not_support));
 					btnOk.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -477,7 +478,7 @@ public class FileSelectionActivity extends Activity {
 			txtTitle.setText(getString(R.string.upload));
 			txtContent.setText(getString(R.string.choose_type));
 			btnOk.setText(getString(R.string.New));
-			btnCancel.setText(getString(R.string.supplement));
+			btnCancel.setText(getString(R.string.hardware_qde));
 
 			// handling clicks
 			btnOk.setOnClickListener(new OnClickListener() {

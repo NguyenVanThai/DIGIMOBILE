@@ -44,34 +44,40 @@
     <string name="idCard">Indentify Card</string>
     <string name="channelSale">Channel Sales</string>
     <string name="review">Review:</string>
-    <string name="error_customer_name">Customer name must be UPERCASE and can not empty</string>
-    <string name="error_customer_id">Customer id must be NUMBERRIC and 8|9|12 and can not empty</string>
-    <string name="error_id">ID must be NUMBERRIC and 7 and can not empty</string>
-    <string name="error_channel">Channel must be UPPERCASE and have 3 character and can not empty</string>
-    <string name="error_empty">Can not empty</string>
+    <string name="error_customer_name">Customer name must be UPPERCASE and non-empty</string>
+    <string name="error_customer_id">Identity Card must have a length of 8|9|12 is numeric and non-empty</string>
+    <string name="error_id">ID have must a length of 7 is NUMBERIC and non-empty</string>
+    <string name="error_channel">Channel must have a length 3 character UPPERCASE and non-empty</string>
+    <string name="error_empty">Non-empty</string>
     <string name="exNew">NGUYEN VAN A_123456789_ABC</string>
     <string name="exSupplenment">NGUYEN VAN A_123456789_ABC_1234567</string>
     <string name="warning">Warning</string>
-    <string name="fix_error">Please fix the all the errors before continueing</string>
-    <string name="create_folder_upload">Please create folder before starting</string>
+    <string name="fix_error">You must fix errors on this form before continuing</string>
+    <string name="create_folder_upload">You must create folder before starting</string>
     <string name="title_activity_create_folder">CreateFolderActivity</string>
     <string name="my_folder">My folder?</string>
     <string name="my_id">My ID</string>
     <string name="date">Date</string>
     <string name="ordinal_number">Ordinal numbers</string>
-    <string name="error_date">Date must be 8 character NUMBERIC, follow rule yyyymmdd and can not empty</string>
+    <string name="error_date">Date must have a lengt 8 is NUMBERIC, follow rule yyyymmdd and can not empty</string>
     <string name="error_ordinal_number">Ordinal numbers must be 2 character NUMERIC, equal the real number of your upload per day and can not empty</string>
     <string name="signout_title">Are you sure you want to sign out?</string>
     <string name="signout_message">You have made changes to your user a count. You must sign out and sign back in for these changes to take effect.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="createPDF">Please select  images to create PDF file</string>
-    <string name="upload_successfull">Upload sucessfull</string>
+    <string name="createPDF">You must select the images you want to create PDF file</string>
+    <string name="uploadPDF">You must select the PDF files you want to upload</string>
+    <string name="upload_successfull">Upload successful!</string>
     <string name="delete_file">Are you sure you want to permanently delete </string>
     <string name="open_file">Are you sure you want to open it?</string>
     <string name="title_open_file">Open file</string>
     <string name="reason">Reason</string>
     <string name="helpDigi">DigiUpload Help!</string>
+    <string name="exit">Exit</string>
+    <string name="error">Error</string>
+    <string name="not_support">This file type not supported</string>
+    <string name="create_document_upload">You must provide 3 documents (DN.pdf, ID.pdf, HK.pdf) before uploading</string>
+
     <!-- File selector -->
     <string name="action_settings">Settings</string>
     <string name="files">Files</string>
@@ -85,9 +91,9 @@
     <string name="CNew">Enter New Folder Name</string>
     <string name="title_activity_upload">UploadActivity</string>
     <string name="update_content">My content update has completed successfully</string>
-    <string name="software_qde">Software QDE</string>
-    <string name="hardware_qde">Hardware QDE</string>
-    <string name="my_account">My account</string>
+    <string name="software_qde">Soft QDE</string>
+    <string name="hardware_qde">Hard QDE</string>
+    <string name="my_account">My profile</string>
     <string name="ex">Ex:</string>
 
 </resources>

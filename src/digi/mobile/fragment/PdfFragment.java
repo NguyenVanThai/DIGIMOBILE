@@ -70,14 +70,14 @@ public class PdfFragment extends Fragment {
 	EditText edReason;
 	String pathCustomer;
 	String pathSave;
-
+	long totalSize = 0;
 	Dialog dialog;
 	AnimationDrawable animation;
 	String pathZip;
 	String userName, channel, cus_id, cus_name, reason, pathFile = null, idf1,
 			date, dateFormat, url, nameUpload;
 	AsyncHttpClient client;
-
+	TextView txtLoading;
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -258,7 +258,7 @@ public class PdfFragment extends Fragment {
 				if (temp < 3) {
 					Toast.makeText(
 							getActivity(),
-							"Please create full 3 documents: DN.pdf, HK.pdf, ID.pdf",
+							getString(R.string.create_document_upload),
 							Toast.LENGTH_LONG).show();
 					return false;
 				} else {
@@ -268,7 +268,7 @@ public class PdfFragment extends Fragment {
 				return true;
 			}
 		} else {
-			Toast.makeText(getActivity(), "Please create Document",
+			Toast.makeText(getActivity(), getString(R.string.uploadPDF),
 					Toast.LENGTH_LONG).show();
 			return false;
 		}
@@ -292,9 +292,9 @@ public class PdfFragment extends Fragment {
 		dialog.setCanceledOnTouchOutside(false);
 
 		// init TextViewLoading and ImageLoading
-		TextView txtLoading = (TextView) dialog
+		txtLoading = (TextView) dialog
 				.findViewById(R.id.textViewLoading);
-		txtLoading.setText("Loading...");
+		txtLoading.setText("Uploading 0%");
 		ImageView imageLoading = (ImageView) dialog
 				.findViewById(R.id.imageViewLoading);
 		imageLoading.setBackgroundResource(R.drawable.animation_loading);
@@ -601,10 +601,11 @@ public class PdfFragment extends Fragment {
 			protected void onProgressUpdate(Integer... values) {
 				// TODO Auto-generated method stub
 				super.onProgressUpdate(values);
+				txtLoading.setText("Uploading " + values[0] + "%");
 				// progressBar.setVisibility(View.VISIBLE);
 				// progressBar.setProgress(values[0]);
 				// txtPercentage.setText(String.valueOf(values[0]) + "%");
-
+				
 			}
 
 			@Override
@@ -682,7 +683,7 @@ public class PdfFragment extends Fragment {
 								@Override
 								public void transferred(long num) {
 									// TODO Auto-generated method stub
-									publishProgress((int) num);
+									publishProgress((int) ((num / (float) totalSize) * 100));
 								}
 							});
 
@@ -722,7 +723,7 @@ public class PdfFragment extends Fragment {
 					// entity.addPart("appFolder", new
 					// StringBody(nameCustomer));
 
-					// totalSize = entity.getContentLength();
+					 totalSize = entity.getContentLength();
 					httpPost.setEntity(entity);
 					HttpResponse response = httpClient.execute(httpPost);
 					HttpEntity r_entity = response.getEntity();

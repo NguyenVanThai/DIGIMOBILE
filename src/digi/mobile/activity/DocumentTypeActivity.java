@@ -69,8 +69,9 @@ public class DocumentTypeActivity extends Activity {
 								nameShortDocument)) {
 							AlertDialog.Builder dialogReplace = new AlertDialog.Builder(
 									DocumentTypeActivity.this);
-							dialogReplace.setTitle("Do you want replace?");
-							dialogReplace.setIcon(R.drawable.ic_action_about);
+							dialogReplace.setTitle("Replace Document" );
+							dialogReplace.setMessage("Do you want replace '" + Constant.ARRAY_APP_ITEMS[position] + "' document?");
+							dialogReplace.setIcon(R.drawable.ic_warning);
 
 							dialogReplace.setPositiveButton("YES",
 									new DialogInterface.OnClickListener() {
