@@ -27,6 +27,7 @@
                 android:text="Step 1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
+
         </RelativeLayout>
 
         <RelativeLayout

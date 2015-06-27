@@ -3,6 +3,8 @@ package paul.arian.fileselector;
 /**
  * Created by Paul on 3/7/14.
  */
+import java.io.File;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import digi.mobile.activity.R;
-
-import java.io.File;
 
 public class CustomList extends ArrayAdapter<String>{
     private final Activity context;

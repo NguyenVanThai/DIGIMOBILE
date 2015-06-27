@@ -25,7 +25,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import digi.mobile.activity.DocumentTypeActivity;
 import digi.mobile.activity.LoginActivity;
-import digi.mobile.activity.MainActivity;
 import digi.mobile.activity.R;
 import digi.mobile.adapter.PdfListAdapter;
 import digi.mobile.building.AndroidMultiPartEntity;

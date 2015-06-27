@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import digi.mobile.activity.R;
-import digi.mobile.building.DigiCompressFile;
 import digi.mobile.building.IEventListener;
 import digi.mobile.building.UpdateableFragment;
 import digi.mobile.util.Constant;
@@ -30,7 +29,7 @@ import digi.mobile.util.Operation;
 public class CreateCustomerFragment extends Fragment implements
 		UpdateableFragment {
 
-	RelativeLayout relativeLayout;
+	RelativeLayout relativeLayoutHome, relativeLayoutBefore;
 	EditText edCustomerName, edIdCard, edSales, edID;
 	TextView txtReview;
 	Operation operation;
@@ -83,14 +82,12 @@ public class CreateCustomerFragment extends Fragment implements
 		operation = new Operation();
 
 		View myFragmentView = inflater.inflate(
-				R.layout.activity_create_fragment, container, false);
+				R.layout.fragment_create_customer, container, false);
 
-		// Log.d("Fragment 1", "onCreateView");
-		// Toast.makeText(getActivity(), "onCreateView",
-		// Toast.LENGTH_LONG).show();
-
-		relativeLayout = (RelativeLayout) myFragmentView
-				.findViewById(R.id.relativeLayout);
+		relativeLayoutBefore = (RelativeLayout) myFragmentView
+				.findViewById(R.id.LinearLayoutBefore);
+		relativeLayoutHome = (RelativeLayout) myFragmentView
+				.findViewById(R.id.LinearLayoutHome);
 		// init editText
 		edCustomerName = (EditText) myFragmentView
 				.findViewById(R.id.editTextUserName);
@@ -126,7 +123,7 @@ public class CreateCustomerFragment extends Fragment implements
 			edID.setError(null);
 		}
 
-		relativeLayout.setOnClickListener(new OnClickListener() {
+		relativeLayoutBefore.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -162,6 +159,15 @@ public class CreateCustomerFragment extends Fragment implements
 			}
 		});
 
+		relativeLayoutHome.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				getActivity().finish();
+			}
+		});
+
 		edCustomerName.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -180,20 +186,6 @@ public class CreateCustomerFragment extends Fragment implements
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-
-				// if (s.toString().length() <= 0) {
-				// edCustomerName.setError("Customer name can NOT be empty");
-				// } else {
-				// edCustomerName.setError(null);
-				// }
-				// int length = s.toString().length();
-				// String a = edCustomerName.getText().toString();
-				// Log.e("", length + "_" + start + "_" + count + "_" + after);
-				//
-				// if (!('A' < a.charAt(length) && a.charAt(length) < 'Z')) {
-				// edCustomerName.setText(a.substring(0, length));
-				// }
 			}
 
 			@Override
@@ -206,47 +198,6 @@ public class CreateCustomerFragment extends Fragment implements
 					edCustomerName.setText(s);
 				}
 				edCustomerName.setSelection(edCustomerName.getText().length());
-
-				// String temp = s.toString();
-				// int index = temp.length();
-				// if (index == 0) {
-				// return;
-				// }
-				// Log.e("s",
-				// temp + "_" + temp.length() + "_"
-				// + temp.charAt(index - 1));
-				// if (!('A' <= temp.charAt(index - 1) & temp.charAt(index - 1)
-				// <= 'Z')) {
-				// String cut = temp.substring(0, index - 1);
-				// edCustomerName.setText(cut);
-				// edCustomerName.setSelection(cut.length());
-				// }
-				//
-
-				// edCustomerName.setText(edCustomerName.getText().toString().toUpperCase());
-				// edCustomerName.setSelection(temp.length());
-				//
-
-				// if (!temp.equals(temp.toUpperCase())) {
-				// edCustomerName.setText(temp.toUpperCase());
-				//
-				// }
-				// edCustomerName.setSelection(edCustomerName.getText().length());
-				//
-				//
-				// String temp = s.toString();
-				//
-				// if (edIdCard.getText().toString().length() > 0) {
-				//
-				// temp = temp + "_" + edIdCard.getText().toString();
-				// }
-				//
-				// if (edSales.getText().toString().length() > 0) {
-				//
-				// temp = temp + "_" + edSales.getText().toString();
-				// }
-				//
-				// txtReview.setText(temp);
 
 			}
 		});
@@ -276,21 +227,7 @@ public class CreateCustomerFragment extends Fragment implements
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 
-				// String temp = s.toString();
-				//
-				// if (edCustomerName.getText().toString().length() > 0) {
-				//
-				// temp = edCustomerName.getText().toString() + "_" + temp;
-				// }
-				//
-				// if (edSales.getText().toString().length() > 0) {
-				//
-				// temp = temp + "_" + edSales.getText().toString();
-				// }
-				//
-				// txtReview.setText(temp);
 			}
 		});
 
@@ -299,54 +236,17 @@ public class CreateCustomerFragment extends Fragment implements
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-				// int length = s.toString().length();
-				// if (length == 3) {
-				// edSales.setError(null);
-				//
-				// } else {
-				// edSales.setError(getString(R.string.error_channel));
-				// }
 
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				// String temp = s.toString();
-				//
-				// if (edCustomerName.getText().toString().length() > 0) {
-				//
-				// temp = edCustomerName.getText().toString() + "_" + temp;
-				// }
-				//
-				// if (edIdCard.getText().toString().length() > 0) {
-				//
-				// temp = edCustomerName.getText().toString() + "_"
-				// + edIdCard.getText().toString() + "_"
-				// + s.toString();
-				// }
-				//
-				// txtReview.setText(temp);
-
-				// if (edCustomerName.getText().toString().length() > 0) {
-				//
-				// temp = edCustomerName.getText().toString() + "_" + temp;
-				// }
-				//
-				// if (edIdCard.getText().toString().length() > 0) {
-				//
-				// temp = edIdCard.getText().toString() + "_" + temp;
-				// }
-
-				// txtReview.setText(temp);
 			}
 		});
 
@@ -368,40 +268,13 @@ public class CreateCustomerFragment extends Fragment implements
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				// String temp = s.toString();
-				//
-				// if (edCustomerName.getText().toString().length() > 0) {
-				//
-				// temp = edCustomerName.getText().toString() + "_" + temp;
-				// }
-				//
-				// if (edSales.getText().toString().length() > 0) {
-				//
-				// temp = temp + "_" + edSales.getText().toString();
-				// }
-				//
-				//
-				// txtReview.setText(temp);
 			}
 		});
-
-		// btn = (Button) myFragmentView.findViewById(R.id.button1);
-		//
-		// btn.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// listener.sendDataToActivity("Hello World!");
-		// }
-		// });
 
 		return myFragmentView;
 	}
@@ -414,7 +287,6 @@ public class CreateCustomerFragment extends Fragment implements
 
 	@Override
 	public void update(String handing) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -427,27 +299,6 @@ public class CreateCustomerFragment extends Fragment implements
 		}
 	}
 
-	// @Override
-	// public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	// // TODO Auto-generated method stub
-	// // MenuInflater menuInflater = getActivity().getMenuInflater();
-	//
-	// inflater.inflate(R.menu.action_newappdetail_activity, menu);
-	// getActivity().getWindow().setUiOptions(
-	// ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
-	//
-	// super.onCreateOptionsMenu(menu, inflater);
-	// }
-
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	//
-	// // handling clicks on action items
-	// MenuInflater menuInflater = getMenuInflater();
-	// menuInflater.inflate(R.menu.action_newappdetail_activity, menu);
-	//
-	// return super.onCreateOptionsMenu(menu);
-	// }
 	private void checkType() {
 		switch (Constant.TYPE) {
 		case 1:

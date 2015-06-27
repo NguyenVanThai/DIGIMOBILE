@@ -3,12 +3,9 @@ package digi.mobile.util;
 import java.io.File;
 import java.io.FileInputStream;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.util.Log;
 
 public class Constant {
 

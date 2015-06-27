@@ -2,34 +2,15 @@ package paul.arian.fileselector;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
-import java.sql.Driver;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Locale;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -42,17 +23,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsware.cwac.merge.MergeAdapter;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import digi.mobile.activity.R;
 import digi.mobile.activity.UploadActivity;
-import digi.mobile.building.AndroidMultiPartEntity;
-import digi.mobile.building.AndroidMultiPartEntity.ProgressListener;
-import digi.mobile.util.Config;
 import digi.mobile.util.Constant;
 
 public class FileSelectionActivity extends Activity {

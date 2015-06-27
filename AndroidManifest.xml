@@ -49,7 +49,7 @@
 
         <!-- MainActivity -->
         <activity
-            android:name="digi.mobile.fragment.CreateCustomerFragment"
+            android:name="digi.mobile.fragment.CreateCustomerFragment1"
             android:label="@string/title_activity_create_customer"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
@@ -115,6 +115,30 @@
             android:name=".UploadActivity"
             android:label="@string/title_activity_upload" >
         </activity>
+        <activity
+            android:name=".CustomerActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+          <!-- MainActivity -->
+        <activity
+            android:name="digi.mobile.fragment.CreateCustomerFragment"
+            android:label="@string/title_activity_create_customer"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+        </activity>
+
+        <!-- MainActivity -->
+        <activity android:name="digi.mobile.fragment.CreateDucomentFragment" >
+        </activity>
+
+        <!-- MainActivity -->
+        <activity android:name="digi.mobile.fragment.UploadDucomentFragment" >
+        </activity>
+        
     </application>
 
 </manifest>

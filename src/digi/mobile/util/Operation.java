@@ -139,7 +139,7 @@ public class Operation {
 	public ArrayList<ImageItem> getData(String parentPath,
 			String nameShortCategory, boolean selected) {
 		List<String> fileNames = listImagebyCategory(parentPath,
-				".jpg", "name");
+				nameShortCategory, "name");
 		if (fileNames.size() > 0) {
 			ArrayList<ImageItem> imageItems = new ArrayList<ImageItem>(
 					fileNames.size());

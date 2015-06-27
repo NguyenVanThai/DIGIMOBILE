@@ -3,7 +3,6 @@ package digi.mobile.building;
 import java.io.File;
 import java.util.ArrayList;
 
-import digi.mobile.util.Operation;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;

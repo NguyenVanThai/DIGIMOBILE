@@ -267,7 +267,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	private void createCustomer() {
-		Intent intent = new Intent(MainActivity.this, NewCustomerActivity.class);
+		Intent intent = new Intent(MainActivity.this, CustomerActivity.class);
 		startActivity(intent);
 	}
 

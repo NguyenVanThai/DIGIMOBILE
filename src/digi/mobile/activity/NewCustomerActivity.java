@@ -8,11 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import digi.mobile.building.IEventListener;
 import digi.mobile.building.MyPagerAdapter;
 import digi.mobile.building.MyViewPager;
-import digi.mobile.fragment.CreateCustomerFragment;
+import digi.mobile.fragment.CreateCustomerFragment1;
 import digi.mobile.fragment.PdfFragment;
 import digi.mobile.fragment.PhotoFragment;
 
@@ -41,7 +40,7 @@ public class NewCustomerActivity extends FragmentActivity implements
 
 		// creating fragments and adding to list
 		fragments.add(Fragment.instantiate(this,
-				CreateCustomerFragment.class.getName()));
+				CreateCustomerFragment1.class.getName()));
 		fragments.add(Fragment.instantiate(this, PdfFragment.class.getName()));
 		fragments
 				.add(Fragment.instantiate(this, PhotoFragment.class.getName()));
