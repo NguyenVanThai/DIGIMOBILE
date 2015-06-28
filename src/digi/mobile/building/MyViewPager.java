@@ -47,4 +47,5 @@ public class MyViewPager extends ViewPager {
 	public void setPagingEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
 }

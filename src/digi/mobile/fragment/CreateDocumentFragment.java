@@ -64,11 +64,24 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	ImageButton btnExit;
 	TextView txtType;
 	ListView listView;
+	AdapterGridView adapterGridView = null;
+	ImageView imageView;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		if (activity instanceof IEventListener) {
+			listener = (IEventListener) activity;
+		} else {
+			// Throw an error!
+		}
+	}
 
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
+
 			String path = Constant.APP_FOLDER + File.separator
 					+ Constant.NAME_USER + File.separator
 					+ Constant.NAME_CUSTOMER;
@@ -77,6 +90,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			pathCustomer = Constant.getPathRoot(path);
 			pathSave = Constant.getPathRoot(pathUser);
 			showPdf();
+			lockClick(View.GONE);
 
 		} else {
 			Log.e("ErrorFragment", "CreateDocumentFragment gone");
@@ -90,6 +104,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 		View myFragmentView = inflater.inflate(
 				R.layout.fragment_create_document, container, false);
+		imageView = (ImageView) myFragmentView.findViewById(R.id.imageView2);
 		listView = (ListView) myFragmentView.findViewById(R.id.lvPdf);
 		txtType = (TextView) myFragmentView.findViewById(R.id.textType);
 		gridView = (GridView) myFragmentView.findViewById(R.id.gridview);
@@ -112,6 +127,33 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		relPDF.setOnClickListener(this);
 		relAfter.setOnClickListener(this);
 		relBefore.setOnClickListener(this);
+
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				TextView nameFile = (TextView) view.findViewById(R.id.item);
+				String pathFile = pathCustomer + File.separator
+						+ nameFile.getText().toString();
+				File file = new File(pathFile);
+
+				if (file.exists()) {
+					Uri path = Uri.fromFile(file);
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(path, "application/pdf");
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					try {
+						startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(getActivity(),
+								"No Application Available to View PDF",
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
 
 		return myFragmentView;
 	}
@@ -152,6 +194,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		switch (id) {
 		case R.id.relType:
 			chooseType();
+			// lockClick(View.VISIBLE);
 			break;
 		case R.id.relGallery:
 			showGallery();
@@ -164,18 +207,70 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			break;
 		case R.id.relPDF:
 			createPdf();
+			// lockClick(View.GONE);
 			break;
 		case R.id.relAfter:
-
+			listener.sendDataToActivity(Constant.Step_0);
 			break;
 		case R.id.relBefore:
-
+			if (checkLvPDF()) {
+				refreshForm();
+				listener.sendDataToActivity(Constant.Step_2);
+			}
 			break;
 		case R.id.imageButtonExit:
 			dialog.dismiss();
 			break;
 		default:
 			break;
+		}
+	}
+
+	// private boolean checkDocumentCreate(){
+	// if(txtType.getText().toString() != getString(R.string.choose_type)){
+	//
+	// return false;
+	// }else{
+	// return true;
+	// }
+	//
+	// }
+
+	private boolean checkLvPDF() {
+		int count = listView.getCount();
+		int temp = 0;
+		if (count > 0) {
+			if (Constant.TYPE == 1) {
+				for (int i = 0; i < count; i++) {
+					TextView txt = (TextView) listView.getChildAt(i)
+							.findViewById(R.id.item);
+					switch (txt.getText().toString()) {
+					case "DN.pdf":
+						temp++;
+						break;
+					case "ID.pdf":
+						temp++;
+						break;
+					case "HK.pdf":
+						temp++;
+						break;
+					}
+				}
+				if (temp < 3) {
+					Toast.makeText(getActivity(),
+							getString(R.string.create_document_upload),
+							Toast.LENGTH_LONG).show();
+					return false;
+				} else {
+					return true;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			Toast.makeText(getActivity(), getString(R.string.uploadPDF),
+					Toast.LENGTH_LONG).show();
+			return false;
 		}
 	}
 
@@ -216,13 +311,16 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 	private void check(String nameShortDocument) {
 
-		if (Constant.SELECT_ALL) {
-			showImage(false, nameShortDocument);
-			Constant.SELECT_ALL = false;
-		} else {
-			showImage(true, nameShortDocument);
-			Constant.SELECT_ALL = true;
-		}
+		Constant.SELECT_ALL = !Constant.SELECT_ALL;
+		showImage(Constant.SELECT_ALL, nameShortDocument);
+
+		// if (Constant.SELECT_ALL) {
+		// showImage(false, nameShortDocument);
+		// Constant.SELECT_ALL = false;
+		// } else {
+		// showImage(true, nameShortDocument);
+		// Constant.SELECT_ALL = true;
+		// }
 	}
 
 	private void chooseType() {
@@ -258,11 +356,12 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									// TODO Auto-generated method stub
 									operation.deleteFile(pathCustomer
 											+ File.separator
 											+ nameShortDocument + ".pdf");
 									setType(nameFullDocument);
+									showPdf();
+									// lockClick(true);
 								}
 
 							});
@@ -280,6 +379,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 					dialogReplace.show();
 				} else {
 					setType(nameFullDocument);
+					// lockClick(true);
 				}
 			}
 		});
@@ -292,6 +392,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 				+ ")");
 		dialog.dismiss();
 		showImage(false, nameShortDocument);
+		lockClick(View.VISIBLE);
 	}
 
 	private void showGallery() {
@@ -349,8 +450,9 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 		arrayImageItem = operation.getData(pathCustomer, nameShortDocument,
 				selected);
-		AdapterGridView adapterGridView = null;
-		if (arrayImageItem != null && arrayImageItem.size() > 0) {
+
+		if (arrayImageItem != null && arrayImageItem.size() > 0
+				&& !arrayImageItem.isEmpty()) {
 
 			adapterGridView = new AdapterGridView(getActivity(), arrayImageItem);
 			gridView.setAdapter(adapterGridView);
@@ -456,8 +558,9 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 				deleteListFile(listImage);
 				animation.stop();
 				dialog.cancel();
-				gridView.setAdapter(null);
-				showPdf();
+
+				refreshForm();
+
 				Toast.makeText(getActivity(),
 						nameShortDucoment + ".pdf" + " has created",
 						Toast.LENGTH_SHORT).show();
@@ -471,6 +574,15 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		// myAsynTask.execute();
 	}
 
+	private void refreshForm() {
+		// adapterGridView.clear();
+		gridView.setAdapter(null);
+		showPdf();
+		lockClick(View.GONE);
+		Constant.SELECT_ALL = false;
+		txtType.setText(getString(R.string.choose_type));
+	}
+
 	private boolean deleteListFile(List<String> listImage) {
 		for (String a : listImage) {
 			File file = new File(a);
@@ -482,13 +594,17 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	private void showPdf() {
 		List<String> listPDF = operation.listImagebyCategory(pathCustomer,
 				".pdf", "name");
-		if (listPDF.size() > 0) {
+		PdfListAdapter pdfListAdapter = null;
+		if (listPDF.size() > 0 && !listPDF.isEmpty()) {
 
-			PdfListAdapter pdfListAdapter = new PdfListAdapter(getActivity(),
+			pdfListAdapter = new PdfListAdapter(getActivity(),
 					convertListToArray(listPDF));
 			pdfListAdapter.notifyDataSetChanged();
 			listView.setAdapter(pdfListAdapter);
 
+		} else {
+			// pdfListAdapter.clear();
+			listView.setAdapter(null);
 		}
 	}
 
@@ -496,5 +612,23 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		ArrayList<String> list = (ArrayList<String>) listFolder;
 		return list.toArray(new String[list.size()]);
 
+	}
+
+	private void lockClick(int b) {
+		// relCamera.setEnabled(b);
+		// relGallery.setEnabled(b);
+		// relCheck.setEnabled(b);
+		// relPDF.setEnabled(b);
+		if (b == View.GONE) {
+			// relType.setVisibility(View.VISIBLE);
+			imageView.setVisibility(View.VISIBLE);
+		} else {
+			// relType.setVisibility(View.GONE);
+			imageView.setVisibility(View.GONE);
+		}
+		relCamera.setVisibility(b);
+		relGallery.setVisibility(b);
+		relCheck.setVisibility(b);
+		relPDF.setVisibility(b);
 	}
 }

@@ -33,25 +33,7 @@ public class CreateCustomerFragment extends Fragment implements
 	EditText edCustomerName, edIdCard, edSales, edID;
 	TextView txtReview;
 	Operation operation;
-	// @Override
-	// public void onCreate(Bundle savedInstanceState) {
-	// // TODO Auto-generated method stub
-	// super.onCreate(savedInstanceState);
-	// setHasOptionsMenu(true);
-	// // get the action bar
-	// ActionBar actionBar = getActivity().getActionBar();
-	//
-	// // // Enabling Back navigation on Action Bar icon
-	// // actionBar.setDisplayHomeAsUpEnabled(true);
-	// }
-	//
-	// @Override
-	// public void onCreateContextMenu(ContextMenu menu, View v,
-	// ContextMenuInfo menuInfo) {
-	// // TODO Auto-generated method stub
-	// super.onCreateContextMenu(menu, v, menuInfo);
-	//
-	// }
+
 	private IEventListener listener;
 
 	@Override
@@ -60,6 +42,7 @@ public class CreateCustomerFragment extends Fragment implements
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			// checkType();
+			Log.e("UserVisibleHint", "UserVisibleHint");
 		} else {
 			// Log.d("frag1", "HIde");
 		}
@@ -96,12 +79,6 @@ public class CreateCustomerFragment extends Fragment implements
 		edID = (EditText) myFragmentView.findViewById(R.id.edCode);
 		txtReview = (TextView) myFragmentView.findViewById(R.id.textView2);
 
-		if (Constant.TYPE == 1) {
-			txtReview.setText(getString(R.string.exNew));
-		} else {
-			txtReview.setText(getString(R.string.exSupplenment));
-		}
-
 		// set Sales channel
 		SharedPreferences sharedPreferences = getActivity()
 				.getSharedPreferences(Constant.DIGI_LOGIN_PREFERENCES,
@@ -111,28 +88,39 @@ public class CreateCustomerFragment extends Fragment implements
 		edSales.setText(channel);
 
 		// checkType();
-		checkType();
-
-		// init Error for editText
-		edCustomerName.setError(getString(R.string.error_customer_name));
-		edIdCard.setError(getString(R.string.error_customer_id));
-		// edSales.setError(getString(R.string.error_channel));
-		if (Constant.TYPE != 1) {
-			edID.setError(getString(R.string.error_id));
-		} else {
-			edID.setError(null);
-		}
+		checkType(Constant.TYPE);
 
 		relativeLayoutBefore.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// listener.sendDataToActivity("Hello World!");
+				Log.e("Error",
+						edCustomerName.getError() + "_" + edIdCard.getError()
+								+ "_" + edID.getError());
+				Log.e("onCreateView", "Type: " + Constant.TYPE);
+				if (edCustomerName.getError() == null
+						&& edIdCard.getError() == null
+						&& edID.getError() == null) {
 
-				if (edCustomerName.getError() != null
-						|| edIdCard.getError() != null
-						|| edSales.getError() != null
-						|| edID.getError() != null) {
+					Constant.NAME_CUSTOMER = getNameCustomer();
+					String pathNameCustomer = Constant.APP_FOLDER
+							+ File.separator + Constant.NAME_USER
+							+ File.separator + Constant.NAME_CUSTOMER;
+					createFolderUser(pathNameCustomer);
+
+					switch (Constant.TYPE) {
+					case 1:
+					case 2:
+						listener.sendDataToActivity(Constant.Step_1);
+						break;
+					case 3:
+						listener.sendDataToActivity(Constant.Step_2);
+						break;
+					}
+
+				} else {
+
 					final Dialog dialog = new Dialog(getActivity(),
 							R.style.MyTheme_Dialog_Action);
 					dialog.setContentView(R.layout.dialog_warning);
@@ -145,16 +133,7 @@ public class CreateCustomerFragment extends Fragment implements
 						}
 					});
 					dialog.show();
-				} else {
-					// resultData(txtReview.getText().toString());
 
-					// Constant.NAME_CUSTOMER = txtReview.getText().toString();
-					Constant.NAME_CUSTOMER = getNameCustomer();
-					String pathNameCustomer = Constant.APP_FOLDER
-							+ File.separator + Constant.NAME_USER
-							+ File.separator + Constant.NAME_CUSTOMER;
-					createFolderUser(pathNameCustomer);
-					listener.sendDataToActivity(Constant.Step_2);
 				}
 			}
 		});
@@ -207,7 +186,6 @@ public class CreateCustomerFragment extends Fragment implements
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
 				int length = s.toString().length();
 				if (length == 8 || length == 9 || length == 12) {
 					edIdCard.setError(null);
@@ -255,13 +233,15 @@ public class CreateCustomerFragment extends Fragment implements
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-				int length = s.toString().length();
-				if (length == 7) {
-					edID.setError(null);
-				} else {
 
-					edID.setError(getString(R.string.error_id));
+				if (Constant.TYPE != 1) {
+					int length = s.toString().length();
+					if (length == 7) {
+						edID.setError(null);
+					} else {
+
+						edID.setError(getString(R.string.error_id));
+					}
 				}
 			}
 
@@ -276,6 +256,7 @@ public class CreateCustomerFragment extends Fragment implements
 			}
 		});
 
+		// Log.e("onCreateView","Type: " + Constant.TYPE );
 		return myFragmentView;
 	}
 
@@ -299,14 +280,22 @@ public class CreateCustomerFragment extends Fragment implements
 		}
 	}
 
-	private void checkType() {
-		switch (Constant.TYPE) {
+	private void checkType(int type) {
+		// init Error for editText
+		edCustomerName.setError(getString(R.string.error_customer_name));
+		edIdCard.setError(getString(R.string.error_customer_id));
+
+		switch (type) {
 		case 1:
 			edID.setVisibility(View.GONE);
+			txtReview.setText(getString(R.string.exNew));
+			edID.setError(null);
 			break;
 		case 2:
 		case 3:
 			edID.setVisibility(View.VISIBLE);
+			txtReview.setText(getString(R.string.exSupplenment));
+			edID.setError(getString(R.string.error_id));
 			break;
 		}
 	}

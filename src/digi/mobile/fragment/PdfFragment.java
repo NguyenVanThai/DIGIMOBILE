@@ -29,6 +29,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -76,6 +77,7 @@ public class PdfFragment extends Fragment {
 			date, dateFormat, url, nameUpload;
 	AsyncHttpClient client;
 	TextView txtLoading;
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -161,7 +163,7 @@ public class PdfFragment extends Fragment {
 			// listener.sendDataToActivity(Constant.Step_3);
 			// Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT)
 			// .show();
-			sendDataToActivity(Constant.Step_3);
+			sendDataToActivity(Constant.Step_2);
 			break;
 		}
 
@@ -254,8 +256,7 @@ public class PdfFragment extends Fragment {
 					}
 				}
 				if (temp < 3) {
-					Toast.makeText(
-							getActivity(),
+					Toast.makeText(getActivity(),
 							getString(R.string.create_document_upload),
 							Toast.LENGTH_LONG).show();
 					return false;
@@ -290,8 +291,7 @@ public class PdfFragment extends Fragment {
 		dialog.setCanceledOnTouchOutside(false);
 
 		// init TextViewLoading and ImageLoading
-		txtLoading = (TextView) dialog
-				.findViewById(R.id.textViewLoading);
+		txtLoading = (TextView) dialog.findViewById(R.id.textViewLoading);
 		txtLoading.setText("Uploading 0%");
 		ImageView imageLoading = (ImageView) dialog
 				.findViewById(R.id.imageViewLoading);
@@ -386,12 +386,15 @@ public class PdfFragment extends Fragment {
 									@Override
 									public void onFailure(int statusCode,
 											Throwable error, String content) {
+
 										// When Http response code is '404'
+
 										if (statusCode == 404) {
 											Toast.makeText(
 													getActivity(),
 													"Error 404: Requested resource not found",
 													Toast.LENGTH_LONG).show();
+
 										}
 										// When Http response code is '500'
 										else if (statusCode == 500) {
@@ -408,6 +411,7 @@ public class PdfFragment extends Fragment {
 													"Error: Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
 													Toast.LENGTH_LONG).show();
 										}
+
 									}
 								});
 
@@ -474,12 +478,14 @@ public class PdfFragment extends Fragment {
 									@Override
 									public void onFailure(int statusCode,
 											Throwable error, String content) {
+
 										// When Http response code is '404'
 										if (statusCode == 404) {
 											Toast.makeText(
 													getActivity(),
 													"Error 404: Requested resource not found",
 													Toast.LENGTH_LONG).show();
+
 										}
 										// When Http response code is '500'
 										else if (statusCode == 500) {
@@ -496,6 +502,7 @@ public class PdfFragment extends Fragment {
 													"Error: Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
 													Toast.LENGTH_LONG).show();
 										}
+
 									}
 								});
 
@@ -603,7 +610,7 @@ public class PdfFragment extends Fragment {
 				// progressBar.setVisibility(View.VISIBLE);
 				// progressBar.setProgress(values[0]);
 				// txtPercentage.setText(String.valueOf(values[0]) + "%");
-				
+
 			}
 
 			@Override
@@ -635,8 +642,8 @@ public class PdfFragment extends Fragment {
 					btnOk.setVisibility(View.GONE);
 
 				} else {
-					txtContent.setText(getString(R.string.delete_file)
-							+" "+ file.getName() + " file?");
+					txtContent.setText(getString(R.string.delete_file) + " "
+							+ file.getName() + " file?");
 
 					// handling clicks
 					btnOk.setOnClickListener(new OnClickListener() {
@@ -660,7 +667,6 @@ public class PdfFragment extends Fragment {
 					}
 				});
 
-				
 			}
 
 			@SuppressWarnings("deprecation")
@@ -721,7 +727,7 @@ public class PdfFragment extends Fragment {
 					// entity.addPart("appFolder", new
 					// StringBody(nameCustomer));
 
-					 totalSize = entity.getContentLength();
+					totalSize = entity.getContentLength();
 					httpPost.setEntity(entity);
 					HttpResponse response = httpClient.execute(httpPost);
 					HttpEntity r_entity = response.getEntity();

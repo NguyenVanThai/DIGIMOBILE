@@ -434,7 +434,7 @@ public class PhotoFragment extends Fragment implements OnClickListener {
 					// NewAppActivity.class);
 					// startActivity(intentNewApp);
 					// finish();
-					sendDataToActivity(Constant.Step_2);
+					sendDataToActivity(Constant.Step_1);
 					Toast.makeText(getActivity(),
 							nameShortDucoment + ".pdf" + " has created",
 							Toast.LENGTH_SHORT).show();

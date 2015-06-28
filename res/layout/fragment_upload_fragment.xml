@@ -1,18 +1,165 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     style="@android:style/Theme.Light"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
     <LinearLayout
-        android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical" >
 
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="Upload Document"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/blue_3"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@color/blue_3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" 
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name File Upload:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/blue_3"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CC999999_20150627_01"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/blue_3"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name Customer:"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/blue_3"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtFolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:lines="2"
+            android:text="NGUYEN VAN A_123456789123_ABC"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/blue_3"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/relPdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="0.7"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List FDF "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue_3"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ListView
+                android:id="@+id/lvPdf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp" >
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/relReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reason"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue_3"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true" >
+
+        <RelativeLayout
+            android:id="@+id/relAfter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -28,6 +175,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relUpload"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -43,127 +191,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginRight="45dp"
-        android:layout_marginTop="15dp"
-        android:text="Upload Document"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/blue_3"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:typeface="normal" />
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewTitle"
-        android:background="@color/blue_3" />
-
-    <TextView
-        android:id="@+id/TextView04"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtFolder"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="List FDF "
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue_3"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/LinearLayout1"
-        android:layout_alignLeft="@+id/lvPdf"
-        android:layout_alignRight="@+id/lvPdf"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/TextView05"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
-        android:layout_alignLeft="@+id/TextView04"
-        android:text="Reason"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue_3"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <ListView
-        android:id="@+id/lvPdf"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/TextView05"
-        android:layout_below="@+id/TextView04"
-        android:layout_margin="3dp" >
-    </ListView>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lvPdf"
-        android:layout_below="@+id/view1"
-        android:layout_marginTop="15dp"
-        android:text="Name File Upload:"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue_3"
-        android:textSize="12sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/txtFile"
-        android:layout_marginTop="15dp"
-        android:text="Name Customer:"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue_3"
-        android:textSize="12sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txtFolder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/lvPdf"
-        android:layout_alignTop="@+id/TextView02"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/textView1"
-        android:lines="2"
-        android:text="NGUYEN VAN A_123456789123_ABC"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue_3"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/txtFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_alignLeft="@+id/txtFolder"
-        android:layout_alignRight="@+id/txtFolder"
-        android:lines="2"
-        android:text="CC999999_20150627_01"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue_3"
-        android:textSize="12sp" />
-
-</RelativeLayout>
+</LinearLayout>

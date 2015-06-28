@@ -96,13 +96,13 @@ public class CustomerActivity extends FragmentActivity implements
 		relStep3.setBackgroundColor(getResources().getColor(R.color.black_1));
 
 		switch (step) {
-		case 1:
+		case 0:
 			relStep1.setBackgroundColor(getResources().getColor(R.color.blue_3));
 			break;
-		case 2:
+		case 1:
 			relStep2.setBackgroundColor(getResources().getColor(R.color.blue_3));
 			break;
-		case 3:
+		case 2:
 			relStep3.setBackgroundColor(getResources().getColor(R.color.blue_3));
 			break;
 		default:

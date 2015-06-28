@@ -86,7 +86,7 @@ public class AdapterGridView extends BaseAdapter {
 		data.add(item);
 	}
 
-	void clear() {
+	public void clear() {
 		data.clear();
 	}
 

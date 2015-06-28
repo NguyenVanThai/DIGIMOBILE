@@ -156,7 +156,7 @@ public class CreateCustomerFragment1 extends Fragment implements
 							+ File.separator + Constant.NAME_USER
 							+ File.separator + Constant.NAME_CUSTOMER;
 					createFolderUser(pathNameCustomer);
-					listener.sendDataToActivity(Constant.Step_2);
+					listener.sendDataToActivity(Constant.Step_1);
 				}
 			}
 		});
