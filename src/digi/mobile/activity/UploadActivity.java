@@ -752,6 +752,8 @@ public class UploadActivity extends Activity {
 				TextView txtContent = (TextView) dialog
 						.findViewById(R.id.TextView1);
 				txtTitle.setText(getString(R.string.upload_successfull));
+				txtTitle.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.ic_successfull, 0, 0, 0);
 				final File file = new File(pathFile);
 				txtContent.setText(getString(R.string.delete_file) + " "
 						+ file.getName() + " file?");

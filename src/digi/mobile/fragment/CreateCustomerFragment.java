@@ -3,8 +3,10 @@ package digi.mobile.fragment;
 import java.io.File;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -109,15 +111,7 @@ public class CreateCustomerFragment extends Fragment implements
 							+ File.separator + Constant.NAME_CUSTOMER;
 					createFolderUser(pathNameCustomer);
 
-					switch (Constant.TYPE) {
-					case 1:
-					case 2:
-						listener.sendDataToActivity(Constant.Step_1);
-						break;
-					case 3:
-						listener.sendDataToActivity(Constant.Step_2);
-						break;
-					}
+					listener.sendDataToActivity(Constant.Step_1);
 
 				} else {
 
@@ -142,8 +136,30 @@ public class CreateCustomerFragment extends Fragment implements
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				getActivity().finish();
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle(getString(R.string.dialog_exit));
+				dialog.setMessage("If you exit, document will deleted");
+				dialog.setIcon(R.drawable.ic_warning);
+				dialog.setNegativeButton("YES",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								getActivity().finish();
+							}
+						});
+				dialog.setPositiveButton("NO",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+							}
+						});
+				dialog.show();
 			}
 		});
 

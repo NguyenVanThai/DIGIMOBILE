@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_add" />
+                    android:src="@drawable/ic_hard_qde" />
             </RelativeLayout>
         </TableRow>
 
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_note" />
+                    android:src="@drawable/ic_soft_qde" />
             </RelativeLayout>
 
             <RelativeLayout

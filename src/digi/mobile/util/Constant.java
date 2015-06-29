@@ -39,6 +39,7 @@ public class Constant {
 	public static String PATH_MY_FOLDER_SAVE_NEW = "";
 	public static String PATH_MY_FOLDER_SAVE_SUPPLEMENT = "";
 	public static String PATH = "";
+	public static String REASON = null;
 
 	// init String information User
 	public static final String DIGI_LOGIN_PREFERENCES = "Digi_Login_Preferences";

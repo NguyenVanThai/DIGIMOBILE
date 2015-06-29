@@ -52,7 +52,7 @@
     <string name="exNew">NGUYEN VAN A_123456789_ABC</string>
     <string name="exSupplenment">NGUYEN VAN A_123456789_ABC_1234567</string>
     <string name="warning">Warning</string>
-    <string name="fix_error">You must fix errors on this form before continuing</string>
+    <string name="fix_error">Please fix error before continuing.</string>
     <string name="create_folder_upload">You must create folder before starting</string>
     <string name="title_activity_create_folder">CreateFolderActivity</string>
     <string name="my_folder">My folder?</string>
@@ -62,11 +62,12 @@
     <string name="error_date">Date must have a lengt 8 is NUMBERIC, follow rule yyyymmdd and can not empty</string>
     <string name="error_ordinal_number">Ordinal numbers must be 2 character NUMERIC, equal the real number of your upload per day and can not empty</string>
     <string name="signout_title">Are you sure you want to sign out?</string>
+    <string name="dialog_exit">Are you sure you want to exit?</string>
     <string name="signout_message">You have made changes to your user a count. You must sign out and sign back in for these changes to take effect.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="createPDF">You must select the images you want to create PDF file</string>
-    <string name="uploadPDF">You must select the PDF files you want to upload</string>
+    <string name="createPDF">Please select the images. </string>
+    <string name="uploadPDF">Please select the PDF files.</string>
     <string name="upload_successfull">Upload successful!</string>
     <string name="delete_file">Are you sure you want to permanently delete </string>
     <string name="open_file">Are you sure you want to open it?</string>
@@ -75,8 +76,8 @@
     <string name="helpDigi">DigiUpload Help!</string>
     <string name="exit">Exit</string>
     <string name="error">Error</string>
-    <string name="not_support">This file type not supported</string>
-    <string name="create_document_upload">You must provide 3 documents (DN.pdf, ID.pdf, HK.pdf) before uploading</string>
+    <string name="not_support">This file type not supported.</string>
+    <string name="create_document_upload">Please provide 3 documents (DN.pdf, ID.pdf, HK.pdf) before continuing.</string>
 
     <!-- File selector -->
     <string name="action_settings">Settings</string>
@@ -95,5 +96,7 @@
     <string name="hardware_qde">Hard QDE</string>
     <string name="my_account">My profile</string>
     <string name="ex">Ex:</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 
 </resources>

@@ -41,7 +41,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	private float oldDist = 1f;
 	private float angleStart = 0f;
 	private float angleFinish = 0f;
-
+	private int zoom = 0;
 	// private float coordinatesX;
 	// private float coordinatesY;
 
@@ -60,9 +60,9 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		setContentView(R.layout.activity_option);
 		image = (ImageView) findViewById(R.id.image);
 		zoomControl = (ZoomControls) findViewById(R.id.zoomControls1);
-		
+
 		image.setOnTouchListener(this);
-		
+
 		// get the action bar
 		ActionBar actionBar = getActionBar();
 		//
@@ -74,28 +74,34 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 		// image.setImageBitmap(bitmap);
 		matrix.setScale(0.5f, 0.5f);
-		
+
 		showImage();
-		
+
 		zoomControl.setOnZoomInClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.e("ZoomIn", "ZooIN");
-				matrix.postScale(1.1f, 1.1f, center.x, center.y);
-				image.setImageMatrix(matrix);
+				if (zoom < 8) {
+					matrix.postScale(1.1f, 1.1f, center.x, center.y);
+					image.setImageMatrix(matrix);
+					zoom++;
+				} else {
+					zoom = 8;
+				}
 			}
 		});
-		
+
 		zoomControl.setOnZoomOutClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.e("ZoomOut", "ZoomOut");
-				matrix.postScale(0.9f, 0.9f, center.x, center.y);
-				image.setImageMatrix(matrix);
+				if (zoom > -10) {
+					matrix.postScale(0.9f, 0.9f, center.x, center.y);
+					image.setImageMatrix(matrix);
+					zoom--;
+				} else {
+					zoom = -10;
+				}
 			}
 		});
 	}
@@ -117,6 +123,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				// Intent intent = new Intent(OptionActivity.this,
 				// NewAppDetailActivity.class);
 				// startActivity(intent);
+				zoom = 0;
 				setResult(RESULT_OK);
 				finish();
 				break;
@@ -124,6 +131,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				// bitmap = Constant.bitmap;
 				// image.setImageBitmap(bitmap);
 				// setResult(RESULT_OK);
+				zoom = 0;
 				showImage();
 				break;
 			}
@@ -218,10 +226,10 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	private void rotateLeft() {
 		// TODO Auto-generated method stub
 
-		 matrix.postRotate(-10, center.x, center.y);
-		 image.setImageMatrix(matrix);
-//		matrix.postScale(1.5f, 1.5f, center.x, center.y);
-//		image.setImageMatrix(matrix);
+		matrix.postRotate(-10, center.x, center.y);
+		image.setImageMatrix(matrix);
+		// matrix.postScale(1.5f, 1.5f, center.x, center.y);
+		// image.setImageMatrix(matrix);
 	}
 
 	/*
@@ -366,23 +374,24 @@ public class OptionActivity extends Activity implements OnTouchListener {
 
 				matrix.postTranslate(dx, dy);
 
-			} else if (mode == ZOOM) {
-				midPoint(midFinal, event);
-				Log.e("midPointFinal", midFinal.x + " _ " + midFinal.y);
-
-				float newDist = spacing(event);
-				if (newDist > 10f) {
-					matrix.set(saveMatrix);
-					scale = (newDist / oldDist);
-
-					matrix.postScale(scale, scale, mid.x, mid.y);
-
-					// angleFinish = rotation(event);
-					// float angleChange = angleStart - angleFinish;
-					// matrix.postRotate(angleChange, mid.x, mid.y);
-				}
-
 			}
+			// else if (mode == ZOOM) {
+			// midPoint(midFinal, event);
+			// Log.e("midPointFinal", midFinal.x + " _ " + midFinal.y);
+			//
+			// float newDist = spacing(event);
+			// if (newDist > 10f) {
+			// matrix.set(saveMatrix);
+			// scale = (newDist / oldDist);
+			//
+			// matrix.postScale(scale, scale, mid.x, mid.y);
+			//
+			// // angleFinish = rotation(event);
+			// // float angleChange = angleStart - angleFinish;
+			// // matrix.postRotate(angleChange, mid.x, mid.y);
+			// }
+			//
+			// }
 			break;
 		}
 

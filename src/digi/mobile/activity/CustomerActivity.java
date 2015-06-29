@@ -3,6 +3,8 @@ package digi.mobile.activity;
 import java.util.List;
 import java.util.Vector;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -109,4 +111,28 @@ public class CustomerActivity extends FragmentActivity implements
 			break;
 		}
 	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle(getString(R.string.dialog_exit));
+		dialog.setMessage("If you exit, document will deleted");
+		dialog.setIcon(R.drawable.ic_warning);
+		dialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+			}
+		});
+		dialog.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+
 }

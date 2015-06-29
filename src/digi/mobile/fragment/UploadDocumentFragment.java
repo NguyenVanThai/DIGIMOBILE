@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -73,7 +74,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 
 	RelativeLayout relAfter, relUpload;
 	LinearLayout llReason, llPdf;
-	EditText edReason;
+	TextView txtReason;
 	String pathCustomer;
 	String nameShortDucoment;
 	Operation operation = new Operation();
@@ -112,15 +113,10 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 					+ Constant.NAME_USER;
 			pathCustomer = Constant.getPathRoot(path);
 			pathSave = Constant.getPathRoot(pathUser);
-			switch (Constant.TYPE) {
-			case 1:
-			case 2:
-				showPdf();
-				break;
-			case 3:
-				break;
-			}
-			
+
+			txtFolder.setText(Constant.NAME_CUSTOMER);
+			checkType(Constant.TYPE);
+
 			// lockClick(View.GONE);
 
 		} else {
@@ -139,14 +135,39 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 		txtFile = (TextView) myFragmentView.findViewById(R.id.txtFile);
 		llPdf = (LinearLayout) myFragmentView.findViewById(R.id.relPdf);
 		llReason = (LinearLayout) myFragmentView.findViewById(R.id.relReason);
-		edReason = (EditText) myFragmentView.findViewById(R.id.edReason);
+		txtReason = (TextView) myFragmentView.findViewById(R.id.txtReason);
 		relAfter = (RelativeLayout) myFragmentView.findViewById(R.id.relAfter);
 		relUpload = (RelativeLayout) myFragmentView
 				.findViewById(R.id.relUpload);
 		relAfter.setOnClickListener(this);
 		relUpload.setOnClickListener(this);
-		checkType(Constant.TYPE);
-		txtFolder.setText(Constant.NAME_CUSTOMER);
+
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				TextView nameFile = (TextView) view.findViewById(R.id.item);
+				String pathFile = pathCustomer + File.separator
+						+ nameFile.getText().toString();
+				File file = new File(pathFile);
+
+				if (file.exists()) {
+					Uri path = Uri.fromFile(file);
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(path, "application/pdf");
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					try {
+						startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(getActivity(),
+								"No Application Available to View PDF",
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
 		return myFragmentView;
 	}
 
@@ -155,19 +176,13 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 		int id = view.getId();
 		switch (id) {
 		case R.id.relAfter:
-			switch(Constant.TYPE){
-			case 1:
-			case 2:
-				listener.sendDataToActivity(Constant.Step_1);
-				break;
-			case 3:
-				listener.sendDataToActivity(Constant.Step_0);
-				break;
-			}
-			
+
+			listener.sendDataToActivity(Constant.Step_1);
+
 			break;
 		case R.id.relUpload:
-			checkUpload();
+			// checkUpload();
+			uploadZipFile();
 			break;
 		default:
 			break;
@@ -201,11 +216,15 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 		switch (type) {
 		case 1:
 			llReason.setVisibility(View.GONE);
+			showPdf();
 			break;
 		case 2:
 			// llReason.setVisibility(View.VISIBLE);
+			showPdf();
+			txtReason.setText(Constant.REASON);
 			break;
 		case 3:
+			txtReason.setText(Constant.REASON);
 			llPdf.setVisibility(View.GONE);
 			break;
 
@@ -276,7 +295,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 	}
 
 	private boolean checkEtReason() {
-		if (edReason.getText().toString().isEmpty()) {
+		if (txtReason.getText().toString().isEmpty()) {
 			Toast.makeText(getActivity(), "Please fill in a reason",
 					Toast.LENGTH_LONG).show();
 			return false;
@@ -454,7 +473,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 													pathCustomer, pathSave,
 													nameUpload + ".zip");
 
-											reason = edReason.getText()
+											reason = txtReason.getText()
 													.toString();
 											idf1 = Constant.IDF1;
 											uploadFileToServer2(userName,
@@ -510,7 +529,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 
 						break;
 					case 3:
-						reason = edReason.getText().toString();
+						reason = txtReason.getText().toString();
 						idf1 = Constant.IDF1;
 
 						uploadFileToServer2(userName, channel, "HOSOBOSUNG",
@@ -599,10 +618,13 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 				TextView txtContent = (TextView) dialog
 						.findViewById(R.id.TextView1);
 				txtTitle.setText(getString(R.string.upload_successfull));
+				txtTitle.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.ic_successfull, 0, 0, 0);
 				final File file = new File(pathFile);
 				if (Constant.TYPE == 3) {
 					txtContent.setText(getString(R.string.update_content));
 					btnOk.setVisibility(View.GONE);
+					btnCancel.setText(getString(R.string.ok));
 
 				} else {
 					txtContent.setText(getString(R.string.delete_file) + " "

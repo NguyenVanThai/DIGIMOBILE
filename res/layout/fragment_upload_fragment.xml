@@ -42,9 +42,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp" 
-        android:visibility="gone"
-        >
+        android:layout_margin="5dp"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/textView1"
@@ -104,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="0.7"
+            android:layout_weight="0.3"
             android:orientation="vertical" >
 
             <TextView
@@ -120,8 +119,9 @@
             <ListView
                 android:id="@+id/lvPdf"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp" >
+                android:layout_height="163dp"
+                android:layout_margin="3dp"
+                android:layout_weight="0.43" >
             </ListView>
         </LinearLayout>
 
@@ -130,6 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+             android:layout_weight="0.2"
             android:orientation="vertical" >
 
             <TextView
@@ -142,14 +143,27 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/edReason"
+            <ScrollView
+                android:id="@+id/scrollView1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10" >
+                android:layout_height="wrap_content" >
 
-                <requestFocus />
-            </EditText>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/txtReason"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </LinearLayout>
+            </ScrollView>
+
+            <requestFocus
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 

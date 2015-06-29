@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.lowagie.text.pdf.codec.GifImage;
-
 import paul.arian.fileselector.FileSelectionActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,14 +30,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import digi.mobile.activity.DocumentTypeActivity;
 import digi.mobile.activity.OptionActivity;
 import digi.mobile.activity.R;
 import digi.mobile.adapter.AdapterGridView;
@@ -53,6 +52,8 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 	RelativeLayout relPDF, relCheck, relType, relGallery, relCamera, relAfter,
 			relBefore;
+
+	RelativeLayout relParentType, relParentPdf;
 	GridView gridView;
 	String pathCustomer, pathSave;
 	String nameShortDocument = null, nameFullDocument = null;
@@ -66,6 +67,8 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	ListView listView;
 	AdapterGridView adapterGridView = null;
 	ImageView imageView;
+	EditText edReason;
+	LinearLayout llReason;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -119,6 +122,16 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		relAfter = (RelativeLayout) myFragmentView.findViewById(R.id.relAfter);
 		relBefore = (RelativeLayout) myFragmentView
 				.findViewById(R.id.relBefore);
+		relParentType = (RelativeLayout) myFragmentView
+				.findViewById(R.id.reltype);
+		relParentPdf = (RelativeLayout) myFragmentView
+				.findViewById(R.id.relpdf);
+
+		edReason = (EditText) myFragmentView.findViewById(R.id.edReason);
+
+		llReason = (LinearLayout) myFragmentView.findViewById(R.id.relReason);
+
+		checkType(Constant.TYPE);
 
 		relType.setOnClickListener(this);
 		relGallery.setOnClickListener(this);
@@ -156,6 +169,22 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		});
 
 		return myFragmentView;
+	}
+
+	private void checkType(int type) {
+		switch (type) {
+		case 1:
+			llReason.setVisibility(View.GONE);
+			break;
+		case 2:
+			llReason.setVisibility(View.VISIBLE);
+			break;
+		case 3:
+			relParentPdf.setVisibility(View.GONE);
+			relParentType.setVisibility(View.GONE);
+			llReason.setVisibility(View.VISIBLE);
+			break;
+		}
 	}
 
 	@Override
@@ -213,9 +242,10 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			listener.sendDataToActivity(Constant.Step_0);
 			break;
 		case R.id.relBefore:
-			if (checkLvPDF()) {
-				refreshForm();
+			if (checkAll(Constant.TYPE)) {
+				// refreshForm();
 				listener.sendDataToActivity(Constant.Step_2);
+				
 			}
 			break;
 		case R.id.imageButtonExit:
@@ -236,15 +266,43 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	//
 	// }
 
+	private boolean checkAll(int type) {
+		switch (type) {
+		case 1:
+			return checkLvPDF();
+		case 2:
+			return (checkLvPDF() && checkReason());
+		case 3:
+			return checkReason();
+		default:
+			return false;
+		}
+	}
+
+	private boolean checkReason() {
+		if (edReason.getText().toString().isEmpty()) {
+			Toast.makeText(getActivity(), "Please fill in a reason",
+					Toast.LENGTH_LONG).show();
+			return false;
+		} else {
+			Constant.REASON = edReason.getText().toString();
+			return true;
+		}
+	}
+
 	private boolean checkLvPDF() {
-		int count = listView.getCount();
+		List<String> listPDF = operation.listImagebyCategory(pathCustomer,
+				".pdf", "name");
+		// int count = listView.getCount();
+		int count = listPDF.size();
 		int temp = 0;
 		if (count > 0) {
 			if (Constant.TYPE == 1) {
 				for (int i = 0; i < count; i++) {
-					TextView txt = (TextView) listView.getChildAt(i)
-							.findViewById(R.id.item);
-					switch (txt.getText().toString()) {
+					// TextView txt = (TextView) listView.getChildAt(i)
+					// .findViewById(R.id.item);
+					// String txt = listPDF.get(i);
+					switch (listPDF.get(i).toString()) {
 					case "DN.pdf":
 						temp++;
 						break;

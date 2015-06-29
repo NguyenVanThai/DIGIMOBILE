@@ -120,8 +120,8 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
-        
-          <!-- MainActivity -->
+
+        <!-- MainActivity -->
         <activity
             android:name="digi.mobile.fragment.CreateCustomerFragment"
             android:label="@string/title_activity_create_customer"
@@ -138,7 +138,6 @@
         <!-- MainActivity -->
         <activity android:name="digi.mobile.fragment.UploadDucomentFragment" >
         </activity>
-        
     </application>
 
 </manifest>
