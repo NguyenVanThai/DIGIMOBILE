@@ -6,7 +6,7 @@
     tools:context="${relativePackage}.${activityClass}" >
 
     <LinearLayout
-            android:id="@+id/LinearLayout2"
+        android:id="@+id/LinearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -86,17 +86,35 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/edCode"
-            style="@android:style/Theme.Light"
+        <LinearLayout
+            android:id="@+id/llID"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/ic_id"
-            android:ems="10"
-            android:hint="ID"
-            android:inputType="number"
-            android:maxLength="7" />
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/edCode"
+                style="@android:style/Theme.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_id"
+                android:ems="10"
+                android:hint="ID"
+                android:inputType="number"
+                android:maxLength="7" />
+
+            <Button
+                android:id="@+id/btnCheckID"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bt_login"
+                android:text="Check"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/editTextUserName"

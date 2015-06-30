@@ -618,8 +618,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 				TextView txtContent = (TextView) dialog
 						.findViewById(R.id.TextView1);
 				txtTitle.setText(getString(R.string.upload_successfull));
-				txtTitle.setCompoundDrawablesWithIntrinsicBounds(
-						R.drawable.ic_successfull, 0, 0, 0);
+
 				final File file = new File(pathFile);
 				if (Constant.TYPE == 3) {
 					txtContent.setText(getString(R.string.update_content));

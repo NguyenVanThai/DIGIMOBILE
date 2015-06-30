@@ -36,6 +36,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,13 +59,22 @@ public class UploadActivity extends Activity {
 	RelativeLayout relativeLayout;
 	EditText edCustomerName, edIdCard, edSales, edID, edReason;
 	TextView txtReview, txtTypeFile;
+	Button btnCheckID;
 	File fileUpload, file;
 	String nameFile;
 	String[] arr;
-	Dialog dialog;
-	AnimationDrawable animation;
-	TextView txtLoading;
 	long totalSize = 0;
+	LinearLayout llID;
+	// Dialog Loading User
+	Dialog dialog;
+
+	// TextView and ImageView display % Loading
+	TextView txtLoading;
+	ImageView imageLoading;
+
+	// Animation for ImageView loading
+	AnimationDrawable animation;
+	SharedPreferences sharedPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +90,14 @@ public class UploadActivity extends Activity {
 		edReason = (EditText) findViewById(R.id.edReason);
 		txtReview = (TextView) findViewById(R.id.textView2);
 		txtTypeFile = (TextView) findViewById(R.id.textView1);
+		llID = (LinearLayout) findViewById(R.id.llID);
+		btnCheckID = (Button) findViewById(R.id.btnCheckID);
 		edCustomerName.setError(getString(R.string.error_customer_name));
 		edIdCard.setError(getString(R.string.error_customer_id));
+		btnCheckID = (Button) findViewById(R.id.btnCheckID);
 		// edSales.setError(getString(R.string.error_channel));
-
+		sharedPreferences = getSharedPreferences(
+				Constant.DIGI_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
 		Intent intent = getIntent();
 		path = intent.getStringExtra("path");
 		type = intent.getStringExtra("type");
@@ -109,7 +123,7 @@ public class UploadActivity extends Activity {
 
 		file = new File(path);
 		nameFile = file.getName();
-//		txtReview.setText(nameFile);
+		// txtReview.setText(nameFile);
 		// if (file.isFile()) {
 		// if (FilenameUtils.getExtension(path).toLowerCase().equals("zip")
 		// || FilenameUtils.getExtension(path).toLowerCase()
@@ -125,10 +139,10 @@ public class UploadActivity extends Activity {
 		switch (type) {
 		case "HOSOMOI":
 			url = url + "HOSOMOI";
-			edID.setVisibility(View.GONE);
+			llID.setVisibility(View.GONE);
 			edReason.setVisibility(View.GONE);
 			txtReview.setText(getString(R.string.exNew));
-		
+
 			// arr = nameFile.split("_");
 			// for (int i = 0; i < arr.length; i++) {
 			//
@@ -155,6 +169,8 @@ public class UploadActivity extends Activity {
 			edReason.setError(getString(R.string.error_empty));
 			edReason.setText("");
 			txtReview.setText(getString(R.string.exSupplenment));
+			edCustomerName.setEnabled(false);
+			edIdCard.setEnabled(false);
 			// arr = nameFile.split("_");
 			//
 			// for (int i = 0; i < arr.length; i++) {
@@ -179,6 +195,14 @@ public class UploadActivity extends Activity {
 		}
 
 		// }
+
+		btnCheckID.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				checkID();
+			}
+		});
 
 		edReason.addTextChangedListener(new TextWatcher() {
 
@@ -401,8 +425,9 @@ public class UploadActivity extends Activity {
 					int count) {
 				// TODO Auto-generated method stub
 				int length = s.toString().length();
-				if (length == 7) {
-					edID.setError(null);
+				if (length >= 7) {
+					edID.setError("Please check ID.");
+
 				} else {
 
 					edID.setError(getString(R.string.error_id));
@@ -752,8 +777,7 @@ public class UploadActivity extends Activity {
 				TextView txtContent = (TextView) dialog
 						.findViewById(R.id.TextView1);
 				txtTitle.setText(getString(R.string.upload_successfull));
-				txtTitle.setCompoundDrawablesWithIntrinsicBounds(
-						R.drawable.ic_successfull, 0, 0, 0);
+
 				final File file = new File(pathFile);
 				txtContent.setText(getString(R.string.delete_file) + " "
 						+ file.getName() + " file?");
@@ -883,5 +907,109 @@ public class UploadActivity extends Activity {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private void checkID() {
+		// final String userName = edUserName.getText().toString();
+		// final String passWord = edPassword.getText().toString();
+
+		dialog = new Dialog(UploadActivity.this, R.style.Theme_D1NoTitleDim);
+		dialog.setContentView(R.layout.dialog_loading_animation);
+
+		// dialog.setCanceledOnTouchOutside(false);
+		// init TextViewLoading and ImageLoading
+		txtLoading = (TextView) dialog.findViewById(R.id.textViewLoading);
+		txtLoading.setText("Checking ID...");
+		imageLoading = (ImageView) dialog.findViewById(R.id.imageViewLoading);
+		imageLoading.setBackgroundResource(R.drawable.animation_loading);
+
+		// using Animation for ImageLoading
+		animation = (AnimationDrawable) imageLoading.getBackground();
+
+		String url = Config.IDF1_URL + "?idf1=" + edID.getText().toString()
+				+ "&CCcode="
+				+ sharedPreferences.getString(Constant.USER_NAME, null);
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get(url, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onStart() {
+				// TODO Auto-generated method stub
+				super.onStart();
+
+				animation.start();
+				dialog.show();
+
+			}
+
+			// When the response returned by REST has Http response code
+			// '200'
+			@Override
+			public void onSuccess(String response) {
+				// TODO Auto-generated method stub
+				try {
+					if (dialog.isShowing())
+						dialog.dismiss();
+					// JSON Object
+					JSONObject obj = new JSONObject(response);
+					// When the JSON response has status boolean value
+					// assigned with true
+
+					if (obj.getString("status").equals("1")) {
+
+						edCustomerName.setText(obj.getString("customer_name"));
+						edIdCard.setText(obj.getString("customer_id"));
+						Toast.makeText(UploadActivity.this, "ID valid.",
+								Toast.LENGTH_LONG).show();
+						edID.setError(null);
+
+					}
+					// Else display error message
+					else {
+						Toast.makeText(UploadActivity.this,
+								obj.getString("ID invalid"), Toast.LENGTH_LONG)
+								.show();
+						dialog.dismiss();
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					Toast.makeText(UploadActivity.this, "ID invalid.",
+							Toast.LENGTH_LONG).show();
+					dialog.dismiss();
+					e.printStackTrace();
+
+				}
+
+			}
+
+			// When the response returned by REST has Http response code
+			// other than '200'
+			@Override
+			public void onFailure(int statusCode, Throwable error,
+					String content) {
+				dialog.dismiss();
+				if (dialog.isShowing())
+					dialog.dismiss();
+				// When Http response code is '404'
+				if (statusCode == 404) {
+					Toast.makeText(UploadActivity.this,
+							"Error 404: Requested resource not found",
+							Toast.LENGTH_LONG).show();
+				}
+				// When Http response code is '500'
+				else if (statusCode == 500) {
+					Toast.makeText(UploadActivity.this,
+							"Error 500: Something went wrong at server end",
+							Toast.LENGTH_LONG).show();
+				}
+				// When Http response code other than 404, 500
+				else {
+					Toast.makeText(
+							UploadActivity.this,
+							"Error: Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 	}
 }

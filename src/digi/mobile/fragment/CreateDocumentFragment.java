@@ -94,6 +94,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			pathSave = Constant.getPathRoot(pathUser);
 			showPdf();
 			lockClick(View.GONE);
+			txtType.setText(getString(R.string.choose_type));
 
 		} else {
 			Log.e("ErrorFragment", "CreateDocumentFragment gone");
@@ -230,6 +231,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			break;
 		case R.id.relCamera:
 			takePhoto();
+			Constant.TAKE_PHOTO = true;
 			break;
 		case R.id.relCheck:
 			check(nameShortDocument);
@@ -460,6 +462,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	}
 
 	private void takePhoto() {
+		
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		try {
 			Uri mImageCaptureUri = null;
