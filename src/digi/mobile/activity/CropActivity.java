@@ -41,6 +41,7 @@ public class CropActivity extends Activity {
 		cropImageView = (CropImageView) findViewById(R.id.CropImageView);
 
 		cropImageView.setImageBitmap(Constant.bitmap);
+		
 
 	}
 

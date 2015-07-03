@@ -170,7 +170,7 @@ public class CreateCustomerFragment extends Fragment implements
 				AlertDialog.Builder dialog = new AlertDialog.Builder(
 						getActivity());
 				dialog.setTitle(getString(R.string.dialog_exit));
-				dialog.setMessage("If you exit, document will deleted");
+				dialog.setMessage(getString(R.string.warning_exit));
 				dialog.setIcon(R.drawable.ic_warning);
 				dialog.setNegativeButton("YES",
 						new DialogInterface.OnClickListener() {
@@ -283,10 +283,9 @@ public class CreateCustomerFragment extends Fragment implements
 
 				if (Constant.TYPE != 1) {
 					int length = s.toString().length();
-					if (length >=7) {
+					if (length >= 7) {
 						edID.setError("Please check ID.");
-						
-						
+
 					} else {
 
 						edID.setError(getString(R.string.error_id));
@@ -302,9 +301,9 @@ public class CreateCustomerFragment extends Fragment implements
 
 			@Override
 			public void afterTextChanged(Editable s) {
-//				if(edID.getText().toString().length() ==7){
-//					edID.setError("Please check ID.");
-//				}
+				// if(edID.getText().toString().length() ==7){
+				// edID.setError("Please check ID.");
+				// }
 			}
 		});
 
@@ -438,9 +437,7 @@ public class CreateCustomerFragment extends Fragment implements
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
-					Toast.makeText(
-							getActivity(),
-							"ID invalid.",
+					Toast.makeText(getActivity(), "ID invalid.",
 							Toast.LENGTH_LONG).show();
 					dialog.dismiss();
 					e.printStackTrace();

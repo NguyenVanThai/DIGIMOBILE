@@ -183,7 +183,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 					if (obj.getString("status").equals("1")) {
 						Toast.makeText(getApplicationContext(),
-								"You are successfully logged in!",
+								getString(R.string.login_success),
 								Toast.LENGTH_LONG).show();
 						Editor editor = sharedPreferences.edit();
 						editor.putString(Constant.USER_NAME, userName);
@@ -203,14 +203,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 					else {
 						Toast.makeText(
 								getApplicationContext(),
-								obj.getString("The user name or password is incorrect"),
+								obj.getString(getString(R.string.pwd_incorrect)),
 								Toast.LENGTH_LONG).show();
 					}
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					Toast.makeText(
 							getApplicationContext(),
-							"Error Occured [Server's JSON response might be invalid]!",
+							getString(R.string.json_invalid),
 							Toast.LENGTH_LONG).show();
 					e.printStackTrace();
 
@@ -229,20 +228,20 @@ public class LoginActivity extends Activity implements OnClickListener {
 				// When Http response code is '404'
 				if (statusCode == 404) {
 					Toast.makeText(getApplicationContext(),
-							"Error 404: Requested resource not found",
+							getString(R.string.error_404),
 							Toast.LENGTH_LONG).show();
 				}
 				// When Http response code is '500'
 				else if (statusCode == 500) {
 					Toast.makeText(getApplicationContext(),
-							"Error 500: Something went wrong at server end",
+							getString(R.string.error_500),
 							Toast.LENGTH_LONG).show();
 				}
 				// When Http response code other than 404, 500
 				else {
 					Toast.makeText(
 							getApplicationContext(),
-							"Error: Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
+							getString(R.string.error_connected),
 							Toast.LENGTH_LONG).show();
 				}
 			}

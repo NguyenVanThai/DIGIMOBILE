@@ -2,6 +2,8 @@ package digi.mobile.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,9 +13,10 @@ public class Constant {
 
 	// constants integer
 	public static int TYPE = 0; // 1: New // 2: Supplement
-	public static boolean TAKE_PHOTO=true; // true: Camera // false: Gallery
+	public static boolean TAKE_PHOTO = true; // true: Camera // false: Gallery
 
-	public static int TYPE_SHOW = 0; // 1: Show Image // 2: Show PDF and Zip file
+	public static int TYPE_SHOW = 0; // 1: Show Image // 2: Show PDF and Zip
+										// file
 
 	public static final int Step_0 = 0;
 	public static final int Step_1 = 1;
@@ -26,7 +29,7 @@ public class Constant {
 	public static final String CHECK_BITMAP = "check";
 	public static final String BITMAP_CROP = "crop";
 	public static final String POSITION = "position";
-	public static boolean SELECT_ALL = false ;
+	public static boolean SELECT_ALL = false;
 	public static String NAME_MY_FOLDER = "";
 	public static String NAME_USER = "";
 	public static String NAME_CUSTOMER = null;
@@ -97,37 +100,56 @@ public class Constant {
 		Bitmap b = null;
 		File f = new File(path);
 		// Decode image size
-		BitmapFactory.Options o = new BitmapFactory.Options();
-		o.inJustDecodeBounds = true;
-
-		FileInputStream fis = null;
+		BitmapFactory.Options option = new BitmapFactory.Options();
+		option.inJustDecodeBounds = false;
+		option.inDither = false;
+		option.inSampleSize = 4;
+		option.inScaled = false;
+		option.inPreferredConfig = Bitmap.Config.ARGB_8888;		
+		
+		FileInputStream fis;
 		try {
 			fis = new FileInputStream(f);
-			BitmapFactory.decodeStream(fis, null, o);
+			b = BitmapFactory.decodeStream(fis, null, option);
 			fis.close();
-
-			int IMAGE_MAX_SIZE = 512; // maximum dimension limit
-			int scale = 1;
-			if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-				scale = (int) Math.pow(
-						2,
-						(int) Math.round(Math.log(IMAGE_MAX_SIZE
-								/ (double) Math.max(o.outHeight, o.outWidth))
-								/ Math.log(0.5)));
-			}
-
-			// Decode with inSampleSize
-			BitmapFactory.Options o2 = new BitmapFactory.Options();
-			o2.inSampleSize = scale;
-
-			fis = new FileInputStream(f);
-			b = BitmapFactory.decodeStream(fis, null, o2);
-			fis.close();
-
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+
+//		FileInputStream fis = null;
+//		try {
+//			fis = new FileInputStream(f);
+//			BitmapFactory.decodeStream(fis, null, o);
+//			fis.close();
+//
+//			int IMAGE_MAX_SIZE = 512; // maximum dimension limit
+//			int scale = 1;
+//			if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
+//				scale = (int) Math.pow(
+//						2,
+//						(int) Math.round(Math.log(IMAGE_MAX_SIZE
+//								/ (double) Math.max(o.outHeight, o.outWidth))
+//								/ Math.log(0.5)));
+//			}
+//
+//			// Decode with inSampleSize
+//			BitmapFactory.Options o2 = new BitmapFactory.Options();
+//			o2.inSampleSize = scale;
+//
+//			fis = new FileInputStream(f);
+//			b = BitmapFactory.decodeStream(fis, null, o2);
+//			fis.close();
+//
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		return b;
 

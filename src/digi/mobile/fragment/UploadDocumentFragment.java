@@ -601,55 +601,56 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 				super.onPostExecute(result);
 				animation.stop();
 				dialog.dismiss();
-				// Toast.makeText(getActivity(), "Upload successful!",
-				// Toast.LENGTH_LONG).show();
-
-				final Dialog dialog = new Dialog(getActivity(),
-						R.style.MyTheme_Dialog_Action);
-				// dialog.setCanceledOnTouchOutside(false);
-				dialog.setContentView(R.layout.dialog_signout);
-				dialog.show();
-
-				// init button OK and Cancel
-				Button btnOk = (Button) dialog.findViewById(R.id.button1);
-				Button btnCancel = (Button) dialog.findViewById(R.id.button2);
-				TextView txtTitle = (TextView) dialog
-						.findViewById(R.id.textViewTitle);
-				TextView txtContent = (TextView) dialog
-						.findViewById(R.id.TextView1);
-				txtTitle.setText(getString(R.string.upload_successfull));
-
+								
 				final File file = new File(pathFile);
-				if (Constant.TYPE == 3) {
-					txtContent.setText(getString(R.string.update_content));
-					btnOk.setVisibility(View.GONE);
-					btnCancel.setText(getString(R.string.ok));
+				file.delete();	
+				getActivity().finish();
 
-				} else {
-					txtContent.setText(getString(R.string.delete_file) + " "
-							+ file.getName() + " file?");
-
-					// handling clicks
-					btnOk.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							getActivity().finish();
-							file.delete();
-							dialog.dismiss();
-						}
-					});
-
-				}
-				btnCancel.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						getActivity().finish();
-						dialog.dismiss();
-					}
-				});
+//				final Dialog dialog = new Dialog(getActivity(),
+//						R.style.MyTheme_Dialog_Action);
+//				dialog.setContentView(R.layout.dialog_signout);
+//				dialog.show();
+//
+//				// init button OK and Cancel
+//				Button btnOk = (Button) dialog.findViewById(R.id.button1);
+//				Button btnCancel = (Button) dialog.findViewById(R.id.button2);
+//				TextView txtTitle = (TextView) dialog
+//						.findViewById(R.id.textViewTitle);
+//				TextView txtContent = (TextView) dialog
+//						.findViewById(R.id.TextView1);
+//				txtTitle.setText(getString(R.string.upload_successfull));
+//
+//				final File file = new File(pathFile);
+//				if (Constant.TYPE == 3) {
+//					txtContent.setText(getString(R.string.update_content));
+//					btnOk.setVisibility(View.GONE);
+//					btnCancel.setText(getString(R.string.ok));
+//
+//				} else {
+//					txtContent.setText(getString(R.string.delete_file) + " "
+//							+ file.getName() + " file?");
+//
+//					// handling clicks
+//					btnOk.setOnClickListener(new OnClickListener() {
+//
+//						@Override
+//						public void onClick(View v) {
+//							getActivity().finish();
+//							file.delete();
+//							dialog.dismiss();
+//						}
+//					});
+//
+//				}
+//				btnCancel.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						// TODO Auto-generated method stub
+//						getActivity().finish();
+//						dialog.dismiss();
+//					}
+//				});
 
 			}
 

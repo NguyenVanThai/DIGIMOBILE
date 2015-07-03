@@ -9,17 +9,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import digi.mobile.building.IEventListener;
 import digi.mobile.building.MyPagerAdapter;
 import digi.mobile.building.MyViewPager;
 import digi.mobile.fragment.CreateCustomerFragment;
-import digi.mobile.fragment.CreateCustomerFragment1;
 import digi.mobile.fragment.CreateDocumentFragment;
-import digi.mobile.fragment.PdfFragment;
-import digi.mobile.fragment.PhotoFragment;
 import digi.mobile.fragment.UploadDocumentFragment;
 
 public class CustomerActivity extends FragmentActivity implements
@@ -36,15 +32,24 @@ public class CustomerActivity extends FragmentActivity implements
 	public String p2text, p3text;
 
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Log.e("CustomerActivity", "onResume");
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.e("CustomerActivity", "Oncreate");
+
 		setContentView(R.layout.activity_customer);
 		relStep1 = (RelativeLayout) findViewById(R.id.relStep1);
 		relStep2 = (RelativeLayout) findViewById(R.id.relStep2);
 		relStep3 = (RelativeLayout) findViewById(R.id.relStep3);
 
 		myViewPager = (MyViewPager) findViewById(R.id.pager);
-
+		myViewPager.setOffscreenPageLimit(2);
 		// creating fragments and adding to list
 		fragments.add(Fragment.instantiate(this,
 				CreateCustomerFragment.class.getName()));
@@ -116,7 +121,7 @@ public class CustomerActivity extends FragmentActivity implements
 	public void onBackPressed() {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		dialog.setTitle(getString(R.string.dialog_exit));
-		dialog.setMessage("If you exit, document will deleted");
+		dialog.setMessage(getString(R.string.warning_exit));
 		dialog.setIcon(R.drawable.ic_warning);
 		dialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
 

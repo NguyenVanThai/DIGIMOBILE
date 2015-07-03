@@ -77,13 +77,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				Constant.DIGI_LOGIN_PREFERENCES, Context.MODE_PRIVATE);
 		
 		
-//		Editor editor = sharedPreferences.edit();
-//		editor.putString(Constant.USER_NAME, "CC999999");
-//		editor.putString(Constant.PASSWORD, "123456");
-//		editor.putString(Constant.CHANNEL,
-//				"AAA");
-//		editor.putBoolean(Constant.FLAG_KEY, true);
-//		editor.commit();
+		Editor editor = sharedPreferences.edit();
+		editor.putString(Constant.USER_NAME, "CC999999");
+		editor.putString(Constant.PASSWORD, "123456");
+		editor.putString(Constant.CHANNEL,
+				"AAA");
+		editor.putBoolean(Constant.FLAG_KEY, true);
+		editor.commit();
 		
 		
 		
@@ -135,7 +135,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 //		 BroadcastService.BROADCAST_ACTION));
 
 		// check Sign In
-		checkLogIn();
+		//checkLogIn();
 		super.onResume();
 	}
 

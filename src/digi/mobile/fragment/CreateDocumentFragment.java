@@ -15,6 +15,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -169,6 +170,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			}
 		});
 
+		Log.e("Creatdocument", "onCreate");
 		return myFragmentView;
 	}
 
@@ -190,7 +192,6 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode != Activity.RESULT_OK) {
 			return;
@@ -198,16 +199,23 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 		switch (requestCode) {
 		case Constant.REQUEST_CODE_TAKE_PICTURE:
+			// if(data != null){
 			showOptionActiviy(Constant.fileFinal.getPath());
+			// }else{
+			// Log.e("Data", "data is null");
+			//
+			// }
 			break;
 		case Constant.REQUEST_CODE_GALLERY:
-			String path = data.getStringExtra("path");
+			if (data != null) {
+				String path = data.getStringExtra("path");
 
-			showOptionActiviy(path);
+				showOptionActiviy(path);
+			} else {
+				Log.e("Data", "data is null");
+			}
+			break;
 		case Constant.REQUEST_CODE_OPTION_ACTIVITY:
-
-			// Toast.makeText(getActivity(), "CropMayacc", Toast.LENGTH_LONG)
-			// .show();
 			showImage(false, nameShortDocument);
 			break;
 		default:
@@ -247,7 +255,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			if (checkAll(Constant.TYPE)) {
 				// refreshForm();
 				listener.sendDataToActivity(Constant.Step_2);
-				
+
 			}
 			break;
 		case R.id.imageButtonExit:
@@ -283,7 +291,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 	private boolean checkReason() {
 		if (edReason.getText().toString().isEmpty()) {
-			Toast.makeText(getActivity(), "Please fill in a reason",
+			Toast.makeText(getActivity(), getString(R.string.files),
 					Toast.LENGTH_LONG).show();
 			return false;
 		} else {
@@ -462,7 +470,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	}
 
 	private void takePhoto() {
-		
+
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		try {
 			Uri mImageCaptureUri = null;
@@ -508,17 +516,21 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	}
 
 	private void showImage(boolean selected, String nameShortDocument) {
+		try {
+			arrayImageItem = operation.getData(pathCustomer, nameShortDocument,
+					selected);
 
-		arrayImageItem = operation.getData(pathCustomer, nameShortDocument,
-				selected);
+			if (arrayImageItem != null && arrayImageItem.size() > 0
+					&& !arrayImageItem.isEmpty()) {
 
-		if (arrayImageItem != null && arrayImageItem.size() > 0
-				&& !arrayImageItem.isEmpty()) {
-
-			adapterGridView = new AdapterGridView(getActivity(), arrayImageItem);
-			gridView.setAdapter(adapterGridView);
-		} else {
-			gridView.setAdapter(null);
+				adapterGridView = new AdapterGridView(getActivity(), arrayImageItem);
+				gridView.setAdapter(adapterGridView);
+			} else {
+				gridView.setAdapter(null);
+			}			
+			
+		} catch (Exception e) {
+			
 		}
 
 	}
@@ -529,8 +541,12 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		//
 		// int width = display.getWidth() / 2;
 		// int height = display.getHeight() / 2;
+
 		Bitmap bitmap = Constant.getBitmap(path);
+
 		Constant.updateBitmap(bitmap);
+		// Constant.bitmap = bitmap;
+
 		Intent intent = new Intent(getActivity().getApplicationContext(),
 				OptionActivity.class);
 		// intent.putExtra(Constant.PATH_IMAGE, path);

@@ -20,7 +20,8 @@
                 android:layout_margin="3dp"
                 android:layout_weight="0.5" >
 
-                <Button
+                <!--
+                     <Button
                     android:id="@+id/gallery"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -37,6 +38,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_action_new" />
+                -->
+
+                <Button
+                    android:id="@+id/gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_new_document" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -45,7 +53,8 @@
                 android:layout_margin="3dp"
                 android:layout_weight="0.5" >
 
-                <Button
+                <!--
+                     <Button
                     android:id="@+id/supplement"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -62,6 +71,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_hard_qde" />
+                -->
+
+                <Button
+                    android:id="@+id/supplement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_hard_qde" />
             </RelativeLayout>
         </TableRow>
 
@@ -77,7 +93,7 @@
                 android:layout_margin="3dp"
                 android:layout_weight="0.5" >
 
-                <Button
+<!--                 <Button
                     android:id="@+id/camera"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -92,7 +108,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_soft_qde" />
+                    android:src="@drawable/ic_soft_qde" /> -->
+                    
+                <Button
+                    android:id="@+id/camera"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_soft_qde"/>                    
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,7 +123,7 @@
                 android:layout_margin="3dp"
                 android:layout_weight="0.5" >
 
-                <Button
+<!--                 <Button
                     android:id="@+id/upload"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -116,7 +138,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_upload" />
+                    android:src="@drawable/ic_action_upload" /> -->
+                    
+                <Button
+                    android:id="@+id/upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_upload"/>                    
             </RelativeLayout>
         </TableRow>
 
@@ -132,7 +160,7 @@
                 android:layout_margin="3dp"
                 android:layout_weight="0.33" >
 
-                <Button
+<!--                 <Button
                     android:id="@+id/profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -147,7 +175,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_user" />
+                    android:src="@drawable/ic_action_user" /> -->
+                    
+                <Button
+                    android:id="@+id/profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_history"/>                    
             </RelativeLayout>
 
             <RelativeLayout
@@ -156,7 +190,7 @@
                 android:layout_margin="3dp"
                 android:layout_weight="0.33" >
 
-                <Button
+<!--                 <Button
                     android:id="@+id/help"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -171,7 +205,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_help" />
+                    android:src="@drawable/ic_action_help" /> -->
+                    
+                <Button
+                    android:id="@+id/help"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_help"/>                    
             </RelativeLayout>
 
             <RelativeLayout
@@ -182,7 +222,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_weight="0.33" >
 
-                <Button
+<!--                 <Button
                     android:id="@+id/about"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -197,7 +237,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_logout" />
+                    android:src="@drawable/ic_action_logout" /> -->
+                    
+                <Button
+                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/final_signout"/>                    
             </RelativeLayout>
         </TableRow>
     </TableLayout>

@@ -16,7 +16,7 @@ public class LogoActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 				try {
-					sleep(1000);
+					sleep(2500);
 					Intent intent = new Intent(LogoActivity.this,
 							MainActivity.class);
 					startActivity(intent);

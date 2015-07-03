@@ -758,53 +758,55 @@ public class UploadActivity extends Activity {
 			protected void onPostExecute(String result) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
-				// animation.stop();
+				animation.stop();
 				dialog.dismiss();
-				// Toast.makeText(getActivity(), "Upload successful!",
-				// Toast.LENGTH_LONG).show();
-
-				final Dialog dialog = new Dialog(UploadActivity.this,
-						R.style.MyTheme_Dialog_Action);
-				// dialog.setCanceledOnTouchOutside(false);
-				dialog.setContentView(R.layout.dialog_signout);
-				dialog.show();
-
-				// init button OK and Cancel
-				Button btnOk = (Button) dialog.findViewById(R.id.button1);
-				Button btnCancel = (Button) dialog.findViewById(R.id.button2);
-				TextView txtTitle = (TextView) dialog
-						.findViewById(R.id.textViewTitle);
-				TextView txtContent = (TextView) dialog
-						.findViewById(R.id.TextView1);
-				txtTitle.setText(getString(R.string.upload_successfull));
-
+				
 				final File file = new File(pathFile);
-				txtContent.setText(getString(R.string.delete_file) + " "
-						+ file.getName() + " file?");
-				// handling clicks
-				btnOk.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						file.delete();
-						dialog.dismiss();
-
-						setResult(RESULT_OK);
-						finish();
-					}
-				});
-
-				btnCancel.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-						setResult(RESULT_OK);
-						finish();
-					}
-				});
+				file.delete();	
+				finish();
+				
+//				final Dialog dialog = new Dialog(UploadActivity.this,
+//						R.style.MyTheme_Dialog_Action);
+//				// dialog.setCanceledOnTouchOutside(false);
+//				dialog.setContentView(R.layout.dialog_signout);
+//				dialog.show();
+//
+//				// init button OK and Cancel
+//				Button btnOk = (Button) dialog.findViewById(R.id.button1);
+//				Button btnCancel = (Button) dialog.findViewById(R.id.button2);
+//				TextView txtTitle = (TextView) dialog
+//						.findViewById(R.id.textViewTitle);
+//				TextView txtContent = (TextView) dialog
+//						.findViewById(R.id.TextView1);
+//				txtTitle.setText(getString(R.string.upload_successfull));
+//
+//				final File file = new File(pathFile);
+//				txtContent.setText(getString(R.string.delete_file) + " "
+//						+ file.getName() + " file?");
+//				// handling clicks
+//				btnOk.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//
+//						file.delete();
+//						dialog.dismiss();
+//
+//						setResult(RESULT_OK);
+//						finish();
+//					}
+//				});
+//
+//				btnCancel.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						// TODO Auto-generated method stub
+//						dialog.dismiss();
+//						setResult(RESULT_OK);
+//						finish();
+//					}
+//				});
 			}
 
 			@SuppressWarnings("deprecation")

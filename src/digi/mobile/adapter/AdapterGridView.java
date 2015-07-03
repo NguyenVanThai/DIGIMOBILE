@@ -135,9 +135,9 @@ public class AdapterGridView extends BaseAdapter {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				imageLoader.displayImage("file://"
 						+ data.get(position).getImage(), holder.image);
+			
 			}
 		});
 
