@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import digi.mobile.activity.CustomerActivity;
 import digi.mobile.activity.LoginActivity;
 import digi.mobile.activity.R;
 import digi.mobile.building.IEventListener;
@@ -167,30 +168,45 @@ public class CreateCustomerFragment extends Fragment implements
 
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder dialog = new AlertDialog.Builder(
-						getActivity());
-				dialog.setTitle(getString(R.string.dialog_exit));
-				dialog.setMessage(getString(R.string.warning_exit));
-				dialog.setIcon(R.drawable.ic_warning);
-				dialog.setNegativeButton("YES",
-						new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								getActivity().finish();
-							}
-						});
-				dialog.setPositiveButton("NO",
-						new DialogInterface.OnClickListener() {
+				// init Dialog Notification
+				final Dialog dialog = new Dialog(getActivity(),
+						R.style.MyTheme_Dialog_Action);
+				// dialog.setCanceledOnTouchOutside(false);
+				dialog.setContentView(R.layout.dialog_signout);
+				TextView title = (TextView) dialog
+						.findViewById(R.id.textViewTitle);
+				TextView message = (TextView) dialog
+						.findViewById(R.id.textViewMessage);
+				// init button OK and Cancel
+				Button btnOk = (Button) dialog.findViewById(R.id.button1);
+				Button btnCancel = (Button) dialog.findViewById(R.id.button2);
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-							}
-						});
+				title.setText(getString(R.string.dialog_exit));
+				message.setText(getString(R.string.warning_exit));
+
 				dialog.show();
+
+				// handling clicks
+				btnOk.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						dialog.dismiss();
+						getActivity().finish();
+
+					}
+				});
+
+				btnCancel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+
 			}
 		});
 

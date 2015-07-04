@@ -18,14 +18,14 @@ public final class R {
 		public static final int black_translucent = 0x7f040000;
 	}
 	public static final class id {
-		public static final int CropOverlayView = 0x7f090035;
-		public static final int ImageView_image = 0x7f090034;
-		public static final int off = 0x7f090000;
-		public static final int on = 0x7f090001;
-		public static final int onTouch = 0x7f090002;
+		public static final int CropOverlayView = 0x7f0a0040;
+		public static final int ImageView_image = 0x7f0a003f;
+		public static final int off = 0x7f0a0000;
+		public static final int on = 0x7f0a0001;
+		public static final int onTouch = 0x7f0a0002;
 	}
 	public static final class layout {
-		public static final int crop_image_view = 0x7f03000e;
+		public static final int crop_image_view = 0x7f03000f;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f050000;

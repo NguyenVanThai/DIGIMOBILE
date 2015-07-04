@@ -105,5 +105,7 @@
     <string name="error_500">Error 500: Something went wrong</string>
     <string name="error_connected">Could not connected to Internet or remoted server</string>
     <string name="json_invalid">Invalid JSON</string>
- 	
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="history">History</string>
+
 </resources>

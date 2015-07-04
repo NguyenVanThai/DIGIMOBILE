@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_warning" />
+            android:src="@drawable/ic_warning_red" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -39,7 +39,7 @@
         android:id="@+id/view1"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:background="@color/blue_2" />
+        android:background="@color/green_2" />
 
     <TextView
         android:id="@+id/TextView1"

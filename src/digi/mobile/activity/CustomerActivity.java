@@ -4,19 +4,27 @@ import java.util.List;
 import java.util.Vector;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences.Editor;
+import android.graphics.Shader.TileMode;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import digi.mobile.building.IEventListener;
 import digi.mobile.building.MyPagerAdapter;
 import digi.mobile.building.MyViewPager;
 import digi.mobile.fragment.CreateCustomerFragment;
 import digi.mobile.fragment.CreateDocumentFragment;
 import digi.mobile.fragment.UploadDocumentFragment;
+import digi.mobile.util.Constant;
 
 public class CustomerActivity extends FragmentActivity implements
 		IEventListener {
@@ -119,25 +127,43 @@ public class CustomerActivity extends FragmentActivity implements
 
 	@Override
 	public void onBackPressed() {
-		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-		dialog.setTitle(getString(R.string.dialog_exit));
-		dialog.setMessage(getString(R.string.warning_exit));
-		dialog.setIcon(R.drawable.ic_warning);
-		dialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+
+		// init Dialog Notification
+		final Dialog dialog = new Dialog(CustomerActivity.this,
+				R.style.MyTheme_Dialog_Action);
+		// dialog.setCanceledOnTouchOutside(false);
+		dialog.setContentView(R.layout.dialog_signout);
+		TextView title = (TextView) dialog.findViewById(R.id.textViewTitle);
+		TextView message = (TextView) dialog.findViewById(R.id.textViewMessage);
+		// init button OK and Cancel
+		Button btnOk = (Button) dialog.findViewById(R.id.button1);
+		Button btnCancel = (Button) dialog.findViewById(R.id.button2);
+
+		title.setText(getString(R.string.dialog_exit));
+		message.setText(getString(R.string.warning_exit));
+
+		dialog.show();
+
+		// handling clicks
+		btnOk.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(View v) {
+
+				dialog.dismiss();
 				finish();
+
 			}
 		});
-		dialog.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+
+		btnCancel.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(View v) {
 				dialog.dismiss();
 			}
 		});
-		dialog.show();
+
 	}
 
 }

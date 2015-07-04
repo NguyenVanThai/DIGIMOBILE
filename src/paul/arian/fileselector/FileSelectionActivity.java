@@ -404,7 +404,7 @@ public class FileSelectionActivity extends Activity {
 		Button btnOk = (Button) dialog.findViewById(R.id.button1);
 		Button btnCancel = (Button) dialog.findViewById(R.id.button2);
 		TextView txtTitle = (TextView) dialog.findViewById(R.id.textViewTitle);
-		TextView txtContent = (TextView) dialog.findViewById(R.id.TextView1);
+		TextView txtContent = (TextView) dialog.findViewById(R.id.textViewMessage);
 		if (file.isFile()) {
 			if (Constant.TYPE == 4) {
 				if (!(FilenameUtils.getExtension(path).toLowerCase()

@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -94,6 +95,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			pathCustomer = Constant.getPathRoot(path);
 			pathSave = Constant.getPathRoot(pathUser);
 			showPdf();
+			refreshForm();
 			lockClick(View.GONE);
 			txtType.setText(getString(R.string.choose_type));
 
@@ -523,14 +525,15 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 			if (arrayImageItem != null && arrayImageItem.size() > 0
 					&& !arrayImageItem.isEmpty()) {
 
-				adapterGridView = new AdapterGridView(getActivity(), arrayImageItem);
+				adapterGridView = new AdapterGridView(getActivity(),
+						arrayImageItem);
 				gridView.setAdapter(adapterGridView);
 			} else {
 				gridView.setAdapter(null);
-			}			
-			
+			}
+
 		} catch (Exception e) {
-			
+
 		}
 
 	}
@@ -673,7 +676,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 				".pdf", "name");
 		PdfListAdapter pdfListAdapter = null;
 		if (listPDF.size() > 0 && !listPDF.isEmpty()) {
-
+			listView.setBackgroundResource(0);
 			pdfListAdapter = new PdfListAdapter(getActivity(),
 					convertListToArray(listPDF));
 			pdfListAdapter.notifyDataSetChanged();
@@ -682,6 +685,7 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 		} else {
 			// pdfListAdapter.clear();
 			listView.setAdapter(null);
+			listView.setBackgroundResource(R.drawable.ic_pdf_green);
 		}
 	}
 

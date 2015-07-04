@@ -13,6 +13,7 @@
     <item name="orange_2" type="color">#E7AA3E</item>
     <item name="red_1" type="color">#F13B5D</item>
     <item name="red_2" type="color">#CD2F4C</item>
+    <item name="red_3" type="color">#FD3D3D</item>
     <item name="darkblue" type="color">#FF0099CC</item>
     <item name="darkpurple" type="color">#FF9933CC</item>
     <item name="darkgreen" type="color">#FF669900</item>
@@ -21,8 +22,9 @@
     <item name="white" type="color">#FFFFFF</item>
     <item name="white_1" type="color">#A4A4A4</item>
     <item name="white_2" type="color">#6E6E6E</item>
-	<item name="black" type="color">#797878</item>
-	<item name="black_1" type="color">#4D4D4D</item>
+    <item name="black" type="color">#797878</item>
+    <item name="black_1" type="color">#4D4D4D</item>
+
     <integer-array name="androidcolors">
         <item>@color/blue_1</item>
         <item>@color/blue_2</item>

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_warning" />
+            android:src="@drawable/ic_warning_red" />
 
         <TextView
             android:id="@+id/textViewTitle"
@@ -34,17 +34,15 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="normal" />
-
     </LinearLayout>
 
     <View
-        android:id="@+id/view1"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:background="@color/blue_2" />
+        android:background="@color/green_2" />
 
     <TextView
-        android:id="@+id/TextView1"
+        android:id="@+id/textViewMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -83,7 +81,6 @@
             android:text="@string/no"
             android:textColor="@color/white"
             android:textColorHint="@color/white_2" />
-
     </LinearLayout>
 
 </LinearLayout>

@@ -8,36 +8,46 @@
     android:paddingBottom="10dp"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/textViewTitle"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="18dp"
-        android:drawableLeft="@drawable/ic_profile"
-        android:text="@string/helpDigi"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/blue_3"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:typeface="normal" />
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_info_green" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="@string/helpDigi"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/blue_3"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <View
         android:id="@+id/view1"
         android:layout_width="wrap_content"
         android:layout_height="2dp"
-        android:layout_alignBottom="@+id/textViewTitle"
         android:layout_alignParentLeft="true"
-        android:background="@color/blue_2" />
+        android:layout_below="@+id/linearLayout1"
+        android:background="@color/green_2" />
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@+id/view1"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/view1"
         android:layout_margin="3dp" >
 
         <LinearLayout
@@ -50,7 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="TextView" />
-
         </LinearLayout>
     </ScrollView>
 

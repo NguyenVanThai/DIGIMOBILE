@@ -160,6 +160,11 @@
         <!-- MainActivity -->
         <activity android:name="digi.mobile.fragment.UploadDucomentFragment" >
         </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
     </application>
 
 </manifest>

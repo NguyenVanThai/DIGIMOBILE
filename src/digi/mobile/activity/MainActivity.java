@@ -254,7 +254,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			startActivityForResult(intent, Constant.REQUEST_CODE_GALLERY);
 			break;
 		case R.id.profile:
-			profile();
+//			profile();
+			history();
 			break;
 		case R.id.help:
 			help();
@@ -302,4 +303,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 //				.show();
 	}
 	
+	private void history(){
+		Intent intent = new Intent(this, HistoryActivity.class);
+		startActivity(intent);
+	}
 }

@@ -85,10 +85,11 @@
 
     <View
         android:id="@+id/view1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignBottom="@+id/textViewTitle"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:background="@color/blue_3" />
 
 </RelativeLayout>

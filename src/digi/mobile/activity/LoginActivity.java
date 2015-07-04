@@ -25,7 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.graphics.PorterDuff.Mode;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -34,9 +34,6 @@ import digi.mobile.util.Constant;
 import digi.mobile.util.Operation;
 
 public class LoginActivity extends Activity implements OnClickListener {
-
-	// Declare ImageButton Exit
-	ImageButton btnExit;
 
 	// Declare Button Login
 	Button btnLogin;
@@ -65,13 +62,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.dialog_login_new);
 		setFinishOnTouchOutside(false);
 
 		// init Operation
 		operation = new Operation();
-		// init ImageButton Exit
-		btnExit = (ImageButton) findViewById(R.id.imageButtonExit);
 
 		// init Button Login
 		btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -89,7 +84,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		// handling clicks for button
 		btnLogin.setOnClickListener(this);
-		btnExit.setOnClickListener(this);
+
 		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -120,9 +115,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			loginUser();
 			break;
 
-		case R.id.imageButtonExit:
-			finish();
-			break;
 		}
 	}
 
@@ -207,10 +199,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 								Toast.LENGTH_LONG).show();
 					}
 				} catch (JSONException e) {
-					Toast.makeText(
-							getApplicationContext(),
-							getString(R.string.json_invalid),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.json_invalid), Toast.LENGTH_LONG)
+							.show();
 					e.printStackTrace();
 
 				}
@@ -228,19 +219,18 @@ public class LoginActivity extends Activity implements OnClickListener {
 				// When Http response code is '404'
 				if (statusCode == 404) {
 					Toast.makeText(getApplicationContext(),
-							getString(R.string.error_404),
-							Toast.LENGTH_LONG).show();
+							getString(R.string.error_404), Toast.LENGTH_LONG)
+							.show();
 				}
 				// When Http response code is '500'
 				else if (statusCode == 500) {
 					Toast.makeText(getApplicationContext(),
-							getString(R.string.error_500),
-							Toast.LENGTH_LONG).show();
+							getString(R.string.error_500), Toast.LENGTH_LONG)
+							.show();
 				}
 				// When Http response code other than 404, 500
 				else {
-					Toast.makeText(
-							getApplicationContext(),
+					Toast.makeText(getApplicationContext(),
 							getString(R.string.error_connected),
 							Toast.LENGTH_LONG).show();
 				}
