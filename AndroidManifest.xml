@@ -19,7 +19,7 @@
     <application
         android:allowBackup="true"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
@@ -65,11 +65,15 @@
         </activity>
 
         <!-- MainActivity -->
-        <activity android:name="digi.mobile.fragment.PdfFragment" >
+        <activity android:name="digi.mobile.fragment.PdfFragment"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- MainActivity -->
-        <activity android:name="digi.mobile.fragment.PhotoFragment" >
+        <activity android:name="digi.mobile.fragment.PhotoFragment"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- MainActivity -->
@@ -146,6 +150,8 @@
         <!-- MainActivity -->
         <activity
             android:name="digi.mobile.fragment.CreateCustomerFragment"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_create_customer"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
@@ -154,16 +160,21 @@
         </activity>
 
         <!-- MainActivity -->
-        <activity android:name="digi.mobile.fragment.CreateDucomentFragment" >
+        <activity android:name="digi.mobile.fragment.CreateDucomentFragment"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- MainActivity -->
-        <activity android:name="digi.mobile.fragment.UploadDucomentFragment" >
+        <activity android:name="digi.mobile.fragment.UploadDucomentFragment"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".HistoryActivity"
-            android:label="@string/title_activity_history"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_history" >
         </activity>
     </application>
 

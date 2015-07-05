@@ -63,6 +63,14 @@ public class OptionActivity extends Activity implements OnTouchListener {
 	private String pathImage;
 	File file;
 	float scale;
+	// Dialog Loading User
+	Dialog dialog;
+	// TextView and ImageView display % Loading
+	TextView txtLoading;
+	ImageView imageLoading;
+
+	// Animation for ImageView loading
+	AnimationDrawable animation;
 
 	// ImageLoaderConfiguration config;
 	// DisplayImageOptions options;
@@ -71,7 +79,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		width = image.getWidth();
 		height = image.getHeight();
 		relWidth = rel.getWidth();
-		relHeight = rel.getHeight(); 
+		relHeight = rel.getHeight();
 	}
 
 	@Override
@@ -81,13 +89,13 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		image = (ImageView) findViewById(R.id.image);
 		zoomControl = (ZoomControls) findViewById(R.id.zoomControls1);
 		rel = (RelativeLayout) findViewById(R.id.rel);
-		
+
 		ViewTreeObserver vto = image.getViewTreeObserver();
 		vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 			public boolean onPreDraw() {
 				height = image.getMeasuredHeight();
 				width = image.getMeasuredWidth();
-//				 Log.e("Error", width + "_" + height);
+				// Log.e("Error", width + "_" + height);
 				return true;
 			}
 		});
@@ -104,14 +112,15 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// options = new DisplayImageOptions.Builder().build();
 
 		// image.setImageBitmap(bitmap);
-//		matrix.setScale(0.5f, 0.5f);
-		
+		// matrix.setScale(0.5f, 0.5f);
 
 		showImage();
-//		RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(bitmap.getWidth(),bitmap.getHeight());
-//		parms.setMargins((relWidth - width)/2, (relHeight - height)/2, (relWidth - width)/2, (relHeight - height)/2);
-//		image.setLayoutParams(parms);
-//		
+		// RelativeLayout.LayoutParams parms = new
+		// RelativeLayout.LayoutParams(bitmap.getWidth(),bitmap.getHeight());
+		// parms.setMargins((relWidth - width)/2, (relHeight - height)/2,
+		// (relWidth - width)/2, (relHeight - height)/2);
+		// image.setLayoutParams(parms);
+		//
 		zoomControl.setOnZoomInClickListener(new View.OnClickListener() {
 
 			@Override
@@ -182,7 +191,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		//
 		resetImage();
 		bitmap = Constant.bitmap;
-		
+
 		// Matrix matrixShow = new Matrix();
 
 		// Intent intent = getIntent();
@@ -195,12 +204,10 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// String path = intent.getStringExtra(Constant.PATH_IMAGE);
 		// bitmap = Constant.getBitmap(path);
 
-
 		// bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
 		// bitmap.getHeight(), matrixShow, true);
 		// image.setImageBitmap(bitmap);
-		
-		
+
 		if (Constant.TAKE_PHOTO) {
 			if (bitmap.getWidth() > bitmap.getHeight()) {
 
@@ -222,11 +229,11 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			// Constant.TAKE_PHOTO = false;
 			// image.setImageBitmap(bitmap);
 		}
-		
+
 		center.set(bitmap.getWidth() / 2, bitmap.getHeight() / 2);
 
 		image.setImageBitmap(bitmap);
-//	
+		//
 
 	}
 
@@ -248,30 +255,79 @@ public class OptionActivity extends Activity implements OnTouchListener {
 										// http://developer.android.com/reference/android/view/View.html#buildDrawingCache(boolean)
 
 		// create the bitmaps
-//		Bitmap zoomedBitmap = Bitmap.createScaledBitmap(
-//				image.getDrawingCache(true), width,
-//				height, true);
-		
-		Bitmap zoomedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-				bitmap.getHeight(), matrix, true);
+		// Bitmap zoomedBitmap = Bitmap.createScaledBitmap(
+		// image.getDrawingCache(true), width,
+		// height, true);
+
+		final Bitmap zoomedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
 		image.setDrawingCacheEnabled(false);
 		File myFile = Constant.fileFinal; // have a look at the android api docs
 											// for File for proper explanation
-		FileOutputStream fileOutputStream = null;
+
 		try {
-			fileOutputStream = new FileOutputStream(myFile);
-			zoomedBitmap.compress(Bitmap.CompressFormat.JPEG, 100,
-					fileOutputStream);
-			fileOutputStream.close();
+			final FileOutputStream fileOutputStream = new FileOutputStream(
+					myFile);
+
+			dialog = new Dialog(OptionActivity.this, R.style.Theme_D1NoTitleDim);
+			dialog.setContentView(R.layout.dialog_loading_animation);
+
+			// dialog.setCanceledOnTouchOutside(false);
+			// init TextViewLoading and ImageLoading
+			txtLoading = (TextView) dialog.findViewById(R.id.textViewLoading);
+			txtLoading.setText("Saving...");
+			imageLoading = (ImageView) dialog
+					.findViewById(R.id.imageViewLoading);
+
+			imageLoading.setBackgroundResource(R.drawable.animation_loading);
+
+			// using Animation for ImageLoading
+			animation = (AnimationDrawable) imageLoading.getBackground();
+
+			new AsyncTask<Void, Void, Boolean>() {
+
+				@Override
+				protected void onPreExecute() {
+					// TODO Auto-generated method stub
+					super.onPreExecute();
+					animation.start();
+					dialog.show();
+				}
+
+				@Override
+				protected Boolean doInBackground(Void... params) {
+					// TODO Auto-generated method stub
+
+					return zoomedBitmap.compress(Bitmap.CompressFormat.JPEG,
+							100, fileOutputStream);
+				}
+
+				@Override
+				protected void onPostExecute(Boolean result) {
+					// TODO Auto-generated method stub
+					super.onPostExecute(result);
+					try {
+						fileOutputStream.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					animation.stop();
+					dialog.dismiss();
+					setResult(RESULT_OK);
+					finish();
+				}
+
+			}.execute();
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		showImage();
-		setResult(RESULT_OK);
-		finish();
+		// showImage();
+		
 		/*
 		 * 
 		 * // matrix.setScale(0.5f, 0.5f); Bitmap bitmapMatrix =
@@ -283,7 +339,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		 */
 
 	}
-	
+
 	private void saveImage_dm() {
 
 		final Dialog dialog = new Dialog(OptionActivity.this,
@@ -324,21 +380,25 @@ public class OptionActivity extends Activity implements OnTouchListener {
 			protected Void doInBackground(Void... params) {
 				// use image from cache
 				image.setDrawingCacheEnabled(true);
-				image.buildDrawingCache(true); // this might hamper performance use
-												// hardware acc if available. see:
+				image.buildDrawingCache(true); // this might hamper performance
+												// use
+												// hardware acc if available.
+												// see:
 												// http://developer.android.com/reference/android/view/View.html#buildDrawingCache(boolean)
 
 				// create the bitmaps
-//				Bitmap zoomedBitmap = Bitmap.createScaledBitmap(
-//						image.getDrawingCache(true), width,
-//						height, true);
-				
-				Bitmap zoomedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-						bitmap.getHeight(), matrix, true);
+				// Bitmap zoomedBitmap = Bitmap.createScaledBitmap(
+				// image.getDrawingCache(true), width,
+				// height, true);
+
+				Bitmap zoomedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+						bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
 				image.setDrawingCacheEnabled(false);
-				File myFile = Constant.fileFinal; // have a look at the android api docs
-													// for File for proper explanation
+				File myFile = Constant.fileFinal; // have a look at the android
+													// api docs
+													// for File for proper
+													// explanation
 				FileOutputStream fileOutputStream = null;
 				try {
 					fileOutputStream = new FileOutputStream(myFile);
@@ -350,7 +410,7 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				return null;				
+				return null;
 
 			}
 
@@ -365,14 +425,14 @@ public class OptionActivity extends Activity implements OnTouchListener {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
 
-				setResult(RESULT_OK);				
+				setResult(RESULT_OK);
 				animation.stop();
 				dialog.cancel();
 				finish();
-//
-//				Toast.makeText(OptionActivity.this,
-//						"Completed save image...",
-//						Toast.LENGTH_SHORT).show();
+				//
+				// Toast.makeText(OptionActivity.this,
+				// "Completed save image...",
+				// Toast.LENGTH_SHORT).show();
 
 			}
 
@@ -381,8 +441,8 @@ public class OptionActivity extends Activity implements OnTouchListener {
 		// String path = pathCustomer + File.separator + nameCustomer + ".pdf";
 		// MyAsynTask myAsynTask = new MyAsynTask(path);
 		// myAsynTask.execute();
-	}	
-	
+	}
+
 	private void cropImage() {
 		// TODO Auto-generated method stub
 

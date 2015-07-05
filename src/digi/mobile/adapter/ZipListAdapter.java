@@ -17,7 +17,7 @@ public class ZipListAdapter extends ArrayAdapter<String> {
 	private final List<String> itemname;
 
 	public ZipListAdapter(Activity context, List<String> itemname) {
-		super(context, R.layout.mylist, itemname);
+		super(context, R.layout.ziplist, itemname);
 		// TODO Auto-generated constructor stub
 
 		this.context = context;

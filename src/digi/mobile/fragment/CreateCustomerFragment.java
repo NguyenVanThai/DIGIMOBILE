@@ -407,7 +407,7 @@ public class CreateCustomerFragment extends Fragment implements
 		animation = (AnimationDrawable) imageLoading.getBackground();
 
 		String url = Config.IDF1_URL + "?idf1=" + edID.getText().toString()
-				+ "&CCcode="
+				+ "&ccCode="
 				+ sharedPreferences.getString(Constant.USER_NAME, null);
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(url, new AsyncHttpResponseHandler() {

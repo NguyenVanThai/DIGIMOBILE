@@ -38,6 +38,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,6 +72,14 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 	ImageView imageView;
 	EditText edReason;
 	LinearLayout llReason;
+
+	RadioButton raNew, raQDE;
+	// TextView and ImageView display % Loading
+	TextView txtLoading;
+	ImageView imageLoading;
+
+	// Animation for ImageView loading
+	AnimationDrawable animation;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -538,22 +547,68 @@ public class CreateDocumentFragment extends Fragment implements OnClickListener 
 
 	}
 
-	private void showOptionActiviy(String path) {
+	private void showOptionActiviy(final String path) {
 		// TODO Auto-generated method stub
 		// Display display = getWindowManager().getDefaultDisplay();
 		//
 		// int width = display.getWidth() / 2;
 		// int height = display.getHeight() / 2;
+		dialog = new Dialog(getActivity(), R.style.Theme_D1NoTitleDim);
+		dialog.setContentView(R.layout.dialog_loading_animation);
 
-		Bitmap bitmap = Constant.getBitmap(path);
+		// dialog.setCanceledOnTouchOutside(false);
+		// init TextViewLoading and ImageLoading
+		txtLoading = (TextView) dialog.findViewById(R.id.textViewLoading);
+		txtLoading.setText("Loading...");
+		imageLoading = (ImageView) dialog.findViewById(R.id.imageViewLoading);
 
-		Constant.updateBitmap(bitmap);
+		imageLoading.setBackgroundResource(R.drawable.animation_loading);
+
+		// using Animation for ImageLoading
+		animation = (AnimationDrawable) imageLoading.getBackground();
+		
+		
+		new AsyncTask<Void, Void, Bitmap>(){
+
+			@Override
+			protected void onPreExecute() {
+				// TODO Auto-generated method stub
+				super.onPreExecute();
+				animation.start();
+				dialog.show();
+			}
+
+			@Override
+			protected Bitmap doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				return Constant.getBitmap(path);
+			}
+
+			@Override
+			protected void onPostExecute(Bitmap result) {
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				Constant.updateBitmap(result);
+				animation.stop();
+				dialog.dismiss();
+				Intent intent = new Intent(getActivity().getApplicationContext(),
+						OptionActivity.class);
+				// intent.putExtra(Constant.PATH_IMAGE, path);
+				startActivityForResult(intent, Constant.REQUEST_CODE_OPTION_ACTIVITY);
+				// finish();
+				
+			}
+			
+		}.execute();
+//		Bitmap bitmap = Constant.getBitmap(path);
+
+//		Constant.updateBitmap(bitmap);
 		// Constant.bitmap = bitmap;
 
-		Intent intent = new Intent(getActivity().getApplicationContext(),
-				OptionActivity.class);
+//		Intent intent = new Intent(getActivity().getApplicationContext(),
+//				OptionActivity.class);
 		// intent.putExtra(Constant.PATH_IMAGE, path);
-		startActivityForResult(intent, Constant.REQUEST_CODE_OPTION_ACTIVITY);
+//		startActivityForResult(intent, Constant.REQUEST_CODE_OPTION_ACTIVITY);
 		// finish();
 	}
 

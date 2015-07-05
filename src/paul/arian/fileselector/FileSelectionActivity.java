@@ -10,7 +10,9 @@ import org.apache.commons.io.FilenameUtils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -23,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.commonsware.cwac.merge.MergeAdapter;
 
@@ -101,17 +104,36 @@ public class FileSelectionActivity extends Activity {
 				top = (v == null) ? 0 : v.getTop();
 
 				File lastPath = mainPath;
+				TextView txt = (TextView) view.findViewById(R.id.txt);
+				Log.e("Pạth", mainPath + File.separator
+						+ txt.getText().toString());
+				File file = new File(mainPath + File.separator
+						+ txt.getText().toString());
+				if(file.isFile()&& file.getName().toLowerCase().endsWith("pdf")){
+					Uri path = Uri.fromFile(file);
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(path, "application/pdf");
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+					try {
+						startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(FileSelectionActivity.this,
+								"No Application Available to View PDF",
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+				
 				try {
 					if (position < directoryList.size()) {
 						mainPath = directoryList.get(position);
 						loadLists();
+
 					}
 				} catch (Throwable e) {
 					mainPath = lastPath;
 					loadLists();
 				}
-				Log.e("path", mainPath.getPath());
 
 				// String path = lastPath.getPath() + File.separator
 				// + directoryView.getItemAtPosition(position).toString();
@@ -404,7 +426,8 @@ public class FileSelectionActivity extends Activity {
 		Button btnOk = (Button) dialog.findViewById(R.id.button1);
 		Button btnCancel = (Button) dialog.findViewById(R.id.button2);
 		TextView txtTitle = (TextView) dialog.findViewById(R.id.textViewTitle);
-		TextView txtContent = (TextView) dialog.findViewById(R.id.textViewMessage);
+		TextView txtContent = (TextView) dialog
+				.findViewById(R.id.textViewMessage);
 		if (file.isFile()) {
 			if (Constant.TYPE == 4) {
 				if (!(FilenameUtils.getExtension(path).toLowerCase()
@@ -427,28 +450,44 @@ public class FileSelectionActivity extends Activity {
 		}
 
 		if (Constant.TYPE == 1 || Constant.TYPE == 2 || Constant.TYPE == 3) {
-			txtTitle.setText(getString(R.string.title_open_file));
-			txtContent.setText(getString(R.string.open_file));
+			if (file.isDirectory()) {
+				btnCancel.setVisibility(View.GONE);
+				txtTitle.setText(getString(R.string.error));
+				txtContent.setText(getString(R.string.not_support));
+				btnOk.setOnClickListener(new OnClickListener() {
 
-			// handling clicks
-			btnOk.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
 
-				@Override
-				public void onClick(View v) {
-					dialog.dismiss();
-					returnData(path);
+			} else {
 
-				}
-			});
+				txtTitle.setText(getString(R.string.title_open_file));
+				txtContent.setText(getString(R.string.open_file));
 
-			btnCancel.setOnClickListener(new OnClickListener() {
+				// handling clicks
+				btnOk.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					dialog.dismiss();
-				}
-			});
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						returnData(path);
+
+					}
+				});
+
+				btnCancel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+			}
 		} else {
 			txtTitle.setText(getString(R.string.upload));
 			txtContent.setText(getString(R.string.choose_type));

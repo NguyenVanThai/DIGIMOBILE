@@ -55,6 +55,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import digi.mobile.activity.HistoryActivity;
 import digi.mobile.activity.LoginActivity;
 import digi.mobile.activity.OptionActivity;
 import digi.mobile.activity.R;
@@ -62,6 +63,7 @@ import digi.mobile.adapter.AdapterGridView;
 import digi.mobile.adapter.PdfListAdapter;
 import digi.mobile.building.AndroidMultiPartEntity;
 import digi.mobile.building.ConnectionDetector;
+import digi.mobile.building.DatabaseHelper;
 import digi.mobile.building.DigiCompressFile;
 import digi.mobile.building.IEventListener;
 import digi.mobile.building.ImageItem;
@@ -91,7 +93,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 	String userName, channel, cus_id, cus_name, reason, pathFile = null, idf1,
 			date, dateFormat, url, nameUpload;
 	long totalSize = 0;
-
+	DatabaseHelper databaseHelper;
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -141,7 +143,13 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 				.findViewById(R.id.relUpload);
 		relAfter.setOnClickListener(this);
 		relUpload.setOnClickListener(this);
-
+		databaseHelper = new DatabaseHelper(getActivity());
+		try {
+			databaseHelper.createDataBase();
+		} catch (IOException e) {
+			throw new Error("Unable to create database");
+		}
+		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -387,7 +395,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 											uploadFileToServer2(userName,
 													channel, "HOSOMOI", null,
 													pathFile, cus_id, cus_name,
-													null);
+													null,date);
 
 										} catch (JSONException e) {
 											Toast.makeText(
@@ -479,7 +487,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 											uploadFileToServer2(userName,
 													channel, "HOSOBOSUNG",
 													reason, pathFile, cus_id,
-													cus_name, idf1);
+													cus_name, idf1,date);
 
 										} catch (JSONException e) {
 											Toast.makeText(
@@ -533,7 +541,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 						idf1 = Constant.IDF1;
 
 						uploadFileToServer2(userName, channel, "HOSOBOSUNG",
-								reason, "", cus_id, cus_name, idf1);
+								reason, "", cus_id, cus_name, idf1,date);
 
 						break;
 					}
@@ -565,7 +573,7 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 	private void uploadFileToServer2(final String userName,
 			final String channel, final String upType, final String reason,
 			final String pathFile, final String cus_id, final String cus_name,
-			final String idf1
+			final String idf1,final String date
 
 	) {
 		new AsyncTask<Void, Integer, String>() {
@@ -604,6 +612,9 @@ public class UploadDocumentFragment extends Fragment implements OnClickListener 
 								
 				final File file = new File(pathFile);
 				file.delete();	
+				 databaseHelper.insertStory(date, cus_name,
+						 cus_id,
+				 upType);
 				getActivity().finish();
 
 //				final Dialog dialog = new Dialog(getActivity(),
